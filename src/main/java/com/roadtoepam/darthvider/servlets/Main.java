@@ -1,4 +1,4 @@
-package com.roadtoepam.darthvider.entity;
+package com.roadtoepam.darthvider.servlets;
 
 import com.roadtoepam.darthvider.connectionpool.ConnectionPool;
 import com.roadtoepam.darthvider.dao.impl.UserDaoImpl;

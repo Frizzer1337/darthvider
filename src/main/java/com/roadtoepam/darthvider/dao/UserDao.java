@@ -27,7 +27,7 @@ public interface UserDao {
 	  Optional<User> findById(int id) throws DaoException;
 
 	  /**
-	   * Add a customer.
+	   * Add a user.
 	   *
 	   * @param user to be added.
 	   * @return true if user is successfully added, false if customer already exists.

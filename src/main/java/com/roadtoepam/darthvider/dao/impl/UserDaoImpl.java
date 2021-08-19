@@ -126,7 +126,15 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public boolean update(User customer) throws DaoException {
-		// TODO Auto-generated method stub
+//		try(var connection = connectionPool.getConnection();
+//			var statement = connection.prepareStatement(ADD_USER);){
+//			
+//			
+//			
+//			
+//			
+//			
+//		}
 		return false;
 	}
 

@@ -27,9 +27,6 @@ public class ConnectionPool {
 
     private static AtomicBoolean doesExist = new AtomicBoolean(false);
     
-    private static final String URL = "jdbc:mysql://localhost:3306/provideruserdata";
-    private static final String USER_NAME = "root";
-    private static final String PASSWORD = "Giraf008";
     private static final int DEFAULT_AMOUNT = 4; 
     
     private static ConnectionPool pool;
@@ -46,15 +43,15 @@ public class ConnectionPool {
             freeConnections = new LinkedBlockingDeque<>(amountOfConnections);
             activeConnections = new LinkedBlockingDeque<>();
             
-            Driver driver = new com.mysql.cj.jdbc.Driver();
-            DriverManager.registerDriver(driver);
+            ConnectionFactory factory = ConnectionFactory.getInstance();
             
             for (int i = 0; i < amountOfConnections; i++) {
-                ProxyConnection connection = new ProxyConnection(DriverManager.getConnection(URL,USER_NAME,PASSWORD));
+                
+            	ProxyConnection connection = new ProxyConnection(factory.getConnection());
                 freeConnections.add(connection);
             }
             
-            logger.warn("Connection pool size of {} elements was created ",amountOfConnections);
+            logger.info("Connection pool size of {} elements was created ",amountOfConnections);
            
     		} catch (SQLException e) {
         	
