@@ -1,0 +1,295 @@
+html{
+	width:100%;
+	height:3000px;
+}
+body{
+   width:100%;
+   height:100%;
+   margin:0 auto;
+}
+.header{
+	height:150px;
+	display:flex;
+	padding-left:150px;
+	padding-right: 150px;
+}
+.header_img{
+	padding-top:30px;
+}
+.header_logo_text{
+	font-family: 'Rubik', sans-serif;
+	font-weight:500;
+	font-size: 32px;
+	padding-top:50px;
+	padding-left:1%;
+}
+.header_text{
+	font-family: 'Rubik', sans-serif;
+	font-weight:400;
+	font-size: 17px;
+	padding-top:59px;
+	padding-left:10%;
+	line-height:19px;
+	color:#4F5665;
+
+}
+.header_text_sign_in{
+	font-family: 'Rubik', sans-serif;
+	font-weight:500;
+	font-size: 17px;
+	padding-left:10%;
+	padding-top:59px;
+	line-height:19px;
+
+}
+.header_text_sign_up{
+	border: 1px solid #B62C37;
+	box-sizing: border-box;
+	background-color:white;
+	width:150px;
+	color:#B62C37;
+	border-radius: 50px;
+	font-family: 'Rubik', sans-serif;
+	font-weight:400;
+	font-size: 17px;
+	height: 45px;
+	margin-top:45px;
+	margin-left:30px;
+	line-height:19px;
+	padding-right:10%;
+
+}
+.main{
+	padding-left:150px;
+	padding-right:150px;
+}
+.main_first_block{
+ 	width:100%;
+ 	height:600px;
+}
+.main_slogan{
+	margin-top:100px;
+	font-family: 'Rubik', sans-serif;
+	font-weight:700;
+	font-size:48px;
+	margin-right:50px;
+	width:555px;
+}
+.main_under_slogan{
+	font-family: 'Rubik', sans-serif;
+	color:#4F5665;
+	margin-right:50px;
+	font-weight:400;
+	font-size:16px;
+	width:555px;
+	margin-top:20px; 
+}
+.main_img_gamer{
+	width:32.5em;	
+	position:absolute;
+	right:10%;
+	top:10%;
+}
+.main_first_block_button{
+	width: 250px;
+	height: 60px;
+	margin-top:68px;
+	font-family: 'Rubik', sans-serif;
+	font-weight:700;
+	font-size:16px;
+	color:white;
+
+	background: #B62C37;
+	border-radius: 10px;
+
+	box-shadow: 0  20px 50px rgba(245, 56, 56, 0.35);
+}
+.main_first_block_flex{
+	margin-top:100px;
+	display: flex;
+	margin-right:150px;
+	justify-content:center;
+	background: #FFFFFF;
+	height:200px;
+}
+.first_flex_big_text{
+	font-family: 'Rubik', sans-serif;
+	font-weight:700;
+	font-size: 25px;
+
+}
+.first_flex_small_text{
+	font-family: 'Rubik', sans-serif;
+	color: #4F5665;
+	font-weight:400;
+	font-size: 20px;
+
+}
+.first_flex_img{
+	height:73px;
+	margin-left:90px;
+
+}
+.first_flex_block{
+	margin-left:36px;
+	display:block;
+}
+.line{
+	margin-left:120px;
+	height:125px;
+	color:white;
+	width:0;
+	padding:0;
+	border: 2px solid ;
+}
+.shadow{
+	background:white;
+	width:100%;
+	border-color:white;
+	border:0px;
+	height:50px;
+	box-shadow: 0  40px 30px 10px rgba(13, 16, 37, 0.07);
+}
+.main_second_block{
+	padding-top:150px;
+
+}
+.second_block_big{
+	font-family: 'Rubik', sans-serif;
+	font-weight:500;
+	font-size: 35px;
+	text-align:center;
+
+}
+.second_block_under_big{
+	margin-top:20px;
+	text-align:center;
+	font-family: 'Rubik', sans-serif;
+	font-weight:400;
+	font-size: 16px;
+	color: #4F5665;
+
+}
+.second_flex_block{
+
+	padding-top: 60px;
+	display:flex;
+	justify-content:space-around;
+
+}
+.plan_box{
+	display:block;
+	border: 2px solid #DDDDDD;
+	box-sizing: border-box;
+	border-radius: 10px;
+	height:600px;
+	outline: none;
+	background-color:white;
+	width: 330px;
+
+}
+.plan_img{
+	padding-top: 50px;
+}
+.plan_name{
+	line-height: 30px;
+	font-family: 'Rubik', sans-serif;
+	font-weight:500;
+	size:18px;
+}
+.plan_list{
+	
+	list-style-image: url(images/listOk.svg);
+	font-family: 'Rubik', sans-serif;
+	font-weight:400;
+	padding-right: 30px;
+	size:14px;
+}
+li{
+	padding-top:10px;
+}
+.second_block_button{
+	color:#B62C37;
+	font-family: Rubik;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 19px;
+	border: 2px solid #B62C37;
+	box-sizing: border-box;
+	border-radius: 50px;
+	background-color:white;
+	height:45px;
+	width:180px;
+	margin-top:25px;
+}
+.second_block_button:hover{
+	background-color:rgba(182, 44, 55, 1);
+	color:white;
+}
+.price{
+	font-family: Rubik;
+font-style: normal;
+font-weight: 500;
+font-size: 25px;
+line-height: 30px;	
+}
+.main_second_button{
+	margin-right:41%;
+	margin-left:41%;
+}
+.shadow_second{
+	margin-top:70px;
+}
+.map_block{
+	display:block;
+}
+.registration_form{
+	margin-top:80px;
+	width:30%;
+	background-color:black;
+	height:600px;
+}
+.third_block_big{
+	margin-top:80px;
+}
+.third_block_under_big{
+
+}
+.main_third_flex{
+	justify-content:space-around;
+	display:flex;
+
+}
+.map_img{
+	margin-top:50px;
+}
+.footer{
+	justify-content:space-around;
+	padding-top:100px;
+	background-color: #F8F8F8;
+	height:300px;
+	width:100%;
+	display: flex;
+}
+
+.footer_logo_flex{
+	display:flex;
+	font-size:24px;
+}
+.footer_logo_block{
+	display:block;
+}
+.footer_small_text{
+	margin-top:30px;
+	width:400px;
+	line-height: 30px;
+}
+.footer_smaller_text{
+	color:rgba(175, 181, 192, 1);
+	line-height: 30px;
+}
+.footer_menu_small{
+	width:0px;
+	margin-right:0px;
+}

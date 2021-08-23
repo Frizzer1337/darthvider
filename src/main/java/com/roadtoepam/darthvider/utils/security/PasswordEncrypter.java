@@ -18,6 +18,13 @@ public class PasswordEncrypter {
 	
 	private static String salt;
 	
+	/**
+	 * Encrypt.
+	 *
+	 * @param password to hash
+	 * @return the hashed string
+	 */
+	
 	public static String encrypt(String password) {
 		
 		try(InputStream inputStream = ConnectionFactory.class.getClassLoader().getResourceAsStream(resource);) {

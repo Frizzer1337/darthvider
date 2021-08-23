@@ -33,8 +33,18 @@ public interface UserDao {
 	   * @return true if user is successfully added, false if customer already exists.
 	   * @throws Exception if any error occurs.
 	   */
-	  boolean add(User customer, String password) throws DaoException;
+	  boolean add(User user, String password) throws DaoException;
 
+	  /**
+	   * Update a user without changing password.
+	   *
+	   * @param user to be updated.
+	   * @return true if user exists and is successfully updated, false otherwise.
+	   * @throws Exception if any error occurs.
+	   */
+	  boolean update(User user,int id) throws DaoException;
+	  
+	  
 	  /**
 	   * Update a user.
 	   *
@@ -42,7 +52,7 @@ public interface UserDao {
 	   * @return true if user exists and is successfully updated, false otherwise.
 	   * @throws Exception if any error occurs.
 	   */
-	  boolean update(User customer) throws DaoException;
+	  boolean update(User user,String password,int id) throws DaoException;
 
 	  /**
 	   * Delete a user.
@@ -51,5 +61,5 @@ public interface UserDao {
 	   * @return true if user exists and is successfully deleted, false otherwise.
 	   * @throws DaoException if any error occurs.
 	   */
-	  boolean delete(User customer) throws DaoException;
+	  boolean delete(int id) throws DaoException;
 	}

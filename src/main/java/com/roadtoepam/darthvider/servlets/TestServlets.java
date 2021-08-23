@@ -23,17 +23,23 @@ public class TestServlets extends HttpServlet {
 		
 		response.getWriter().print("Hello");
 		
-		String pass = "password";
-		String hashpass = PasswordEncrypter.encrypt(pass);
-		
-		response.getWriter().append(pass).append("  " + hashpass);
+		var userToUpdate = User.newBuilder()
+						.setBalance(0)
+						.setBlockStatus(false)
+						.setEmail("mail.ru")
+						.setLogin("Lol")
+						.setRole(0)
+						.build();
 		
 		var userDAO = new UserDaoImpl();
 		Optional<User> user = Optional.empty();
 		List<User> userList = null;
 		try {
 			userList = userDAO.findAll();
+			boolean ok = userDAO.update(userToUpdate, 8);
+			response.getWriter().println(ok);
 		    user = userDAO.findById(8);
+		    response.getWriter().println(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,9 +52,6 @@ public class TestServlets extends HttpServlet {
 			
 		}	
 		
-		 
-		
-		response.getWriter().println(user);
 		
 	}
 
