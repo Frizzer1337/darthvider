@@ -76,7 +76,7 @@ public class ConnectionPool {
         return pool;
     }
 
-    public ProxyConnection getConnection() {
+    public Connection getConnection() {
     	
         ProxyConnection connection = null;
         
@@ -94,13 +94,13 @@ public class ConnectionPool {
         return connection;
     }
 
-   public void returnConnection(ProxyConnection connection) {
+   public void returnConnection(Connection connection) {
   
         try {
         	
             if(activeConnections.remove(connection)) {
             	
-            	freeConnections.put(connection);
+            	freeConnections.put((ProxyConnection) connection);
             	
             } else {
             	

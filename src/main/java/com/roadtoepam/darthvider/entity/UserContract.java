@@ -51,6 +51,64 @@ public class UserContract {
 	public void setDiscount(int discount) {
 		this.discount = discount;
 	}
+	
+public static UserContract.Builder newBuilder(){
+		
+		return new UserContract().new Builder();
+		
+	}
+	
+	public class Builder{
+		
+		protected Builder() {};
+
+		public UserContract.Builder setId(long id) {
+			
+			UserContract.this.id = id;
+			
+			return this;		
+		}
+
+		public UserContract.Builder setIdContract(int idContract) {
+			
+			UserContract.this.idContract = idContract;
+			
+			return this;	
+		}
+
+		public UserContract.Builder setStartDate(Date startDate) {
+			UserContract.this.startDate = startDate;
+			return this;	
+		}
+
+		public UserContract.Builder setEndDate(Date endDate) {
+			
+			UserContract.this.endDate = endDate;
+			
+			return this;	
+		}
+
+		public UserContract.Builder setIsActive(boolean isActive) {
+			UserContract.this.isActive = isActive;
+			
+			return this;	
+		}
+
+		public UserContract.Builder setDiscount(int discount) {
+			
+			UserContract.this.discount = discount;
+			
+			return this;	
+		}		
+		
+		public UserContract build() {
+			
+			return UserContract.this;
+			
+		}
+		
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

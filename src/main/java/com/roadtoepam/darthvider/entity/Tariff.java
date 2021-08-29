@@ -4,6 +4,8 @@ public class Tariff {
 	
 	private long id;
 	private String name;
+	private String info;
+	private String shortInfo;
 	private float price;
 	private int discount;
 	private boolean isActive;
@@ -49,6 +51,23 @@ public class Tariff {
 	public void setDueType(int dueType) {
 		this.dueType = dueType;
 	}
+	
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
+	}
+
+	public String getShortInfo() {
+		return shortInfo;
+	}
+
+	public void setShortInfo(String shortInfo) {
+		this.shortInfo = shortInfo;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -56,9 +75,11 @@ public class Tariff {
 		result = prime * result + discount;
 		result = prime * result + dueType;
 		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((info == null) ? 0 : info.hashCode());
 		result = prime * result + (isActive ? 1231 : 1237);
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + Float.floatToIntBits(price);
+		result = prime * result + ((shortInfo == null) ? 0 : shortInfo.hashCode());
 		return result;
 	}
 	@Override
@@ -76,6 +97,11 @@ public class Tariff {
 			return false;
 		if (id != other.id)
 			return false;
+		if (info == null) {
+			if (other.info != null)
+				return false;
+		} else if (!info.equals(other.info))
+			return false;
 		if (isActive != other.isActive)
 			return false;
 		if (name == null) {
@@ -84,6 +110,11 @@ public class Tariff {
 		} else if (!name.equals(other.name))
 			return false;
 		if (Float.floatToIntBits(price) != Float.floatToIntBits(other.price))
+			return false;
+		if (shortInfo == null) {
+			if (other.shortInfo != null)
+				return false;
+		} else if (!shortInfo.equals(other.shortInfo))
 			return false;
 		return true;
 	}
@@ -94,6 +125,10 @@ public class Tariff {
 		builder.append(id);
 		builder.append(", name=");
 		builder.append(name);
+		builder.append(", info=");
+		builder.append(info);
+		builder.append(", shortInfo=");
+		builder.append(shortInfo);
 		builder.append(", price=");
 		builder.append(price);
 		builder.append(", discount=");
@@ -105,6 +140,7 @@ public class Tariff {
 		builder.append("]");
 		return builder.toString();
 	}
+
 	
 
 }

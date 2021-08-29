@@ -4,17 +4,18 @@ import java.util.List;
 import java.util.Optional;
 
 import com.roadtoepam.darthvider.entity.User;
+import com.roadtoepam.darthvider.entity.UserContract;
 import com.roadtoepam.darthvider.exception.DaoException;
 
-public interface UserDao {
-
-	  /**
-	   * Get all users.
+public interface ConnectedTariffDao {
+	
+	/**
+	   * Get all .
 	   *
 	   * @return all the users as a list.
 	   * @throws DaoException if any error occurs.
 	   */
-	  List<User> findAll() throws DaoException;
+	  List<UserContract> findAll() throws DaoException;
 
 	  /**
 	   * Get user as Optional by id.
@@ -24,7 +25,7 @@ public interface UserDao {
 	   *     empty optional otherwise.
 	   * @throws DaoException if any error occurs.
 	   */
-	  Optional<User> findById(int id) throws DaoException;
+	  Optional<UserContract> findById(int id) throws DaoException;
 
 	  /**
 	   * Add a user.
@@ -62,4 +63,5 @@ public interface UserDao {
 	   * @throws DaoException if any error occurs.
 	   */
 	  boolean delete(int id) throws DaoException;
-	}
+
+}

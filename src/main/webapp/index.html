@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>DarthVider.by-Internet for everyone!</title>
+	<title>DarthVider.by-Интернет в каждый дом!</title>
+	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Arsenal:ital,wght@0,400;1,700&family=Fira+Code&display=swap" rel="stylesheet">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,229 +12,184 @@
 	<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-	<header class = "header">
-		<img src="images/logo.svg" height="75px" class="header_img">
-		<div class="header_logo_text">
-			DarthVider
+<header class="header">
+	<div class="container">
+		<div class="logo">
+			<img src="img/logo.svg" alt="Logotype" class="header_logo"> <span>DartVider</span>
 		</div>
-		<div class="header_text">
-			Home
+		<ul class="main_menu">
+			<li><a href="#" class="menu_link">Home</a></li>
+			<li><a href="tariffs.html" class="menu_link">Shop</a></li>
+			<li><a href="#" class="menu_link">Help</a></li>
+			<li><a href="#" class="menu_link">About</a></li>
+		</ul>
+		<div class="authorization">
+			<a href="#" class="login">Sign In</a>
+			<a href="#" class="reg">Sign Up</a>
 		</div>
-		<div class="header_text">
-			Shop
-		</div>
-		<div class="header_text">
-			Help
-		</div>
-		<div class="header_text">
-			About
-		</div>
-		<div class="header_text_sign_in">
-			Sign In
-		</div>
-		<form>	
-			<input type="submit" value="Sign up" class="header_text_sign_up">
-		</form>
-	</header>
-	<main class="main">
-		<div class="main_first_block">
-		<img src="images/gamer.svg" class="main_img_gamer">
-		<div class="main_slogan">
-			Your best game provider in the galaxy
-		</div>
-		<div class="main_under_slogan">
-			Feel the power of our connection rigth now! You underestimate the power of the Dark Side!
-		</div>
-		<form>	
-			<input type="submit" value="Get started" class="main_first_block_button">
-		</form>
-		<div class="main_first_block_flex">
-			<img src="images/user.svg" class="first_flex_img">
-			<div class="first_flex_block">
-			<div class="first_flex_big_text">
-				90K+
+	</div>
+</header>
+<main class="main">
+	<div class="container">
+		<section class="provider-banner">
+			<div class="primary_content">
+				<div class="title">
+					<h2>
+						Your best <br> game provider
+					</h2>
+					<p>Fell the power of our connection right now! You underestimate the power of the Dark Side!</p>
+					<a class="get_started primary_button" href="#">
+						Get Started
+					</a>
+				</div>
+				<img src="img/gamer.svg" alt="Gamer">
 			</div>
-			<div class="first_flex_small_text">
-				Users
+			<div class="our_achievements">
+				<ul class="achievements_list">
+					<li class="achievements_item"><img src="img/user.svg" alt="#">
+						<p class="achievements_text">90k+ <br><span class="achievements_describe">Users</span></p>
+					</li>
+					<li class="achievements_item"><img src="img/location.svg" alt="#">
+						<p class="achievements_text">25 <br><span class="achievements_describe">Countries</span></p>
+					</li>
+					<li class="achievements_item"><img src="img/server.svg" alt="">
+						<p class="achievements_text">50+<br><span class="achievements_describe">Plans</span></p>
+					</li>
+				</ul>
 			</div>
+		</section>
+		<section class="choose_plan">
+			<div class="plan_title">
+				<h2>Choose Your Plan</h2>
+				<p>Let's choose the package that is best for you and explore it happily and cheerfully.</p>
 			</div>
-			<button class="line"></button>
-			<img src="images/location.svg" class="first_flex_img">
-			<div class="first_flex_block">
-			<div class="first_flex_big_text">
-				25
+			<div class="plans">
+				<div class="plan_item"><img src="img/toChange.svg" alt="#">
+					<div class="plan_description">
+						<h3>Stupid Plan</h3>
+						<ul>
+							<li><img src="img/listOk.svg" alt="#">
+								<p>Unlimited Bandwitch</p>
+							</li>
+							<li><img src="img/listOk.svg" alt="#">
+								<p>Unlimited Bandwitch</p>
+							</li>
+							<li><img src="img/listOk.svg" alt="#">
+								<p>Unlimited Bandwitch</p>
+							</li>
+							<li><img src="img/listOk.svg" alt="#">
+								<p>Unlimited Bandwitch</p>
+							</li>
+
+						</ul>
+						<p class="price">Free</p>
+						<a class="primary_button" href="#">Select</a>
+					</div>
+				</div>
+				<div class="plan_item"><img src="img/toChange.svg" alt="#">
+					<div class="plan_description">
+						<h3>Stupid Plan</h3>
+						<ul>
+							<li><img src="img/listOk.svg" alt="#">
+								<p>Unlimited Bandwitch</p>
+							</li>
+							<li><img src="img/listOk.svg" alt="#">
+								<p>Unlimited Bandwitch</p>
+							</li>
+							<li><img src="img/listOk.svg" alt="#">
+								<p>Unlimited Bandwitch</p>
+							</li>
+							<li><img src="img/listOk.svg" alt="#">
+								<p>Unlimited Bandwitch</p>
+							</li>
+
+						</ul>
+						<p class="price">Free</p>
+						<a class="primary_button" href="#">Select</a>
+					</div>
+				</div>
+				<div class="plan_item"><img src="img/toChange.svg" alt="#">
+					<div class="plan_description">
+						<h3>Stupid Plan</h3>
+						<ul>
+							<li><img src="img/listOk.svg" alt="#">
+								<p>Unlimited Bandwitch</p>
+							</li>
+							<li><img src="img/listOk.svg" alt="#">
+								<p>Unlimited Bandwitch</p>
+							</li>
+							<li><img src="img/listOk.svg" alt="#">
+								<p>Unlimited Bandwitch</p>
+							</li>
+							<li><img src="img/listOk.svg" alt="#">
+								<p>Unlimited Bandwitch</p>
+							</li>
+
+						</ul>
+						<p class="price">Free</p>
+						<a class="primary_button" href="#">Select</a>
+					</div>
+				</div>
+
 			</div>
-			<div class="first_flex_small_text">
-				Countries
-			</div>
-			</div>
-			<button class="line"></button>
-			<img src="images/server.svg" class="first_flex_img">
-			<div class="first_flex_block">
-			<div class="first_flex_big_text">
-				50+
-			</div>
-			<div class="first_flex_small_text">
-				Plans
-			</div>
-			</div>
-		</div>
-		<button class="shadow">
-	    </div>
-	    <div class="main_second_block">
-	    	<div class="second_block_big">
-	    		Choose your plan
-	    	</div>
-	    	<div class="second_block_under_big">
-	    		Let's choose the package that is best for you and explore it happily and <br>cheerfully.
-	    	</div>	
-	    	<div class = "second_flex_block">
-	    		<button class = "plan_box">
-	    			<img class="plan_img" src="images/toChange.svg">
-	    			<div class="plan_name">
-	    			Free plan
-	    			</div>
-	    			<ul class="plan_list">
-	    			<li>Unlimited Bandwitch</li>
-	    			<li>Unlimited Bandwitch</li>
-	    			<li>Unlimited Bandwitch</li>
-	    			<li>Unlimited Bandwitch</li>
-	    			</ul>
-	    			<div class="price">
-	    				Free
-	    			</div>
-	    			<form>	
-						<input type="submit" value="Select" class="second_block_button">
-					</form>
-	    		</button>	
-	    		<button class = "plan_box">
-	    			<img class="plan_img" src="images/toChange.svg">
-	    			<div class="plan_name">
-	    			Free plan
-	    			</div>
-	    			<ul class="plan_list">
-	    			<li>Unlimited Bandwitch</li>
-	    			<li>Unlimited Bandwitch</li>
-	    			<li>Unlimited Bandwitch</li>
-	    			<li>Unlimited Bandwitch</li>
-	    			<li>Unlimited Bandwitch</li>
-	    			<li>Unlimited Bandwitch</li>
-	    			</ul>
-	    			<div class="price">
-	    				Free
-	    			</div>
-	    			<form>	
-						<input type="submit" value="Select" class="second_block_button">
-					</form>
-	    		</button>
-	    		<button class = "plan_box">
-	    			<img class="plan_img" src="images/toChange.svg">
-	    			<div class="plan_name">
-	    			Free plan
-	    			</div>
-	    			<ul class="plan_list">
-	    			<li>Unlimited Bandwitch</li>
-	    			<li>Unlimited Bandwitch</li>
-	    			<li>Unlimited Bandwitch</li>
-	    			<li>Unlimited Bandwitch</li>
-	    			<li>Unlimited Bandwitch</li>
-	    			<li>Unlimited Bandwitch</li>
-	    			<li>Unlimited Bandwitch</li>
-	    			<li>Unlimited Bandwitch</li>
-	    			</ul>
-	    			<div class="price">
-	    				Free
-	    			</div>
-	    			<form>	
-						<input type="submit"  value="Select"  class="second_block_button">
-					</form>
-	    		</button>
-	    	</div>
-	    		<form>	
-						<input type="submit" value="More plans" class="main_second_button main_first_block_button">
+			<a href="#" class="more_plans primary_button">More Plans</a>
+		</section>
+		<section class="our_map">
+			<div class="autharization_form">
+				<div class="autharization_bttns">
+					<button class="active_bttn login_btn">Login</button>
+					<button class="reg_btn">Sign Up</button>
+				</div>
+				<form class="authorization_login" id="login"  action="#">
+					<input type="text" placeholder="Email Address" >
+					<input type="text" placeholder="Password">
+					<button class="authorization_submit primary_button">
+						Login
+					</button>
+					<a href="#" class="autharizathion_forgot">Forgot Password?</a>
 				</form>
-				<button class="shadow_second shadow">
-	    </div>
-	    <div class="main_third_flex">
-	    	<div class="registration_form">
-	    	</div>
-	    	<div class="map_block">
-	    	<div class="third_block_big second_block_big">
-	    		Huge Global Network
-	    	</div>
-	    	<div class="third_block_under_big second_block_under_big">
-	    		Use DarthVider everywhere.<br> We have partners all around the world.
-	    	</div>
-	    	<img src ="images/map.svg" class="map_img">
-	    	</div>
-	    </div>
-	    </div>
-	</main>
-	<footer class="footer">
-		<div class="footer_logo_flex">
-		<img src="images/logo.svg" height="60px" class="header_img">
-		<div class="footer_logo_block">
-		<div class="header_logo_text">
-			DarthVider
-		</div>
-		<div class="footer_small_text first_flex_small_text">
-			Darth	Vider is the best game provider that you can only find.
-		</div>
-		<div class="footer_smaller_text first_flex_small_text">
-		©2021 DarthVider
-		</div>
-		</div>
-		</div>
-		<div class="footer_menu">
-			<div class="plan_name">
-			Ok
+				<form class="authorization_login" id="reg" style="display: none" action="#">
+					<input type="text" placeholder="Login" >
+					<input type="email" placeholder="Email Address" >
+					<input type="password" placeholder="Password">
+					<input type="password" placeholder="Password">
+					<button class="authorization_submit primary_button">
+						Sign Up
+					</button>
+				</form>
 			</div>
-			<div class="footer_menu_small main_under_slogan">
-			Ok
+			<div class="network_map">
+				<h2>Huge Global Network</h2>
+				<p>See DartVider everywhere to make it easier for you when you move locations</p>
+				<img src="img/map.svg" alt="#">
 			</div>
-			<div class="footer_menu_small main_under_slogan">
-			Ok
+		</section>
+		<div class="banner">
+			<div class="banner_text">
+				<h2>Subscribe Now for <br>
+					Get Special Features!
+				</h2>
+				<p>Let's subscribe with us and find the fun</p>
 			</div>
-			<div class="footer_menu_small main_under_slogan">
-			Ok
-			</div>
-			<div class="footer_menu_small main_under_slogan">
-			Ok
+			<div class="btn-wrapper">
+				<a href="#" class="primary_button">Subscribe Now</a>
 			</div>
 		</div>
-			<div class="footer_menu">
-			<div class="plan_name">
-			Ok
+	</div>
+</main>
+<footer>
+	<div class="container">
+		<div class="footer_about">
+			<div class="text_wrapper">
+				<img src="img/logo.svg" alt="#">
+				<h2>DartVider</h2>
 			</div>
-			<div class="footer_menu_small main_under_slogan">
-			Ok
-			</div>
-			<div class="footer_menu_small main_under_slogan">
-			Ok
-			</div>
-			<div class="footer_menu_small main_under_slogan">
-			Ok
-			</div>
-			<div class="footer_menu_small main_under_slogan">
-			Ok
-			</div>
+			<p>DartVider is the best hame provider that you can only find </p>
+			<span>@2021 Ioann Bezmen</span>
 		</div>
-		<div class="footer_menu">
-			<div class="plan_name">
-			Ok
-			</div>
-			<div class="footer_menu_small main_under_slogan">
-			Ok
-			</div>
-			<div class="footer_menu_small main_under_slogan">
-			Ok
-			</div>
-			<div class="footer_menu_small main_under_slogan">
-			Ok
-			</div>
-			<div class="footer_menu_small main_under_slogan">
-			Ok
-			</div>
-		</div>
-	</footer>
+	</div>
+</footer>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="js/all.js"></script>
+</html>

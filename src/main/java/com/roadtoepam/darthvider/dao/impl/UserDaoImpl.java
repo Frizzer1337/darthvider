@@ -1,5 +1,6 @@
 package com.roadtoepam.darthvider.dao.impl;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class UserDaoImpl implements UserDao{
 	private static final String ADD_USER="INSERT INTO users (role,balance,login,email,status,password) VALUES  (?, ?, ?, ?, ?,?)";
 	private static final String UPDATE_USER="UPDATE users SET role = ?,balance = ?,login = ?,email = ?,status = ?,password = ? WHERE id_user=?";
 	private static final String UPDATE_USER_WITHOUT_PASSWORD="UPDATE users SET role = ?,balance = ?,login = ?,email = ?,status = ? WHERE id_user=?";
-	private static final String DELETE_USER="UPDATE users status = 1 WHERE id_user=?";
+	private static final String DELETE_USER="UPDATE users SET status = 1 WHERE id_user=?";
 	
 	
     ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -31,7 +32,7 @@ public class UserDaoImpl implements UserDao{
         
         ArrayList<User> userList = new ArrayList<>();
 		
-		try(ProxyConnection connection = connectionPool.getConnection();
+		try(Connection connection = connectionPool.getConnection();
 		    var statement = connection.prepareStatement(SELECT_ALL_USER);
 			var resultSet = statement.executeQuery();){
 			 
@@ -62,7 +63,7 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public Optional<User> findById(int id) throws DaoException {
 		
-		try(var connection = connectionPool.getConnection();
+		try(Connection connection = connectionPool.getConnection();
 			var statement = connection.prepareStatement(SELECT_USER_BY_ID);) { 
 		      
 		      statement.setLong(1,id);     
@@ -81,8 +82,6 @@ public class UserDaoImpl implements UserDao{
 		    	  	  .build();
 		    	  
 		      var userOptional = Optional.of(user);
-		      
-		      connectionPool.returnConnection(connection);
 	    	  
 		      return userOptional; } else {
 		    	 
@@ -98,7 +97,7 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public boolean add(User user,String password) throws DaoException {
-		try(var connection = connectionPool.getConnection();
+		try(Connection connection = connectionPool.getConnection();
 			var statement = connection.prepareStatement(ADD_USER);) { 
 		      
 		      statement.setLong(1,user.getRole()); 
@@ -110,8 +109,6 @@ public class UserDaoImpl implements UserDao{
 		      
 		      
 		      int status = statement.executeUpdate();
-		      
-		      connectionPool.returnConnection(connection);
 	    	  
 		      return status > 0;
 		      
@@ -124,7 +121,7 @@ public class UserDaoImpl implements UserDao{
 	
 	@Override
 	public boolean update(User user,int id) throws DaoException {
-		try(var connection = connectionPool.getConnection();
+		try(Connection connection = connectionPool.getConnection();
 				var statement = connection.prepareStatement(UPDATE_USER_WITHOUT_PASSWORD);){
 			
 			  statement.setLong(1,user.getRole()); 
@@ -147,7 +144,7 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public boolean update(User user,String password,int id) throws DaoException {
-		try(var connection = connectionPool.getConnection();
+		try(Connection connection = connectionPool.getConnection();
 				var statement = connection.prepareStatement(UPDATE_USER);){
 			
 			  statement.setLong(1,user.getRole()); 
@@ -171,7 +168,7 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public boolean delete(int id) throws DaoException {
-		try(var connection = connectionPool.getConnection();
+		try(Connection connection = connectionPool.getConnection();
 				var statement = connection.prepareStatement(DELETE_USER);){
 			
 			statement.setInt(1,id);

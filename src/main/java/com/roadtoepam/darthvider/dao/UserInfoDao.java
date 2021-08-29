@@ -4,62 +4,62 @@ import java.util.List;
 import java.util.Optional;
 
 import com.roadtoepam.darthvider.entity.User;
+import com.roadtoepam.darthvider.entity.UserInfo;
 import com.roadtoepam.darthvider.exception.DaoException;
 
-public interface UserDao {
+public interface UserInfoDao {
 
 	  /**
-	   * Get all users.
+	   * Get all users info.
 	   *
-	   * @return all the users as a list.
+	   * @return all the user as a list.
 	   * @throws DaoException if any error occurs.
 	   */
-	  List<User> findAll() throws DaoException;
+	  List<UserInfo> findAll() throws DaoException;
 
 	  /**
-	   * Get user as Optional by id.
+	   * Get user info as Optional by id.
 	   *
 	   * @param id unique identifier of the user.
-	   * @return an optional with user if a user with unique identifier exists,
+	   * @return an optional with user if a user with unique identifier id exists,
 	   *     empty optional otherwise.
 	   * @throws DaoException if any error occurs.
 	   */
-	  Optional<User> findById(int id) throws DaoException;
+	  Optional<UserInfo> findById(int id) throws DaoException;
 
 	  /**
-	   * Add a user.
+	   * Add a user info.
 	   *
 	   * @param user to be added.
-	   * @return true if user is successfully added, false if customer already exists.
+	   * @return true if user is successfully added, false if user already exists.
 	   * @throws DaoException if any error occurs.
 	   */
-	  boolean add(User user, String password) throws DaoException;
-
+	  boolean add(UserInfo userInfo,String city, String phone) throws DaoException;
+	  
 	  /**
-	   * Update a user without changing password.
+	   * Update a full user info.
 	   *
 	   * @param user to be updated.
 	   * @return true if user exists and is successfully updated, false otherwise.
 	   * @throws DaoException if any error occurs.
 	   */
-	  boolean update(User user,int id) throws DaoException;
-	  
+	  boolean addMainInfo(UserInfo userInfo,String city, String phone) throws DaoException;
 	  
 	  /**
-	   * Update a user.
+	   * Update a full user info.
 	   *
 	   * @param user to be updated.
 	   * @return true if user exists and is successfully updated, false otherwise.
 	   * @throws DaoException if any error occurs.
 	   */
-	  boolean update(User user,String password,int id) throws DaoException;
+	  
+	  boolean update(UserInfo userInfo,int id) throws DaoException;
 
 	  /**
-	   * Delete a user.
+	   * Delete a user info.
 	   *
 	   * @param user to be deleted.
 	   * @return true if user exists and is successfully deleted, false otherwise.
 	   * @throws DaoException if any error occurs.
 	   */
-	  boolean delete(int id) throws DaoException;
 	}
