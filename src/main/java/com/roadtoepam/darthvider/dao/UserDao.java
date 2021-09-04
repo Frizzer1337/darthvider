@@ -62,4 +62,13 @@ public interface UserDao {
 	   * @throws DaoException if any error occurs.
 	   */
 	  boolean delete(int id) throws DaoException;
-	}
+	 
+	  /**
+	   * Check if user with same login or email exists.
+	   *
+	   * @param login and email to be checked.
+	   * @return true if user exists and false otherwise.
+	   * @throws DaoException if any error occurs.
+	   */
+	  boolean checkUser(String login,String email) throws DaoException;
+}

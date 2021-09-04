@@ -8,7 +8,7 @@ public class ConnectedTariff {
 	
 	HashMap<Integer,ArrayList<Integer>> contractInfo;
 
-	public Map<Integer,ArrayList<Integer>> getContractInfo() {
+	public HashMap<Integer, ArrayList<Integer>> getContractInfo() {
 		return contractInfo;
 	}
 

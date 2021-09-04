@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>DarthVider.by-Интернет в каждый дом!</title>
-    <link rel="stylesheet" href="css/main.css">
+    <title>DarthVider.by-internet to every house!</title>
+    <link rel="stylesheet" href="/darthvider/jsp/css/main.css">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Arsenal:ital,wght@0,400;1,700&family=Fira+Code&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,10 +15,10 @@
 <header class="header">
     <div class="container">
         <div class="logo">
-            <img src="img/logo.svg" alt="Logotype" class="header_logo"> <span>DartVider</span>
+            <img src="/darthvider/jsp/img/logo.svg" alt="Logotype" class="header_logo"> <span>DarthVider</span>
         </div>
         <ul class="main_menu">
-            <li><a href="index.html" class="menu_link">Home</a></li>
+            <li><a href="/darthvider/jsp/main.jsp" class="menu_link">Home</a></li>
             <li><a href="#" class="menu_link">Shop</a></li>
             <li><a href="#" class="menu_link">Help</a></li>
             <li><a href="#" class="menu_link">About</a></li>
@@ -96,11 +96,11 @@
     <div class="container">
         <div class="footer_about">
             <div class="text_wrapper">
-                <img src="img/logo.svg" alt="#">
-                <h2>DartVider</h2>
+                <img src="/darthvider/jsp/img/logo.svg" alt="#">
+                <h2>DarthVider</h2>
             </div>
-            <p>DartVider is the best hame provider that you can only find </p>
-            <span>@2021 Ioann Bezmen</span>
+            <p>DarthVider is the best game provider that you can only find </p>
+            <span>@2021 Daniil Suzdaleu</span>
         </div>
     </div>
 </footer>

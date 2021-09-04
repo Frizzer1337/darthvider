@@ -9,11 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 import com.roadtoepam.darthvider.connectionpool.ConnectionPool;
+import com.roadtoepam.darthvider.dao.AbstractDao;
 import com.roadtoepam.darthvider.dao.UserInfoDao;
 import com.roadtoepam.darthvider.entity.UserInfo;
 import com.roadtoepam.darthvider.exception.DaoException;
 
-public class UserInfoDaoImpl implements UserInfoDao{
+public class UserInfoDaoImpl extends AbstractDao implements UserInfoDao{
 	
 
 	private static final String SELECT_ALL_USER_INFO = "SELECT id_user,name,surname,city,phone FROM user_info";

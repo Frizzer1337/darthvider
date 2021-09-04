@@ -1,9 +1,10 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>DarthVider.by-Интернет в каждый дом!</title>
-	<link rel="stylesheet" href="css/main.css">
+	<title>DarthVider.by-internet to every house!</title>
+	<link rel="stylesheet" href="/darthvider/jsp/css/main.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Arsenal:ital,wght@0,400;1,700&family=Fira+Code&display=swap" rel="stylesheet">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,11 +16,11 @@
 <header class="header">
 	<div class="container">
 		<div class="logo">
-			<img src="img/logo.svg" alt="Logotype" class="header_logo"> <span>DartVider</span>
+			<img src="/darthvider/jsp/img/logo.svg" alt="Logotype" class="header_logo"> <span>DarthVider</span>
 		</div>
 		<ul class="main_menu">
 			<li><a href="#" class="menu_link">Home</a></li>
-			<li><a href="tariffs.html" class="menu_link">Shop</a></li>
+			<li><a href="/darthvider/jsp/tariffs.jsp" class="menu_link">Shop</a></li>
 			<li><a href="#" class="menu_link">Help</a></li>
 			<li><a href="#" class="menu_link">About</a></li>
 		</ul>
@@ -42,17 +43,17 @@
 						Get Started
 					</a>
 				</div>
-				<img src="img/gamer.svg" alt="Gamer">
+				<img src="/darthvider/jsp/img/gamer.svg" alt="Gamer">
 			</div>
 			<div class="our_achievements">
 				<ul class="achievements_list">
-					<li class="achievements_item"><img src="img/user.svg" alt="#">
+					<li class="achievements_item"><img src="/darthvider/jsp/img/user.svg" alt="#">
 						<p class="achievements_text">90k+ <br><span class="achievements_describe">Users</span></p>
 					</li>
-					<li class="achievements_item"><img src="img/location.svg" alt="#">
+					<li class="achievements_item"><img src="/darthvider/jsp/img/location.svg" alt="#">
 						<p class="achievements_text">25 <br><span class="achievements_describe">Countries</span></p>
 					</li>
-					<li class="achievements_item"><img src="img/server.svg" alt="">
+					<li class="achievements_item"><img src="/darthvider/jsp/img/server.svg" alt="">
 						<p class="achievements_text">50+<br><span class="achievements_describe">Plans</span></p>
 					</li>
 				</ul>
@@ -64,20 +65,20 @@
 				<p>Let's choose the package that is best for you and explore it happily and cheerfully.</p>
 			</div>
 			<div class="plans">
-				<div class="plan_item"><img src="img/toChange.svg" alt="#">
+				<div class="plan_item"><img src="/darthvider/jsp/img/toChange.svg" alt="#">
 					<div class="plan_description">
 						<h3>Stupid Plan</h3>
 						<ul>
-							<li><img src="img/listOk.svg" alt="#">
+							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
 								<p>Unlimited Bandwitch</p>
 							</li>
-							<li><img src="img/listOk.svg" alt="#">
+							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
 								<p>Unlimited Bandwitch</p>
 							</li>
-							<li><img src="img/listOk.svg" alt="#">
+							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
 								<p>Unlimited Bandwitch</p>
 							</li>
-							<li><img src="img/listOk.svg" alt="#">
+							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
 								<p>Unlimited Bandwitch</p>
 							</li>
 
@@ -86,20 +87,20 @@
 						<a class="primary_button" href="#">Select</a>
 					</div>
 				</div>
-				<div class="plan_item"><img src="img/toChange.svg" alt="#">
+				<div class="plan_item"><img src="/darthvider/jsp/img/toChange.svg" alt="#">
 					<div class="plan_description">
 						<h3>Stupid Plan</h3>
 						<ul>
-							<li><img src="img/listOk.svg" alt="#">
+							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
 								<p>Unlimited Bandwitch</p>
 							</li>
-							<li><img src="img/listOk.svg" alt="#">
+							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
 								<p>Unlimited Bandwitch</p>
 							</li>
-							<li><img src="img/listOk.svg" alt="#">
+							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
 								<p>Unlimited Bandwitch</p>
 							</li>
-							<li><img src="img/listOk.svg" alt="#">
+							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
 								<p>Unlimited Bandwitch</p>
 							</li>
 
@@ -108,20 +109,20 @@
 						<a class="primary_button" href="#">Select</a>
 					</div>
 				</div>
-				<div class="plan_item"><img src="img/toChange.svg" alt="#">
+				<div class="plan_item"><img src="/darthvider/jsp/img/toChange.svg" alt="#">
 					<div class="plan_description">
 						<h3>Stupid Plan</h3>
 						<ul>
-							<li><img src="img/listOk.svg" alt="#">
+							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
 								<p>Unlimited Bandwitch</p>
 							</li>
-							<li><img src="img/listOk.svg" alt="#">
+							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
 								<p>Unlimited Bandwitch</p>
 							</li>
-							<li><img src="img/listOk.svg" alt="#">
+							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
 								<p>Unlimited Bandwitch</p>
 							</li>
-							<li><img src="img/listOk.svg" alt="#">
+							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
 								<p>Unlimited Bandwitch</p>
 							</li>
 
@@ -140,28 +141,30 @@
 					<button class="active_bttn login_btn">Login</button>
 					<button class="reg_btn">Sign Up</button>
 				</div>
-				<form class="authorization_login" id="login"  action="#">
-					<input type="text" placeholder="Email Address" >
-					<input type="text" placeholder="Password">
-					<button class="authorization_submit primary_button">
+				<form class="authorization_login" id="login"  action="<c:url value="/controller"/>">
+					<input type="hidden" name="command" value="login">
+					<input type="text" name="login" placeholder="Email Address" >
+					<input type="text" name="password" placeholder="Password">
+					<button type="submit" class="authorization_submit primary_button">
 						Login
 					</button>
 					<a href="#" class="autharizathion_forgot">Forgot Password?</a>
 				</form>
-				<form class="authorization_login" id="reg" style="display: none" action="#">
-					<input type="text" placeholder="Login" >
-					<input type="email" placeholder="Email Address" >
-					<input type="password" placeholder="Password">
-					<input type="password" placeholder="Password">
-					<button class="authorization_submit primary_button">
+				<form class="authorization_login" id="reg" style="display: none" action="<c:url value="/controller"/>">
+					<input type="hidden" name="command" value="signup">
+					<input type="text"  name="login" placeholder="Login" >
+					<input type="email"  name="email" placeholder="Email Address" >
+					<input type="password"  name="password" placeholder="Password">
+					<input type="password"  name="password_repeat" placeholder="Password">
+					<button type="submit" class="authorization_submit primary_button">
 						Sign Up
 					</button>
 				</form>
 			</div>
 			<div class="network_map">
 				<h2>Huge Global Network</h2>
-				<p>See DartVider everywhere to make it easier for you when you move locations</p>
-				<img src="img/map.svg" alt="#">
+				<p>See DarthVider everywhere to make it easier for you when you move locations</p>
+				<img src="/darthvider/jsp/img/map.svg" alt="#">
 			</div>
 		</section>
 		<div class="banner">
@@ -181,15 +184,15 @@
 	<div class="container">
 		<div class="footer_about">
 			<div class="text_wrapper">
-				<img src="img/logo.svg" alt="#">
-				<h2>DartVider</h2>
+				<img src="/darthvider/jsp/img/logo.svg" alt="#">
+				<h2>DarthVider</h2>
 			</div>
-			<p>DartVider is the best hame provider that you can only find </p>
-			<span>@2021 Ioann Bezmen</span>
+			<p>DarthVider is the best game provider that you can only find </p>
+			<span>@2021 Daniil Suzdaleu</span>
 		</div>
 	</div>
 </footer>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="js/all.js"></script>
+<script src="/darthvider/jsp/js/all.js"></script>
 </html>

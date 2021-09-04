@@ -3,65 +3,65 @@ package com.roadtoepam.darthvider.dao;
 import java.util.List;
 import java.util.Optional;
 
+import com.roadtoepam.darthvider.entity.ConnectedTariff;
 import com.roadtoepam.darthvider.entity.User;
 import com.roadtoepam.darthvider.entity.UserContract;
 import com.roadtoepam.darthvider.exception.DaoException;
 
-public interface ConnectedTariffDao {
+public interface ConnectedTariffDao{
 	
 	/**
-	   * Get all .
+	   * Get all connected tariffs .
 	   *
-	   * @return all the users as a list.
+	   * @return all the contracts with connected to them tariffs as a list.
 	   * @throws DaoException if any error occurs.
 	   */
-	  List<UserContract> findAll() throws DaoException;
+	  List<ConnectedTariff> findAll() throws DaoException;
 
 	  /**
-	   * Get user as Optional by id.
+	   * Get contract with connected tariff as Optional by id.
 	   *
 	   * @param id unique identifier of the user.
-	   * @return an optional with user if a user with unique identifier exists,
+	   * @return an optional with connected tariff if a contract with unique identifier exists,
 	   *     empty optional otherwise.
 	   * @throws DaoException if any error occurs.
 	   */
-	  Optional<UserContract> findById(int id) throws DaoException;
+	  Optional<ConnectedTariff> findById(int idContract) throws DaoException;
 
 	  /**
-	   * Add a user.
+	   * Add a contract-tariff pair.
 	   *
-	   * @param user to be added.
-	   * @return true if user is successfully added, false if customer already exists.
+	   * @param contract id and tariff id to be added.
+	   * @return true if contract and tariff is successfully connected, false if not.
 	   * @throws DaoException if any error occurs.
 	   */
-	  boolean add(User user, String password) throws DaoException;
-
-	  /**
-	   * Update a user without changing password.
-	   *
-	   * @param user to be updated.
-	   * @return true if user exists and is successfully updated, false otherwise.
-	   * @throws DaoException if any error occurs.
-	   */
-	  boolean update(User user,int id) throws DaoException;
-	  
+	  boolean add(int idContract, int idTariff) throws DaoException;
 	  
 	  /**
-	   * Update a user.
+	   * Delete a contract-tariff pair.
 	   *
-	   * @param user to be updated.
-	   * @return true if user exists and is successfully updated, false otherwise.
+	   * @param contract id and tariff id to be deleted.
+	   * @return true if contract and tariff exists and successfully deleted, false otherwise.
 	   * @throws DaoException if any error occurs.
 	   */
-	  boolean update(User user,String password,int id) throws DaoException;
-
+	  boolean delete(int idContract,int idTariff) throws DaoException;
+	  
 	  /**
-	   * Delete a user.
+	   * Delete a contract-tariff pair using contract id.
 	   *
-	   * @param user to be deleted.
-	   * @return true if user exists and is successfully deleted, false otherwise.
+	   * @param contract id and tariff id to be deleted.
+	   * @return true if contract and tariff exists and successfully deleted, false otherwise.
 	   * @throws DaoException if any error occurs.
 	   */
-	  boolean delete(int id) throws DaoException;
+	  boolean deleteByContract(int idContract) throws DaoException;
+	  
+	  /**
+	   * Delete a contract-tariff pair using tariff id.
+	   *
+	   * @param contract id and tariff id to be deleted.
+	   * @return true if contract and tariff exists and successfully deleted, false otherwise.
+	   * @throws DaoException if any error occurs.
+	   */
+	  boolean deleteByTariff(int idTariff) throws DaoException;
 
 }

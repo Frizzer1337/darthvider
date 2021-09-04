@@ -1,6 +1,7 @@
 package com.roadtoepam.darthvider.dao.impl;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +12,12 @@ import static com.roadtoepam.darthvider.dao.impl.UserColumnName.*;
 import com.roadtoepam.darthvider.utils.security.PasswordEncrypter;
 import com.roadtoepam.darthvider.connectionpool.ConnectionPool;
 import com.roadtoepam.darthvider.connectionpool.ProxyConnection;
+import com.roadtoepam.darthvider.dao.AbstractDao;
 import com.roadtoepam.darthvider.dao.UserDao;
 import com.roadtoepam.darthvider.entity.User;
 import com.roadtoepam.darthvider.exception.DaoException;
 
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl extends AbstractDao implements UserDao{
 
 	private static final String SELECT_ALL_USER = "SELECT id_user,role,balance,login,email,login,status FROM users";
 	private static final String SELECT_USER_BY_ID= "SELECT id_user,role,balance,login,email,login,status FROM users WHERE id_user=?";
@@ -23,6 +25,7 @@ public class UserDaoImpl implements UserDao{
 	private static final String UPDATE_USER="UPDATE users SET role = ?,balance = ?,login = ?,email = ?,status = ?,password = ? WHERE id_user=?";
 	private static final String UPDATE_USER_WITHOUT_PASSWORD="UPDATE users SET role = ?,balance = ?,login = ?,email = ?,status = ? WHERE id_user=?";
 	private static final String DELETE_USER="UPDATE users SET status = 1 WHERE id_user=?";
+	private static final String CHECK_USER = "SELECT id_user FROM users WHERE login=? OR email=?";
 	
 	
     ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -93,6 +96,25 @@ public class UserDaoImpl implements UserDao{
 			throw new DaoException(e);
 		} 
 			
+	}
+	
+	@Override
+	public boolean checkUser(String login, String email) throws DaoException {
+		try(Connection connection = connectionPool.getConnection();
+				var statement = connection.prepareStatement(CHECK_USER);){
+			
+			statement.setString(1,login);
+			statement.setString(2, email);
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+		    return resultSet.next();
+			
+		} catch (SQLException e) {
+		
+		throw new DaoException(e);
+		
+		}
 	}
 
 	@Override

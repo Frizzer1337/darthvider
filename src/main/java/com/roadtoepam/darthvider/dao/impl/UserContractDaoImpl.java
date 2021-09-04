@@ -9,11 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 import com.roadtoepam.darthvider.connectionpool.ConnectionPool;
+import com.roadtoepam.darthvider.dao.AbstractDao;
 import com.roadtoepam.darthvider.dao.UserContractDao;
 import com.roadtoepam.darthvider.entity.UserContract;
 import com.roadtoepam.darthvider.exception.DaoException;
 
-public class UserContractDaoImpl implements UserContractDao{
+public class UserContractDaoImpl extends AbstractDao implements UserContractDao{
 	
 	private static final String SELECT_ALL_CONTRACT = "SELECT id_user,id_contract,start_date,end_date,is_active,discount FROM user_contract";
 	private static final String SELECT_CONTRACT_BY_ID= "SELECT id_user,id_contract,start_date,end_date,is_active,discount FROM user_contract WHERE id_contract=?";
