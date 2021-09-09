@@ -70,5 +70,14 @@ public interface UserDao {
 	   * @return true if user exists and false otherwise.
 	   * @throws DaoException if any error occurs.
 	   */
-	  boolean checkUser(String login,String email) throws DaoException;
+	  boolean isLoginAndEmailFree(String login,String email) throws DaoException;
+	  
+	  /**
+	   * Check if user with same login and password exists.
+	   *
+	   * @param login and password to be checked.
+	   * @return true if user exists and false otherwise.
+	   * @throws DaoException if any error occurs.
+	   */
+	  boolean login(String login,String email) throws DaoException;
 }

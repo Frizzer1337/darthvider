@@ -1,4 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" 
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,10 +25,17 @@
 			<li><a href="#" class="menu_link">Help</a></li>
 			<li><a href="#" class="menu_link">About</a></li>
 		</ul>
+	<c:choose>
+		<c:when test="${status!='Logged'}">	
 		<div class="authorization">
-			<a href="#" class="login">Sign In</a>
-			<a href="#" class="reg">Sign Up</a>
+			<a href="#login_section"  class="login">Sign In</a>
+			<a href="#login_section"  class="reg">Sign Up</a>
 		</div>
+		</c:when>
+		<c:otherwise>
+			Hello
+		</c:otherwise>
+	</c:choose>
 	</div>
 </header>
 <main class="main">
@@ -135,32 +143,48 @@
 			</div>
 			<a href="#" class="more_plans primary_button">More Plans</a>
 		</section>
+		<a id="login_section"></a>
 		<section class="our_map">
+		<c:choose>
+		<c:when test="${status!='SUCCESS'}">	
 			<div class="autharization_form">
 				<div class="autharization_bttns">
 					<button class="active_bttn login_btn">Login</button>
 					<button class="reg_btn">Sign Up</button>
 				</div>
 				<form class="authorization_login" id="login"  action="<c:url value="/controller"/>">
-					<input type="hidden" name="command" value="login">
-					<input type="text" name="login" placeholder="Email Address" >
-					<input type="text" name="password" placeholder="Password">
+					<input type="hidden" name="command" value="login"  required>
+					<input type="text" name="email" placeholder="Email Address"  required>
+					<input type="password" name="password" placeholder="Password"  required>
 					<button type="submit" class="authorization_submit primary_button">
 						Login
 					</button>
 					<a href="#" class="autharizathion_forgot">Forgot Password?</a>
 				</form>
+				
 				<form class="authorization_login" id="reg" style="display: none" action="<c:url value="/controller"/>">
 					<input type="hidden" name="command" value="signup">
-					<input type="text"  name="login" placeholder="Login" >
-					<input type="email"  name="email" placeholder="Email Address" >
-					<input type="password"  name="password" placeholder="Password">
-					<input type="password"  name="password_repeat" placeholder="Password">
+					<input type="text"  name="login" value="${formMap.login}" placeholder="Login"  required>
+					<input type="email"  name="email" value="${formMap.email}" placeholder="Email Address"  required>
+					<input type="password"  name="password" value="${formMap.password}" placeholder="Password"  required>
+					<input type="password"  name="password_repeat" value="${formMap.password_repeat}" placeholder="Password"  required>
 					<button type="submit" class="authorization_submit primary_button">
 						Sign Up
 					</button>
 				</form>
 			</div>
+		</c:when>
+		<c:otherwise>
+		<div class="autharization_form">
+		<div class="success_registration">
+			<img src="/darthvider/jsp/img/registerOk.png" alt="#">
+			<div class="success_registration_text">
+			You're succesfully registred, confirmation mail was sent!
+			</div>
+			</div>
+		</div>
+		</c:otherwise>
+		</c:choose>
 			<div class="network_map">
 				<h2>Huge Global Network</h2>
 				<p>See DarthVider everywhere to make it easier for you when you move locations</p>
@@ -171,7 +195,7 @@
 			<div class="banner_text">
 				<h2>Subscribe Now for <br>
 					Get Special Features!
-				</h2>
+				</h2>	
 				<p>Let's subscribe with us and find the fun</p>
 			</div>
 			<div class="btn-wrapper">

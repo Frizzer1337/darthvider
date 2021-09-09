@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" 
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,10 +25,17 @@
             <li><a href="#" class="menu_link">Help</a></li>
             <li><a href="#" class="menu_link">About</a></li>
         </ul>
-        <div class="authorization">
-            <a href="#" class="login">Sign In</a>
-            <a href="#" class="reg">Sign Up</a>
-        </div>
+        <c:choose>
+		<c:when test="${status!='Logged'}">	
+		<div class="authorization">
+			<a href="/darthvider/jsp/main.jsp#login_section"  class="login">Sign In</a>
+			<a href="/darthvider/jsp/main.jsp#login_section"  class="reg">Sign Up</a>
+		</div>
+		</c:when>
+		<c:otherwise>
+			Hello
+		</c:otherwise>
+	</c:choose>
     </div>
 </header>
 <main class="main">

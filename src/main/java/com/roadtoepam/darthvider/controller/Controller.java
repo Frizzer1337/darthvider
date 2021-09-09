@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.roadtoepam.darthvider.command.Command;
 import com.roadtoepam.darthvider.command.CommandProvider;
 import com.roadtoepam.darthvider.command.Router;
+import com.roadtoepam.darthvider.exception.CommandException;
 
 import static com.roadtoepam.darthvider.command.PageRouting.*;
 import static com.roadtoepam.darthvider.command.RequestContent.*;
@@ -34,7 +35,12 @@ public class Controller extends HttpServlet {
         String commandName = request.getParameter(COMMAND);
         System.out.println(commandName);
         Optional<Command> command = COMMAND_PROVIDER.getCommand(commandName);
-        Router router = command.get().execute(request);
+        Router router;
+		try {
+			router = command.get().execute(request);
+		} catch (CommandException e) {
+			router = new Router(ERROR_404_PAGE,Router.RouterType.REDIRECT);
+		}
         switch (router.getRouterType()) {
             case REDIRECT:
                 response.sendRedirect(router.getPagePath());

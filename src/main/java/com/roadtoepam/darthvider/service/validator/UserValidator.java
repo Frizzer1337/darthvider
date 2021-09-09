@@ -5,8 +5,8 @@ package com.roadtoepam.darthvider.service.validator;
  */
 public class UserValidator {
 	
-	 private static final String LOGIN_REGEX = "^[a-zA-Z0-9_]{6,20}$";
-	 private static final String EMAIL_REGEX= "/^\\S+@\\S+\\.\\S+$/";
+	 private static final String LOGIN_REGEX = "^[\\w_]{6,20}$";
+	 private static final String EMAIL_REGEX= "^([\\w-\\.]+){1,64}@([\\w&&[^_]]+){2,255}.[a-z]{2,}$";
      private static final String PASSWORD_REGEX = "^.{8,30}$";
     
      public static boolean validateLogin(String login) {

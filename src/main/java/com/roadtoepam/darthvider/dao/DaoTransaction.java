@@ -14,7 +14,7 @@ public class DaoTransaction {
 	    private static Logger logger = LogManager.getLogger();
 	    private Connection connection;
 
-	    public void initTransaction(AbstractDao dao, AbstractDao... daos) throws DaoException {
+	    public void start(AbstractDao dao, AbstractDao... daos) throws DaoException {
 	        if (connection == null) {
 	            connection = ConnectionPool.getInstance().getConnection();
 	        }
@@ -30,7 +30,7 @@ public class DaoTransaction {
 	        }
 	    }
 
-	    public void init(AbstractDao dao) {
+	    public void start(AbstractDao dao) {
 	        if (connection == null) {
 	            connection = ConnectionPool.getInstance().getConnection();
 	        }
