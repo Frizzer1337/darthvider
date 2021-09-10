@@ -7,16 +7,17 @@ import static com.roadtoepam.darthvider.command.RequestContent.*;
 
 import com.roadtoepam.darthvider.dao.DaoTransaction;
 import com.roadtoepam.darthvider.dao.impl.UserDaoImpl;
+import com.roadtoepam.darthvider.entity.User;
 import com.roadtoepam.darthvider.exception.DaoException;
 import com.roadtoepam.darthvider.exception.ServiceException;
 import com.roadtoepam.darthvider.service.validator.UserValidator;
 
 public class ClientService {
-	
-	private final UserDaoImpl userDao = new UserDaoImpl();
-	private final DaoTransaction transaction = new DaoTransaction();
 
 	public boolean isLoginOrEmailBusy(Map<String,String> userData) throws ServiceException {
+		
+		final UserDaoImpl userDao = new UserDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
 		
 		boolean result = false;
 		try {
@@ -34,14 +35,43 @@ public class ClientService {
 	
 	public boolean isPasswordCorrect(Map<String,String> regData) throws ServiceException {
 		
+		final UserDaoImpl userDao = new UserDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		
 		boolean result = false;
 		try {
 			transaction.start(userDao);
-			result = userDao.login(regData.get(LOGIN), regData.get(PASSWORD));
+			result = userDao.login(regData.get(EMAIL), regData.get(PASSWORD));
 			transaction.end();
 		} catch (DaoException e) {
 			
 			throw new ServiceException("Error while checking for login and email",e);
+			
+		}
+	
+		return result;
+	}
+	
+	public boolean addUser(Map<String,String> userData) throws ServiceException {
+		
+		final UserDaoImpl userDao = new UserDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		
+		boolean result = false;
+		try {
+			transaction.start(userDao);
+			User user = User.newBuilder()
+							.setEmail(userData.get(EMAIL))
+							.setLogin(userData.get(LOGIN))
+							.setRole(0)
+							.setBalance(0)
+							.setBlockStatus(false)
+							.build();
+			result = userDao.add(user, userData.get(PASSWORD));
+			transaction.end();
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while adding user",e);
 			
 		}
 	
@@ -123,7 +153,7 @@ public class ClientService {
 		}
 		
 		if (!validUserData.containsKey(REQUEST_STATUS)) {
-			validUserData.put(REQUEST_STATUS,"SUCCESS");
+			validUserData.put(REQUEST_STATUS,"SUCCESS_REGISTRATION");
 		} else {
 			validUserData.put(PASSWORD,"");
 			validUserData.put(PASSWORD_REPEAT, "");

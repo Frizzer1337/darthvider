@@ -26,7 +26,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 	private static final String UPDATE_USER_WITHOUT_PASSWORD="UPDATE users SET role = ?,balance = ?,login = ?,email = ?,status = ? WHERE id_user=?";
 	private static final String DELETE_USER="UPDATE users SET status = 1 WHERE id_user=?";
 	private static final String CHECK_LOGIN_OR_EMAIL = "SELECT id_user FROM users WHERE login=? OR email=?";
-	private static final String CHECK_FOR_USER = "SELECT id_user FROM users WHERE email=? AND password=?";
+	private static final String CHECK_FOR_USER = "SELECT id_user FROM users WHERE (email=? AND password=?)";
 	
 	
     ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -119,12 +119,12 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 	}
 	
 	@Override
-	public boolean login(String login, String password) throws DaoException {
+	public boolean login(String email, String password) throws DaoException {
 		try(Connection connection = connectionPool.getConnection();
 				var statement = connection.prepareStatement(CHECK_FOR_USER);){
 			
-			statement.setString(1,login);
-			statement.setString(2, password);
+			statement.setString(1,email);
+			statement.setString(2, PasswordEncrypter.encrypt(password));
 			
 			ResultSet resultSet = statement.executeQuery();
 			

@@ -47,11 +47,10 @@ public class LoginCommand implements Command {
 			throw new CommandException(e);
 		}
 		
-		System.out.print(passwordCorrect);
-		
 		if (passwordCorrect) {
 				
-			session.setAttribute(REQUEST_STATUS, "SUCCESS");
+			session.setAttribute(REQUEST_STATUS, "SUCCESS_LOGIN");
+			session.setAttribute(EMAIL,regData.get(EMAIL));
 
 		} else {		
 			
@@ -62,7 +61,7 @@ public class LoginCommand implements Command {
 		
 		
 		
-		return new Router(MAIN_PAGE, Router.RouterType.FORWARD);
+		return new Router(MAIN_PAGE, Router.RouterType.REDIRECT);
 	}
 
 }

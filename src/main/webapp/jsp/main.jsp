@@ -26,14 +26,16 @@
 			<li><a href="#" class="menu_link">About</a></li>
 		</ul>
 	<c:choose>
-		<c:when test="${status!='Logged'}">	
+		<c:when test="${status!='SUCCESS_LOGIN'}">	
 		<div class="authorization">
 			<a href="#login_section"  class="login">Sign In</a>
 			<a href="#login_section"  class="reg">Sign Up</a>
 		</div>
 		</c:when>
 		<c:otherwise>
-			Hello
+			<ul class="main_menu">
+				<li><a href="#" class="menu_link">${email}</a></li>
+			</ul>
 		</c:otherwise>
 	</c:choose>
 	</div>
@@ -146,14 +148,34 @@
 		<a id="login_section"></a>
 		<section class="our_map">
 		<c:choose>
-		<c:when test="${status!='SUCCESS'}">	
-			<div class="autharization_form">
+		<c:when test="${status=='SUCCESS_REGISTRATION'}">	
+		<div class="autharization_form">
+			<div class="success_registration">
+			<img src="/darthvider/jsp/img/registerOk.png" alt="#">
+			<div class="success_registration_text">
+			You're succesfully registred, confirmation mail was sent!
+			</div>
+			</div>
+		</div>
+		</c:when>
+		<c:when test="${status=='SUCCESS_LOGIN'}">	
+			<div class="network_map">
+				<h2>May the force of high speed internet be with you</h2>
+				<p>DarthVider provides a high speed internet that you can rely on </p>
+				<img src="/darthvider/jsp/img/rocket.png" height="250px" alt="#">
+			</div>
+		</c:when>
+		<c:otherwise>
+		<div class="autharization_form">
 				<div class="autharization_bttns">
 					<button class="active_bttn login_btn">Login</button>
 					<button class="reg_btn">Sign Up</button>
 				</div>
 				<form class="authorization_login" id="login"  action="<c:url value="/controller"/>">
 					<input type="hidden" name="command" value="login"  required>
+					<c:if test="${status == 'WRONG_LOGIN'}">
+					<span class="error_message">User with such data doesn't exist</span>
+					</c:if>
 					<input type="text" name="email" placeholder="Email Address"  required>
 					<input type="password" name="password" placeholder="Password"  required>
 					<button type="submit" class="authorization_submit primary_button">
@@ -164,6 +186,21 @@
 				
 				<form class="authorization_login" id="reg" style="display: none" action="<c:url value="/controller"/>">
 					<input type="hidden" name="command" value="signup">
+					<c:if test="${status == 'PASSWORD_NOT_REPEATED'}">
+					<span class="error_message">Your passwords don't match</span>
+					</c:if>
+					<c:if test="${status == 'BAD_PASSWORD'}">
+					<span class="error_message">Password must be 8-30 characters long</span>
+					</c:if>
+					<c:if test="${status == 'BAD_EMAIL'}">
+					<span class="error_message">You entered a wrong email</span>
+					</c:if>
+					<c:if test="${status == 'BAD_LOGIN'}">
+					<span class="error_message">Login must be 6-20 characters long and include only letters and digits</span>
+					</c:if>
+					<c:if test="${status == 'DATA_ALREADY_EXISTS'}">
+					<span class="error_message">User with same login or email already exist</span>
+					</c:if>
 					<input type="text"  name="login" value="${formMap.login}" placeholder="Login"  required>
 					<input type="email"  name="email" value="${formMap.email}" placeholder="Email Address"  required>
 					<input type="password"  name="password" value="${formMap.password}" placeholder="Password"  required>
@@ -172,16 +209,6 @@
 						Sign Up
 					</button>
 				</form>
-			</div>
-		</c:when>
-		<c:otherwise>
-		<div class="autharization_form">
-		<div class="success_registration">
-			<img src="/darthvider/jsp/img/registerOk.png" alt="#">
-			<div class="success_registration_text">
-			You're succesfully registred, confirmation mail was sent!
-			</div>
-			</div>
 		</div>
 		</c:otherwise>
 		</c:choose>

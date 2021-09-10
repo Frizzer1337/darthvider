@@ -5,3 +5,8 @@ body{font-family:Rubik;font-size:16px;font-weight:500}.container{max-width:1140p
 	font-weight:500;
 	
 	}
+.error_message{
+	color:#B62C37;
+	margin-top:10px;
+	margin-bottom:10px;
+}

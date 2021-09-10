@@ -55,20 +55,28 @@ public class SignUpCommand implements Command {
 		}
 		
 		
-		if (validData.get(REQUEST_STATUS).equals("SUCCESS")) {
+		if (validData.get(REQUEST_STATUS).equals("SUCCESS_REGISTRATION")) {
 				
-			session.removeAttribute(FORM_MAP);
-			session.setAttribute(REQUEST_STATUS, "SUCCESS");
+			session.removeAttribute(LOGIN);
+			session.removeAttribute(EMAIL);
+			try {
+				clientService.addUser(validData);
+			} catch (ServiceException e) {
+				throw new CommandException("Error occured while adding user",e);
+			}
+			session.setAttribute(REQUEST_STATUS, "SUCCESS_REGISTRATION");
 
 		} else {		
 			
-			session.setAttribute(FORM_MAP, validData);
+			session.setAttribute(LOGIN,validData.get(LOGIN));
+			session.setAttribute(EMAIL,validData.get(EMAIL));
+			session.setAttribute(REQUEST_STATUS,validData.get(REQUEST_STATUS));
 			
 			
 		}
 
 		
-		return new Router(MAIN_PAGE, Router.RouterType.FORWARD);
+		return new Router(MAIN_PAGE, Router.RouterType.REDIRECT);
 	}
 
 }
