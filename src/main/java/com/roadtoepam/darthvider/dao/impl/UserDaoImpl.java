@@ -8,25 +8,26 @@ import java.util.List;
 import java.util.Optional;
 import static com.roadtoepam.darthvider.dao.impl.UserColumnName.*;
 
-
-import com.roadtoepam.darthvider.utils.security.PasswordEncrypter;
 import com.roadtoepam.darthvider.connectionpool.ConnectionPool;
 import com.roadtoepam.darthvider.connectionpool.ProxyConnection;
 import com.roadtoepam.darthvider.dao.AbstractDao;
 import com.roadtoepam.darthvider.dao.UserDao;
 import com.roadtoepam.darthvider.entity.User;
 import com.roadtoepam.darthvider.exception.DaoException;
+import com.roadtoepam.darthvider.util.security.PasswordEncrypter;
 
 public class UserDaoImpl extends AbstractDao implements UserDao{
 
 	private static final String SELECT_ALL_USER = "SELECT id_user,role,balance,login,email,login,status FROM users";
 	private static final String SELECT_USER_BY_ID= "SELECT id_user,role,balance,login,email,login,status FROM users WHERE id_user=?";
+	private static final String SELECT_USER_BY_EMAIL= "SELECT id_user,role,balance,login,email,login,status FROM users WHERE email=?";
 	private static final String ADD_USER="INSERT INTO users (role,balance,login,email,status,password) VALUES  (?, ?, ?, ?, ?,?)";
 	private static final String UPDATE_USER="UPDATE users SET role = ?,balance = ?,login = ?,email = ?,status = ?,password = ? WHERE id_user=?";
 	private static final String UPDATE_USER_WITHOUT_PASSWORD="UPDATE users SET role = ?,balance = ?,login = ?,email = ?,status = ? WHERE id_user=?";
 	private static final String DELETE_USER="UPDATE users SET status = 1 WHERE id_user=?";
 	private static final String CHECK_LOGIN_OR_EMAIL = "SELECT id_user FROM users WHERE login=? OR email=?";
 	private static final String CHECK_FOR_USER = "SELECT id_user FROM users WHERE (email=? AND password=?)";
+	private static final String UPDATE_ROLE="UPDATE users SET role = ? WHERE id_user=?";
 	
 	
     ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -68,9 +69,9 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 	public Optional<User> findById(int id) throws DaoException {
 		
 		try(Connection connection = connectionPool.getConnection();
-			var statement = connection.prepareStatement(SELECT_USER_BY_ID);) { 
+			var statement = connection.prepareStatement(SELECT_USER_BY_EMAIL);) { 
 		      
-		      statement.setLong(1,id);     
+		      statement.setInt(1,id);     
 		      
 		      var resultSet = statement.executeQuery();
 		     	      
@@ -100,6 +101,30 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 	}
 	
 	@Override
+	public int findIdByEmail(String email) throws DaoException {
+		
+		try(Connection connection = connectionPool.getConnection();
+			var statement = connection.prepareStatement(SELECT_USER_BY_EMAIL);) { 
+		      
+		      statement.setString(1,email);     
+		      
+		      var resultSet = statement.executeQuery();
+		     	      
+		      if(resultSet.next()) {
+		    	  
+		      
+		    	 int id = resultSet.getInt(ID_USER);
+		    	 return id;
+		    	  
+		      } else { return -1;}
+		      
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		} 
+			
+	}
+	
+	@Override
 	public boolean isLoginAndEmailFree(String login, String email) throws DaoException {
 		try(Connection connection = connectionPool.getConnection();
 				var statement = connection.prepareStatement(CHECK_LOGIN_OR_EMAIL);){
@@ -116,6 +141,26 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 		throw new DaoException(e);
 		
 		}
+	}
+	
+	@Override
+	public boolean changeRole(int id, int roleId) throws DaoException {
+		try(Connection connection = connectionPool.getConnection();
+				var statement = connection.prepareStatement(UPDATE_ROLE);){
+			
+		statement.setInt(1, roleId);	
+		statement.setInt(2, id);	
+		
+		 int status = statement.executeUpdate();
+			
+	     return status>0;
+	     
+		} catch (SQLException e) {
+			
+			throw new DaoException(e);
+			
+		}
+		
 	}
 	
 	@Override

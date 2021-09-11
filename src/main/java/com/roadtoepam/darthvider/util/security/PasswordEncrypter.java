@@ -1,4 +1,4 @@
-package com.roadtoepam.darthvider.utils.security;
+package com.roadtoepam.darthvider.util.security;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +12,7 @@ import com.roadtoepam.darthvider.connectionpool.ConnectionFactory;
 
 public class PasswordEncrypter {
 	
-	private static final String resource = "app.properties";
+	private static final String RESOURCE = "app.properties";
 	private static final Properties appProperties = new Properties();
 	private static final Logger logger= LogManager.getLogger();
 	
@@ -27,13 +27,13 @@ public class PasswordEncrypter {
 	
 	public static String encrypt(String password) {
 		
-		try(InputStream inputStream = ConnectionFactory.class.getClassLoader().getResourceAsStream(resource);) {
+		try(InputStream inputStream = ConnectionFactory.class.getClassLoader().getResourceAsStream(RESOURCE);) {
 			
 			appProperties.load(inputStream);
 			salt = appProperties.getProperty("salt");
 			
 		} catch (IOException e) {
-			logger.warn("Error while getting salt from" + resource);
+			logger.warn("Error while getting salt from" + RESOURCE);
 			throw new RuntimeException(e);
 		}
 		

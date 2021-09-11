@@ -2,6 +2,7 @@ package com.roadtoepam.darthvider.service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import static com.roadtoepam.darthvider.command.RequestContent.*;
 
@@ -11,8 +12,37 @@ import com.roadtoepam.darthvider.entity.User;
 import com.roadtoepam.darthvider.exception.DaoException;
 import com.roadtoepam.darthvider.exception.ServiceException;
 import com.roadtoepam.darthvider.service.validator.UserValidator;
+import com.roadtoepam.darthvider.util.MailSender;
 
 public class ClientService {
+	
+	public void sendConfirmationEmail(long id, String email) throws ServiceException {
+		
+		MailSender sender = new MailSender();
+		sender.sendMessage(id, email);
+		
+	}
+	
+	public int getUserIdByEmail(String email) throws ServiceException {
+		
+		final UserDaoImpl userDao = new UserDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		
+		int userId=-1;
+		try {
+			transaction.start(userDao);
+			userId = userDao.findIdByEmail(email);
+			transaction.end();
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while checking for login and email",e);
+			
+		}
+		return userId;
+		
+		
+		
+	}
 
 	public boolean isLoginOrEmailBusy(Map<String,String> userData) throws ServiceException {
 		
@@ -85,6 +115,20 @@ public class ClientService {
 		return result;	
 		
 		
+	}
+	
+	public void verify(HashMap<String, String> regData) throws ServiceException {
+		
+		final UserDaoImpl userDao = new UserDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		
+		try {
+			transaction.start(userDao);
+			userDao.changeRole(Integer.parseInt(regData.get(USERID)), 1);
+			transaction.end();
+		} catch (NumberFormatException | DaoException e) {
+			throw new ServiceException("Error occured while verifying email",e);
+		}
 	}
 	
 	public boolean validateEmail(Map<String,String> userData) {
@@ -161,6 +205,8 @@ public class ClientService {
 		
 		return validUserData;
 		
+		
+			
 		
 		
 	}

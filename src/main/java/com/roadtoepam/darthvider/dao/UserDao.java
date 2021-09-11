@@ -25,6 +25,16 @@ public interface UserDao {
 	   * @throws DaoException if any error occurs.
 	   */
 	  Optional<User> findById(int id) throws DaoException;
+	  
+	  /**
+	   * Get user id by email.
+	   *
+	   * @param email of the user.
+	   * @return user id if exists, -1 otherwise.
+	   * @throws DaoException if any error occurs.
+	   */
+	  
+	  int findIdByEmail(String email) throws DaoException;
 
 	  /**
 	   * Add a user.
@@ -80,4 +90,14 @@ public interface UserDao {
 	   * @throws DaoException if any error occurs.
 	   */
 	  boolean login(String login,String email) throws DaoException;
+	  
+	  /**
+	   * Change role of user by id.
+	   *
+	   * @param userd id and role to change.
+	   * @return true if change successfully and false otherwise.
+	   * @throws DaoException if any error occurs.
+	   */
+
+	  boolean changeRole(int id, int roleId) throws DaoException;
 }

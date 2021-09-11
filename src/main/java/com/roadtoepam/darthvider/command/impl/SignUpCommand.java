@@ -61,8 +61,10 @@ public class SignUpCommand implements Command {
 			session.removeAttribute(EMAIL);
 			try {
 				clientService.addUser(validData);
+				int userId = clientService.getUserIdByEmail(validData.get(EMAIL));
+				clientService.sendConfirmationEmail(userId,validData.get(EMAIL));
 			} catch (ServiceException e) {
-				throw new CommandException("Error occured while adding user",e);
+				throw new CommandException("Error occured while adding user or sending confirmation email",e);
 			}
 			session.setAttribute(REQUEST_STATUS, "SUCCESS_REGISTRATION");
 

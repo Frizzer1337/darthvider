@@ -11,7 +11,9 @@ import com.roadtoepam.darthvider.dao.impl.UserRoleDaoImpl;
 import com.roadtoepam.darthvider.entity.ConnectedTariff;
 import com.roadtoepam.darthvider.entity.RoleInfo;
 import com.roadtoepam.darthvider.entity.User;
-import com.roadtoepam.darthvider.utils.security.PasswordEncrypter;
+import com.roadtoepam.darthvider.exception.ServiceException;
+import com.roadtoepam.darthvider.util.MailSender;
+import com.roadtoepam.darthvider.util.security.PasswordEncrypter;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -27,38 +29,16 @@ public class TestServlets extends HttpServlet {
 		
 		response.getWriter().print("Hello");
 		
-		var userDAO = new UserDaoImpl();
-		var roleDao = new UserRoleDaoImpl();
-		var connectDao = new ConnectedTariffDaoImpl();
-		Optional<User> user = Optional.empty();
-		List<User> userList = null;
-		List<RoleInfo> roleList = null;
-		List<ConnectedTariff> conList = null;
-		Optional<ConnectedTariff> con = Optional.empty();
+		MailSender sender = new MailSender();
 		try {
-			var status3 = userDAO.checkUser("1","1");
-			response.getWriter().print(status3);
-			
-		
-		    
-		    
-		} catch (Exception e) {
+			sender.sendMessage(3, "eo.ursuz@gmail.com");
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		response.getWriter().println("Served at: " + request.getContextPath());
-		
-		response.getWriter().println(con);
 	
-//		for(ConnectedTariff connectInList: conList) {
-//			
-//			response.getWriter().println(connectInList.getContractInfo());
-//			
-//		}	
-		
-		
 	}
-
+		
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	}
