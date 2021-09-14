@@ -124,7 +124,8 @@ public class ClientService {
 		
 		try {
 			transaction.start(userDao);
-			userDao.changeRole(Integer.parseInt(regData.get(USERID)), 1);
+			int unhashedId = (Integer.parseInt(regData.get(USERID))-293)/397;
+			userDao.changeRole(unhashedId, 1);
 			transaction.end();
 		} catch (NumberFormatException | DaoException e) {
 			throw new ServiceException("Error occured while verifying email",e);

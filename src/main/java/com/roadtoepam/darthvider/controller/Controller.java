@@ -37,7 +37,7 @@ public class Controller extends HttpServlet {
         Optional<Command> command = COMMAND_PROVIDER.getCommand(commandName);
         Router router;
 		try {
-			router = command.get().execute(request);
+			router = command.isPresent()?command.get().execute(request):new Router(ERROR_404_PAGE, Router.RouterType.ERROR);
 		} catch (CommandException e) {
 			router = new Router(ERROR_404_PAGE,Router.RouterType.REDIRECT);
 		}
@@ -49,8 +49,12 @@ public class Controller extends HttpServlet {
                 RequestDispatcher dispatcher = request.getRequestDispatcher(router.getPagePath());
                 dispatcher.forward(request, response);
                 break;
+            case ERROR:
+            	response.sendRedirect(router.getPagePath());
+                break;
             default:
                 response.sendRedirect(ERROR_404_PAGE);
+                break;
         }
     }
 

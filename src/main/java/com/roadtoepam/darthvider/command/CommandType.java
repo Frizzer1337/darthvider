@@ -1,5 +1,6 @@
 package com.roadtoepam.darthvider.command;
 
+import com.roadtoepam.darthvider.command.impl.ChangeLocaleCommand;
 import com.roadtoepam.darthvider.command.impl.LoginCommand;
 import com.roadtoepam.darthvider.command.impl.SignUpCommand;
 import com.roadtoepam.darthvider.command.impl.VerifyUserCommand;
@@ -9,8 +10,8 @@ public enum CommandType {
 
 			LOGIN(new LoginCommand(new ClientService())),
 			SIGNUP(new SignUpCommand(new ClientService())),
-			VERIFYUSER(new VerifyUserCommand(new ClientService()));
-			
+			VERIFYUSER(new VerifyUserCommand(new ClientService())),
+			CHANGELOCALE(new ChangeLocaleCommand(new ClientService()));
 //	        LOGOUT(new LogOutCommand(new DefaultService())),
 //	        SUCCESSFULLY_REGISTRATION(new SuccessfullyRegistrationCommand(new DefaultService()));
 	

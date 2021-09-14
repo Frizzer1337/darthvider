@@ -2,7 +2,7 @@ package com.roadtoepam.darthvider.command;
 
 public class Router {
     public enum RouterType {
-        FORWARD, REDIRECT
+        FORWARD, REDIRECT,ERROR
     }
     
     private final RouterType routerType;

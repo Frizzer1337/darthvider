@@ -15,28 +15,51 @@
 </head>
 <body>
 <header class="header">
-    <div class="container">
-        <div class="logo">
-            <img src="/darthvider/jsp/img/logo.svg" alt="Logotype" class="header_logo"> <span>DarthVider</span>
-        </div>
-        <ul class="main_menu">
-            <li><a href="/darthvider/jsp/main.jsp" class="menu_link">Home</a></li>
-            <li><a href="#" class="menu_link">Shop</a></li>
-            <li><a href="#" class="menu_link">Help</a></li>
-            <li><a href="#" class="menu_link">About</a></li>
-        </ul>
-        <c:choose>
-		<c:when test="${status!='Logged'}">	
+	<div class="container">
+		<div class="logo">
+			<img src="/darthvider/jsp/img/logo.svg" alt="Logotype" class="header_logo"> <span>DarthVider</span>
+		</div>
+		<ul class="main_menu">
+			<li><a href="/darthvider/" class="menu_link">Home</a></li>
+			<li><a href="#" class="menu_link">Shop</a></li>
+			<li><a href="#" class="menu_link">Help</a></li>
+			<li><a href="#" class="menu_link">About</a></li>
+		</ul>
+		<form class="wrapper"  action="<c:url value="/controller"/>">
+			<input type="hidden" name="command" value="changeLocale">
+		<c:choose>
+		<c:when test="${locale!='ru_RU'}">
+		 <input type="radio" name="locale" value="EN" id="option-1" checked>
+		 <input type="radio" name="locale" value="RU" id="option-2">
+		</c:when>
+		<c:otherwise>
+		 <input type="radio" name="locale" value="EN" id="option-1" >
+		 <input type="radio" name="locale" value="RU" id="option-2" checked>
+		</c:otherwise>
+		</c:choose>
+		   <label for="option-1" class="option option-1">
+		     <div class="dot"></div>
+		      <span>English</span>
+		      </label>
+		   <label for="option-2" class="option option-2">
+		     <div class="dot"></div>
+		      <span>Russian</span>
+		   </label>
+	   </form>
+	<c:choose>
+		<c:when test="${status!='SUCCESS_LOGIN'}">	
 		<div class="authorization">
-			<a href="/darthvider/jsp/main.jsp#login_section"  class="login">Sign In</a>
-			<a href="/darthvider/jsp/main.jsp#login_section"  class="reg">Sign Up</a>
+			<a href="#login_section"  class="login">Sign In</a>
+			<a href="#login_section"  class="reg">Sign Up</a>
 		</div>
 		</c:when>
 		<c:otherwise>
-			Hello
+			<ul class="main_menu">
+				<li><a href="#" class="menu_link">${email}</a></li>
+			</ul>
 		</c:otherwise>
 	</c:choose>
-    </div>
+	</div>
 </header>
 <main class="main">
     <div class="container">

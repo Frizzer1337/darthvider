@@ -11,6 +11,7 @@ public class RequestContent {
     public static final String SIGNUP = "sign_up";
     public static final String REQUEST_STATUS = "status";
     public static final String FORM_MAP = "formMap";
+    public static final String LOCALE = "locale";
     
     private RequestContent() {
     }
