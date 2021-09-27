@@ -11,6 +11,7 @@ public class Tariff {
 	private boolean isActive;
 	private int dueType;
 	
+	
 	public Tariff() {
 		
 	}
@@ -66,6 +67,80 @@ public class Tariff {
 
 	public void setShortInfo(String shortInfo) {
 		this.shortInfo = shortInfo;
+	}
+	
+
+	public static Tariff.Builder newBuilder(){
+		
+		return new Tariff().new Builder();
+		
+	}
+	
+	public class Builder{
+		
+		protected Builder() {};
+
+		public Tariff.Builder setId(long id) {
+			
+			Tariff.this.id = id;
+			
+			return this;		
+		}
+
+		public Tariff.Builder setName(String name) {
+			
+			Tariff.this.name = name;
+			
+			return this;	
+		}
+
+		public Tariff.Builder setPrice(float price) {
+			
+			Tariff.this.price = price;
+			
+			return this;	
+		}
+
+		public Tariff.Builder setInfo(String info) {
+			
+			Tariff.this.info = info;
+			
+			return this;	
+		}
+
+		public Tariff.Builder setShortInfo(String shortInfo) {
+			Tariff.this.shortInfo = shortInfo;
+			
+			return this;	
+		}
+
+		public Tariff.Builder setDiscount(int discount) {
+			
+			Tariff.this.discount = discount;
+			
+			return this;	
+		}
+		
+		public Tariff.Builder setDueType(int dueType) {
+			
+			Tariff.this.dueType = dueType;
+			
+			return this;	
+		}	
+		
+		public Tariff.Builder setIsActive(boolean isActive) {
+			
+			Tariff.this.isActive = isActive;
+			
+			return this;	
+		}	
+		
+		public Tariff build() {
+			
+			return Tariff.this;
+			
+		}
+		
 	}
 	
 	@Override

@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 import com.roadtoepam.darthvider.dao.impl.ConnectedTariffDaoImpl;
+import com.roadtoepam.darthvider.dao.impl.TariffDaoImpl;
 import com.roadtoepam.darthvider.dao.impl.UserDaoImpl;
 import com.roadtoepam.darthvider.dao.impl.UserRoleDaoImpl;
 import com.roadtoepam.darthvider.entity.ConnectedTariff;
 import com.roadtoepam.darthvider.entity.RoleInfo;
 import com.roadtoepam.darthvider.entity.User;
+import com.roadtoepam.darthvider.exception.DaoException;
 import com.roadtoepam.darthvider.exception.ServiceException;
 import com.roadtoepam.darthvider.util.MailSender;
 import com.roadtoepam.darthvider.util.security.PasswordEncrypter;
@@ -27,12 +29,11 @@ public class TestServlets extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.getWriter().print("Hello");
+		TariffDaoImpl dao = new TariffDaoImpl();
 		
-		MailSender sender = new MailSender();
 		try {
-			sender.sendMessage(3, "eo.ursuz@gmail.com");
-		} catch (ServiceException e) {
+			response.getWriter().print(dao.findAll().toString());
+		} catch (IOException | DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -2,7 +2,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<fmt:setLocale value="${locale}" scope="session"/>
+<c:choose>
+	<c:when test="${locale!=null}">
+		<fmt:setLocale value="${locale}" scope="session"/>
+    </c:when>
+    <c:otherwise>
+   		 <fmt:setLocale value="en" scope="session"/>
+    </c:otherwise>
+</c:choose>
 <fmt:setBundle basename="pages"/>
 
 <html>
@@ -74,7 +81,7 @@
 						<fmt:message key="main.slogan.firstpart"/><br> <fmt:message key="main.slogan.secondpart"/>
 					</h2>
 					<p><fmt:message key="main.slogan.under"/></p>
-					<a class="get_started primary_button" href="#">
+					<a class="get_started primary_button" href="#login_section">
 						<fmt:message key="main.slogan.button"/>
 					</a>
 				</div>
@@ -100,75 +107,77 @@
 				<p><fmt:message key="main.plans.smalltext"/></p>
 			</div>
 			<div class="plans">
-				<div class="plan_item"><img src="/darthvider/jsp/img/toChange.svg" alt="#">
+				<div class="plan_item"><img src="/darthvider/jsp/img/tariff1.svg" height=100px alt="#">
 					<div class="plan_description">
-						<h3>Stupid Plan</h3>
+						<h3><fmt:message key="main.firsttariff.name"/></h3>
 						<ul>
 							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
-								<p>Unlimited Bandwitch</p>
+								<p><fmt:message key="main.firsttariff.firstplus"/></p>
 							</li>
 							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
-								<p>Unlimited Bandwitch</p>
+								<p><fmt:message key="main.firsttariff.secondplus"/></p>
 							</li>
 							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
-								<p>Unlimited Bandwitch</p>
+								<p><fmt:message key="main.firsttariff.thirdplus"/></p>
 							</li>
 							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
-								<p>Unlimited Bandwitch</p>
+								<p><fmt:message key="main.firsttariff.forthplus"/></p>
 							</li>
 
 						</ul>
-						<p class="price">Free</p>
-						<a class="primary_button" href="#"><fmt:message key="main.plans.submitbut"/></a>
+						<p class="price">9.99</p>
+						<a class="primary_button" href="/darthvider/jsp/tariff.jsp?tariff_id=1"><fmt:message key="main.plans.submitbut"/></a>
 					</div>
 				</div>
-				<div class="plan_item"><img src="/darthvider/jsp/img/toChange.svg" alt="#">
+					<div class="plan_item"><img src="/darthvider/jsp/img/tariff2.svg" height=100px alt="#">
 					<div class="plan_description">
-						<h3>Stupid Plan</h3>
+						<h3><fmt:message key="main.secondtariff.name"/></h3>
 						<ul>
 							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
-								<p>Unlimited Bandwitch</p>
+								<p><fmt:message key="main.secondtariff.firstplus"/></p>
 							</li>
 							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
-								<p>Unlimited Bandwitch</p>
+								<p><fmt:message key="main.secondtariff.secondplus"/></p>
 							</li>
 							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
-								<p>Unlimited Bandwitch</p>
+								<p><fmt:message key="main.secondtariff.thirdplus"/></p>
 							</li>
 							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
-								<p>Unlimited Bandwitch</p>
+								<p><fmt:message key="main.secondtariff.forthplus"/></p>
 							</li>
 
 						</ul>
-						<p class="price">Free</p>
-						<a class="primary_button" href="#"><fmt:message key="main.plans.submitbut"/></a>
+						<p class="price">14.99</p>
+						<a class="primary_button" href="/darthvider/jsp/tariff.jsp?tariff_id=2"><fmt:message key="main.plans.submitbut"/></a>
 					</div>
 				</div>
-				<div class="plan_item"><img src="/darthvider/jsp/img/toChange.svg" alt="#">
+					<div class="plan_item"><img src="/darthvider/jsp/img/tariff3.svg" height=100px alt="#">
 					<div class="plan_description">
-						<h3>Stupid Plan</h3>
+						<h3><fmt:message key="main.thirdtariff.name"/></h3>
 						<ul>
 							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
-								<p>Unlimited Bandwitch</p>
+								<p><fmt:message key="main.thirdtariff.firstplus"/></p>
 							</li>
 							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
-								<p>Unlimited Bandwitch</p>
+								<p><fmt:message key="main.thirdtariff.secondplus"/></p>
 							</li>
 							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
-								<p>Unlimited Bandwitch</p>
+								<p><fmt:message key="main.thirdtariff.thirdplus"/></p>
 							</li>
 							<li><img src="/darthvider/jsp/img/listOk.svg" alt="#">
-								<p>Unlimited Bandwitch</p>
+								<p><fmt:message key="main.thirdtariff.forthplus"/></p>
 							</li>
 
 						</ul>
-						<p class="price">Free</p>
-						<a class="primary_button" href="#"><fmt:message key="main.plans.submitbut"/></a>
+						<p class="price">0.99</p>
+						<a class="primary_button" href="/darthvider/jsp/tariff.jsp?tariff_id=3"><fmt:message key="main.plans.submitbut"/></a>
 					</div>
 				</div>
+				
+				
 
 			</div>
-			<a href="#" class="more_plans primary_button"><fmt:message key="main.plans.morebut"/></a>
+			<a href="/darthvider/jsp/tariffs.jsp" class="more_plans primary_button"><fmt:message key="main.plans.morebut"/></a>
 		</section>
 		<a id="login_section"></a>
 		<section class="our_map">
@@ -251,7 +260,7 @@
 				<p><fmt:message key="main.slogan.under"/></p>
 			</div>
 			<div class="btn-wrapper">
-				<a href="#" class="primary_button"><fmt:message key="main.slogan.button"/></a>
+				<a href="#login_section" class="primary_button"><fmt:message key="main.slogan.button"/></a>
 			</div>
 		</div>
 	</div>

@@ -78,7 +78,7 @@ public class SignUpCommand implements Command {
 		}
 
 		
-		return new Router(MAIN_PAGE, Router.RouterType.REDIRECT);
+		return new Router(MAIN_PAGE_LOGIN, Router.RouterType.REDIRECT);
 	}
 
 }

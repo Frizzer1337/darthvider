@@ -12,6 +12,7 @@ public class RequestContent {
     public static final String REQUEST_STATUS = "status";
     public static final String FORM_MAP = "formMap";
     public static final String LOCALE = "locale";
+    public static final String PRELOAD_MAP = "preload_map";
     
     private RequestContent() {
     }
