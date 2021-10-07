@@ -7,11 +7,7 @@ import com.roadtoepam.darthvider.exception.ServiceException;
 import com.roadtoepam.darthvider.service.ClientService;
 
 import static com.roadtoepam.darthvider.command.PageRouting.*;
-import static com.roadtoepam.darthvider.command.RequestContent.EMAIL;
-import static com.roadtoepam.darthvider.command.RequestContent.LOGIN;
-import static com.roadtoepam.darthvider.command.RequestContent.PASSWORD;
-import static com.roadtoepam.darthvider.command.RequestContent.PASSWORD_REPEAT;
-import static com.roadtoepam.darthvider.command.RequestContent.REQUEST_STATUS;
+import static com.roadtoepam.darthvider.command.RequestContent.*;
 
 import java.util.HashMap;
 
@@ -39,17 +35,28 @@ public class LoginCommand implements Command {
 		regData.put(EMAIL, email);
 		regData.put(PASSWORD, pass);
 		
-		boolean passwordCorrect=false;
+		boolean passwordCorrect = false;
+		boolean cabinetExists = false;
+		long userId = -1;
 		
 		try {
 			passwordCorrect = clientService.isPasswordCorrect(regData);
+			userId = clientService.getUserIdByEmail(email);
+			cabinetExists = clientService.checkCabinet(userId);
 		} catch (ServiceException e) {
+			e.printStackTrace();
 			throw new CommandException(e);
 		}
 		
 		if (passwordCorrect) {
-				
+			
+			if (cabinetExists) {
+				session.setAttribute(CABINET_EXIST, "CABINET_EXISTS");
+			} else {
+				session.setAttribute(CABINET_EXIST, "CABINET_NOT_EXISTS");
+			}
 			session.setAttribute(REQUEST_STATUS, "SUCCESS_LOGIN");
+			session.setAttribute(USERID,userId);
 			session.setAttribute(EMAIL,regData.get(EMAIL));
 
 		} else {		

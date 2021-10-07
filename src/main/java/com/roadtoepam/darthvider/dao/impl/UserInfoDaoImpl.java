@@ -3,6 +3,7 @@ package com.roadtoepam.darthvider.dao.impl;
 import static com.roadtoepam.darthvider.dao.impl.UserColumnName.*;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class UserInfoDaoImpl extends AbstractDao implements UserInfoDao{
 	private static final String ADD_USER_INFO="INSERT INTO user_info (name,surname,city,phone) VALUES  (?, ?, ?, ?)";
 	private static final String ADD_USER_MAIN_INFO="INSERT INTO user_info (name,surname) VALUES  (?, ?)";
 	private static final String UPDATE_USER_INFO="UPDATE users SET name=?,surname=?,city=?,phone = ? WHERE id_user=?";
+	private static final String CHECK_USER_INFO_BY_ID="SELECT 1 FROM user_info WHERE id_user = ? LIMIT 1";
 	
 	ConnectionPool connectionPool = ConnectionPool.getInstance();
 	
@@ -151,6 +153,24 @@ public class UserInfoDaoImpl extends AbstractDao implements UserInfoDao{
 			throw new DaoException(e);
 			
 		}
+	}
+
+	@Override
+	public boolean checkById(long id) throws DaoException {
+		try(Connection connection = connectionPool.getConnection();
+				 var statement = connection.prepareStatement(CHECK_USER_INFO_BY_ID);){
+					
+					 statement.setLong(1,id);
+				      
+				      ResultSet resultSet = statement.executeQuery();
+			    	  
+				      return resultSet.next();
+					
+				} catch (SQLException e) {
+					
+					throw new DaoException(e);
+					
+				}
 	}
 
 }

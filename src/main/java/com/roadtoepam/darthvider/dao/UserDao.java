@@ -89,6 +89,16 @@ public interface UserDao {
 	   * @return true if user exists and false otherwise.
 	   * @throws DaoException if any error occurs.
 	   */
+	  boolean isLoginFree(String login) throws DaoException;
+	  
+	  /**
+	   * Check if user with same login exists.
+	   *
+	   * @param login to be checked.
+	   * @return true if user exists and false otherwise.
+	   * @throws DaoException if any error occurs.
+	   */
+	  
 	  boolean login(String login,String email) throws DaoException;
 	  
 	  /**
@@ -99,5 +109,15 @@ public interface UserDao {
 	   * @throws DaoException if any error occurs.
 	   */
 
-	  boolean changeRole(int id, int roleId) throws DaoException;
+	  boolean changeRole(long id, int roleId) throws DaoException;
+	  
+	  /**
+	   * Change login of user by id.
+	   *
+	   * @param id and login to change.
+	   * @return true if change successfully and false otherwise.
+	   * @throws DaoException if any error occurs.
+	   */
+	  boolean changeLogin(String login, long id) throws DaoException;
+
 }

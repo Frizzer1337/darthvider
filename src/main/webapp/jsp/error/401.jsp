@@ -25,6 +25,6 @@
 </head>
 <body>
 
-	<fmt:message key="error.404"/>
+<fmt:message key="error.401"/>
 
 </body>

@@ -13,6 +13,16 @@ public class RequestContent {
     public static final String FORM_MAP = "formMap";
     public static final String LOCALE = "locale";
     public static final String PRELOAD_MAP = "preload_map";
+    public static final String LASTNAME = "lastname";
+    public static final String FIRSTNAME = "firstname";
+    public static final String PHONE = "phone";
+    public static final String CITY = "city";
+    public static final String PROBLEM = "problem";
+    public static final String TYPEOFCHANGE = "typeofchange";
+    public static final String CABINET_REQUEST="cabinet_status";
+    public static final String DATATOCHANGE = "datatochange";
+    public static final String CABINET_EXIST = "cabinet_exist";
+    
     
     private RequestContent() {
     }

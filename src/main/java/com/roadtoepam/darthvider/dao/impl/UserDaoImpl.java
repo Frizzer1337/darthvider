@@ -24,8 +24,11 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 	private static final String ADD_USER="INSERT INTO users (role,balance,login,email,status,password) VALUES  (?, ?, ?, ?, ?,?)";
 	private static final String UPDATE_USER="UPDATE users SET role = ?,balance = ?,login = ?,email = ?,status = ?,password = ? WHERE id_user=?";
 	private static final String UPDATE_USER_WITHOUT_PASSWORD="UPDATE users SET role = ?,balance = ?,login = ?,email = ?,status = ? WHERE id_user=?";
+	private static final String CHANGE_LOGIN="UPDATE users SET login = ? WHERE id_user=?";
 	private static final String DELETE_USER="UPDATE users SET status = 1 WHERE id_user=?";
 	private static final String CHECK_LOGIN_OR_EMAIL = "SELECT id_user FROM users WHERE login=? OR email=?";
+	private static final String CHECK_LOGIN = "SELECT id_user FROM users WHERE login=?";
+	private static final String CHECK_EMAIL = "SELECT id_user FROM users WHERE email=?";
 	private static final String CHECK_FOR_USER = "SELECT id_user FROM users WHERE (email=? AND password=?)";
 	private static final String UPDATE_ROLE="UPDATE users SET role = ? WHERE id_user=?";
 	
@@ -125,6 +128,24 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 	}
 	
 	@Override
+	public boolean isLoginFree(String login) throws DaoException {
+		try(Connection connection = connectionPool.getConnection();
+				var statement = connection.prepareStatement(CHECK_LOGIN);){
+			
+			statement.setString(1,login);
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+		    return resultSet.next();
+			
+		} catch (SQLException e) {
+		
+		throw new DaoException(e);
+		
+		}
+	}
+	
+	@Override
 	public boolean isLoginAndEmailFree(String login, String email) throws DaoException {
 		try(Connection connection = connectionPool.getConnection();
 				var statement = connection.prepareStatement(CHECK_LOGIN_OR_EMAIL);){
@@ -144,12 +165,31 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 	}
 	
 	@Override
-	public boolean changeRole(int id, int roleId) throws DaoException {
+	public boolean changeLogin(String login, long id) throws DaoException {
+		try(Connection connection = connectionPool.getConnection();
+				var statement = connection.prepareStatement(CHANGE_LOGIN);){
+			
+			statement.setString(1,login);
+			statement.setLong(2, id);
+			
+			int status = statement.executeUpdate();
+			
+		    return status>0;
+			
+		} catch (SQLException e) {
+		
+		throw new DaoException(e);
+		
+		}
+	}
+	
+	@Override
+	public boolean changeRole(long unhashedId, int roleId) throws DaoException {
 		try(Connection connection = connectionPool.getConnection();
 				var statement = connection.prepareStatement(UPDATE_ROLE);){
 			
 		statement.setInt(1, roleId);	
-		statement.setInt(2, id);	
+		statement.setLong(2, unhashedId);	
 		
 		 int status = statement.executeUpdate();
 			

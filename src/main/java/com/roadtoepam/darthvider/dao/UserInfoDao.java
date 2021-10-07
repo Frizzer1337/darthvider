@@ -28,19 +28,29 @@ public interface UserInfoDao {
 	  Optional<UserInfo> findById(int id) throws DaoException;
 
 	  /**
-	   * Add a user info.
+	   * Check if user info exists.
 	   *
-	   * @param user to be added.
-	   * @return true if user is successfully added, false if user already exists.
+	   * @param id of the user.
+	   * @return true if user info exists , false otherwise.
 	   * @throws DaoException if any error occurs.
 	   */
+	  boolean checkById(long id) throws DaoException;
+
+	  /**
+	   * Add a user info.
+	   *
+	   * @param user info to be added.
+	   * @return true if user info is successfully added, false if user already exists.
+	   * @throws DaoException if any error occurs.
+	   */
+	  
 	  boolean add(UserInfo userInfo,String city, String phone) throws DaoException;
 	  
 	  /**
 	   * Update a full user info.
 	   *
 	   * @param user to be updated.
-	   * @return true if user exists and is successfully updated, false otherwise.
+	   * @return true if user info exists and is successfully updated, false otherwise.
 	   * @throws DaoException if any error occurs.
 	   */
 	  boolean addMainInfo(UserInfo userInfo,String city, String phone) throws DaoException;
@@ -48,18 +58,11 @@ public interface UserInfoDao {
 	  /**
 	   * Update a full user info.
 	   *
-	   * @param user to be updated.
+	   * @param user info to be updated.
 	   * @return true if user exists and is successfully updated, false otherwise.
 	   * @throws DaoException if any error occurs.
 	   */
 	  
 	  boolean update(UserInfo userInfo,int id) throws DaoException;
 
-	  /**
-	   * Delete a user info.
-	   *
-	   * @param user to be deleted.
-	   * @return true if user exists and is successfully deleted, false otherwise.
-	   * @throws DaoException if any error occurs.
-	   */
 	}

@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.roadtoepam.darthvider.connectionpool.ConnectionFactory;
 import com.roadtoepam.darthvider.exception.ServiceException;
+import com.roadtoepam.darthvider.util.security.EmailHasher;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -78,11 +79,14 @@ public class MailSender {
 				appProperties.load(inputStream);
 				Session session = createSession(appProperties);
 				
-				long hashedId = id*397+293;
+				var hasher = new EmailHasher();
+				long hashedId = hasher.hashId(id);
+				
 		        mimeMessage = new MimeMessage(session);
 		            mimeMessage.setSubject(SUBJECT);
 		            mimeMessage.setContent(HTML+hashedId+HTMLSECONDPART,"text/html");
 		            mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
+		            
 			} catch (IOException e) {
 				logger.error("Error while reading" + PATH);
 	        } catch (MessagingException e) {

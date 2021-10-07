@@ -32,7 +32,7 @@ public class SignUpCommand implements Command {
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
 		
-		String login = request.getParameter(LOGIN);
+		String data = request.getParameter(DATATOCHANGE);
 		String email = request.getParameter(EMAIL);
 		String pass = request.getParameter(PASSWORD);
 		String passAgain = request.getParameter(PASSWORD_REPEAT);
@@ -41,7 +41,7 @@ public class SignUpCommand implements Command {
 		
 		HttpSession session = request.getSession();
 		
-		regData.put(LOGIN, login);
+		regData.put(DATATOCHANGE, data);
 		regData.put(EMAIL, email);
 		regData.put(PASSWORD, pass);
 		regData.put(PASSWORD_REPEAT, passAgain);
@@ -51,28 +51,20 @@ public class SignUpCommand implements Command {
 		try {
 			validData = clientService.validationMap(regData);
 		} catch (ServiceException e) {
+			e.printStackTrace();
 			throw new CommandException(e);
 		}
 		
 		
-		if (validData.get(REQUEST_STATUS).equals("SUCCESS_REGISTRATION")) {
+		if (validData.get(REQUEST_STATUS).equals("SUCCESS_CHANGE")) {
 				
-			session.removeAttribute(LOGIN);
-			session.removeAttribute(EMAIL);
-			try {
-				clientService.addUser(validData);
-				int userId = clientService.getUserIdByEmail(validData.get(EMAIL));
-				clientService.sendConfirmationEmail(userId,validData.get(EMAIL));
-			} catch (ServiceException e) {
-				throw new CommandException("Error occured while adding user or sending confirmation email",e);
-			}
-			session.setAttribute(REQUEST_STATUS, "SUCCESS_REGISTRATION");
+			session.removeAttribute(DATATOCHANGE);
+			session.setAttribute(CABINET_REQUEST, "SUCCESS_CHANGE");
 
 		} else {		
 			
-			session.setAttribute(LOGIN,validData.get(LOGIN));
-			session.setAttribute(EMAIL,validData.get(EMAIL));
-			session.setAttribute(REQUEST_STATUS,validData.get(REQUEST_STATUS));
+			session.setAttribute(DATATOCHANGE,validData.get(DATATOCHANGE));
+			session.setAttribute(CABINET_REQUEST,validData.get(CABINET_REQUEST));
 			
 			
 		}

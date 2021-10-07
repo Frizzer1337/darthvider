@@ -33,7 +33,7 @@
 		<ul class="main_menu">
 			<li><a href="#" class="menu_link"><fmt:message key="header.menu.main"/></a></li>
 			<li><a href="/darthvider/jsp/tariffs.jsp" class="menu_link"><fmt:message key="header.menu.tariff"/></a></li>
-			<li><a href="#" class="menu_link"><fmt:message key="header.menu.help"/></a></li>
+			<li><a href="/darthvider/jsp/help.jsp" class="menu_link"><fmt:message key="header.menu.help"/></a></li>
 			<li><a href="#" class="menu_link"><fmt:message key="header.menu.about"/></a></li>
 		</ul>
 		<form class="wrapper"  action="<c:url value="/controller"/>">
@@ -66,7 +66,8 @@
 		</c:when>
 		<c:otherwise>
 			<ul class="main_menu">
-				<li><a href="#" class="menu_link">${email}</a></li>
+				<li><a href="/darthvider/jsp/cabinet.jsp" class="menu_link">${email}</a></li>
+				<li><a href="/darthvider/controller?command=logout"><img src="/darthvider/jsp/img/logout.svg" alt="Exit"></a></li>
 			</ul>
 		</c:otherwise>
 	</c:choose>

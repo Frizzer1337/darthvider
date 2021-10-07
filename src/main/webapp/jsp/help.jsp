@@ -75,8 +75,8 @@
 		</div>
 		<ul class="main_menu">
 			<li><a href="/darthvider/jsp/main.jsp" class="menu_link"><fmt:message key="header.menu.main"/></a></li>
-			<li><a href="#" class="menu_link"><fmt:message key="header.menu.tariff"/></a></li>
-			<li><a href="/darthvider/jsp/help.jsp" class="menu_link"><fmt:message key="header.menu.help"/></a></li>
+			<li><a href="/darthvider/jsp/tariffs.jsp" class="menu_link"><fmt:message key="header.menu.tariff"/></a></li>
+			<li><a href="#" class="menu_link"><fmt:message key="header.menu.help"/></a></li>
 			<li><a href="#" class="menu_link"><fmt:message key="header.menu.about"/></a></li>
 		</ul>
 		<form class="wrapper"  action="<c:url value="/controller"/>">
@@ -116,14 +116,28 @@
 	</c:choose>
 	</div>
 </header>
-<main class="main">
-    <div class="container">
-    <section class="tariff_section">
-    	<ul class="tariffs_list"></ul>
-        <div class="pagination_setup" id="pagination"></div>
-    </section>
-</div>
-</main>
+<main class="container">
+<div class="help_info">
+	<fmt:message key="help.text"/> <br><a href="tel:+375331231233">+375-33-123-1233</a>,<br><a href="tel:+375292912121">+375-29-291-2121</a>
+</div>   
+    <form class="help_form"  action="<c:url value="/controller"/>">
+		
+		<input type="hidden" name="command" value="sendHelpMail">
+    
+    	<input  class="help_form_elem" type="text" id="firstname" name="firstname" placeholder="Your name.." required>
+
+    	<input class="help_form_elem" type="text" id="lastname" name="lastname" placeholder="Your last name.." required>
+    	
+    	<input class="help_form_elem" type="email" id="email" name="email" placeholder="Your email.." required>
+    	
+    	<textarea class="help_form_elem" id="problem" name="problem" placeholder="Describe your problem.." style="height:200px" required></textarea>
+    	
+    	<button type="submit" class="authorization_submit primary_button">
+						<fmt:message key="help.button"/>
+		</button>
+
+    </form>
+</main> 
 <footer>
 	<div class="container">
 		<div class="footer_about">

@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import com.roadtoepam.darthvider.dao.impl.ConnectedTariffDaoImpl;
 import com.roadtoepam.darthvider.dao.impl.TariffDaoImpl;
+import com.roadtoepam.darthvider.dao.impl.TicketDaoImpl;
 import com.roadtoepam.darthvider.dao.impl.UserDaoImpl;
 import com.roadtoepam.darthvider.dao.impl.UserRoleDaoImpl;
 import com.roadtoepam.darthvider.entity.ConnectedTariff;
@@ -29,10 +30,10 @@ public class TestServlets extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		TariffDaoImpl dao = new TariffDaoImpl();
+		TicketDaoImpl dao = new TicketDaoImpl();
 		
 		try {
-			response.getWriter().print(dao.findAll().toString());
+			response.getWriter().print(dao.add("5","5","5","5"));
 		} catch (IOException | DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
