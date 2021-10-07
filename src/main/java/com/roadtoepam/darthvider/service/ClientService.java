@@ -224,11 +224,12 @@ public class ClientService {
 		
 		Map<String,String> validUserData = new HashMap<>();
 		
+		var userValidator = new UserValidator();
 		
 		if (!isPasswordRepeatedCorrect(userData))	
 			validUserData.put(REQUEST_STATUS, "PASSWORD_NOT_REPEATED");
 		
-		if(UserValidator.validatePassword(userData.get(PASSWORD))) {
+		if(userValidator.validatePassword(userData.get(PASSWORD))) {
 			
 			validUserData.put(PASSWORD, userData.get(PASSWORD));
 			
@@ -237,7 +238,7 @@ public class ClientService {
 			validUserData.put(REQUEST_STATUS,"BAD_PASSWORD");
 			}
 		
-		if(UserValidator.validateEmail(userData.get(EMAIL))) {
+		if(userValidator.validateEmail(userData.get(EMAIL))) {
 			
 			validUserData.put(EMAIL, userData.get(EMAIL));
 			
@@ -246,7 +247,7 @@ public class ClientService {
 			validUserData.put(REQUEST_STATUS,"BAD_EMAIL");
 			}
 
-		if(UserValidator.validateLogin(userData.get(LOGIN))) {
+		if(userValidator.validateLogin(userData.get(LOGIN))) {
 			
 			validUserData.put(LOGIN, userData.get(LOGIN));
 			
@@ -271,9 +272,25 @@ public class ClientService {
 		
 	}
 	
+	public Map<String,String> validateCabinet(Map<String,String> userData) {
+		
+		Map<String,String> validUserData = new HashMap<>();
+		
+		var userValidator = new UserValidator();
+		
+		if (userValidator.validatePhone(userData.get(PHONE))) {
+			
+			
+		}
+		
+		return validUserData;
+	}
+	
 	public Map<String,String> validateChange(Map<String,String> userData) throws ServiceException {
 		
 		Map<String,String> validUserData = new HashMap<>();
+		
+		var userValidator = new UserValidator();
 		
 		validUserData.put(USERID,userData.get(USERID));
 		validUserData.put(TYPEOFCHANGE, userData.get(TYPEOFCHANGE));
@@ -285,7 +302,7 @@ public class ClientService {
 				
 				userData.put(LOGIN,userData.get(DATATOCHANGE));
 			
-				if(UserValidator.validateLogin(userData.get(DATATOCHANGE))) {
+				if(userValidator.validateLogin(userData.get(DATATOCHANGE))) {
 				
 					validUserData.put(DATATOCHANGE, userData.get(DATATOCHANGE));
 					

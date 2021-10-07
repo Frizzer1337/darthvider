@@ -78,17 +78,17 @@
 			<c:when test="${status!='SUCCESS_LOGIN'}">	
 				<c:redirect url="/jsp/error/401.jsp"/>
 			</c:when>
-			<c:when test="${cabinet_exist=='CABINET_NOT_EXISTS'}">
+			<c:when test="${cabinet_exist!='CABINET_EXISTS'}">
 			<div class="cabinet_welcome"><fmt:message key="cabinet.welcome"/></div>
             <section class="cabinet-reg">
                 <div class="autharization_form">
 
                 <form class="authorization_login" id="reg"  action="<c:url value="/controller"/>">
                		<input type="hidden" name="command" value="createCabinet" >
-                    <input type="text" placeholder="Name" name="firstname" >
-                    <input type="text" placeholder="Surname" name="lastname" >
-                    <input type="tel" placeholder="Telephone" name="phone">
-                    <input type="text" placeholder="City" name="city">
+                    <input type="text" placeholder="Name" name="firstname" required  >
+                    <input type="text" placeholder="Surname" name="lastname" required >
+                    <input type="tel" placeholder="Telephone(+375XXXXXXXXX)" name="phone" required >
+                    <input type="text" placeholder="City" name="city" required >
                     <button class="authorization_submit primary_button">
                        <fmt:message key="help.button"/>
                     </button>
