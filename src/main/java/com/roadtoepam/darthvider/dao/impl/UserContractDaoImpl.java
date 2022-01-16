@@ -17,7 +17,8 @@ import com.roadtoepam.darthvider.exception.DaoException;
 public class UserContractDaoImpl extends AbstractDao implements UserContractDao{
 	
 	private static final String SELECT_ALL_CONTRACT = "SELECT id_user,id_contract,start_date,end_date,is_active,discount FROM user_contract";
-	private static final String SELECT_CONTRACT_BY_ID= "SELECT id_user,id_contract,start_date,end_date,is_active,discount FROM user_contract WHERE id_contract=?";
+	private static final String SELECT_CONTRACT_BY_ID= "SELECT id_user,id_contract,start_date,end_date,is_active,discount FROM user_contract WHERE id_user=?";
+	private static final String SELECT_CONTRACT_ID_BY_ID= "SELECT id_contract FROM user_contract WHERE id_user=?";
 	private static final String ADD_CONTRACT="INSERT INTO user_contract (id_user,id_contract,start_date,end_date,is_active,discount) VALUES  (?, ?, ?, ?, ?,?)";
 	private static final String UPDATE_CONTRACT="UPDATE user_contract SET id_contract = ?,start_date = ?,end_date = ?,is_active = ?,discount = ? WHERE id_user = ?";
 	private static final String ACTIVATE_CONTRACT="UPDATE user_contract SET is_active = 1 WHERE id_user=?";
@@ -60,7 +61,7 @@ public class UserContractDaoImpl extends AbstractDao implements UserContractDao{
 		}
 	
 	@Override
-	public Optional<UserContract> findById(int id) throws DaoException {
+	public Optional<UserContract> findContractByUserId(int id) throws DaoException {
 
 
 		try(Connection connection = connectionPool.getConnection();
@@ -88,6 +89,32 @@ public class UserContractDaoImpl extends AbstractDao implements UserContractDao{
 		    	  return Optional.empty();
 		    	 
 		      }
+		      
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		} 
+			
+	}
+	
+	@Override
+	public int findContractIdByUserId(int id) throws DaoException {
+
+
+		try(Connection connection = connectionPool.getConnection();
+			var statement = connection.prepareStatement(SELECT_CONTRACT_ID_BY_ID);) { 
+		    
+			 statement.setLong(1,id); 
+			
+			 var resultSet = statement.executeQuery();
+			 
+    	      
+		      if(resultSet.next()) {
+		    	  
+		      
+		    	 int contractId = resultSet.getInt(ID_CONTRACT);
+		    	 return contractId;
+		    	  
+		      } else { return -1;}
 		      
 		} catch (SQLException e) {
 			throw new DaoException(e);

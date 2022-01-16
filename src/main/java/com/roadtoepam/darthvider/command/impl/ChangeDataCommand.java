@@ -31,7 +31,12 @@ public class ChangeDataCommand implements Command {
 		String password = request.getParameter(PASSWORD);
 		String passwordRepeated = request.getParameter(PASSWORD_REPEAT);
 		String email = (String)session.getAttribute(EMAIL);
-		long id = (long)session.getAttribute(USERID);
+		long id = -1;
+		try {
+			id = clientService.getUserIdByEmail(email);
+		} catch (ServiceException e) {
+			throw new CommandException("Error occured while getting user id by email",e);
+		}
 		String type = request.getParameter(TYPEOFCHANGE);
 		String data = request.getParameter(DATATOCHANGE);
 		

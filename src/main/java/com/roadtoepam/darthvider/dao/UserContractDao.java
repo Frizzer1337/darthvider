@@ -18,14 +18,25 @@ public interface UserContractDao {
 	  List<UserContract> findAll() throws DaoException;
 
 	  /**
-	   * Get contract as Optional by id.
+	   * Get contract as Optional by user id.
 	   *
 	   * @param id unique identifier of the user.
 	   * @return an optional with contract if a user with unique identifier exists,
 	   *     empty optional otherwise.
 	   * @throws DaoException if any error occurs.
 	   */
-	  Optional<UserContract> findById(int id) throws DaoException;
+	  Optional<UserContract> findContractByUserId(int id) throws DaoException;
+	  
+	  /**
+	   * Get contract id as int by user id.
+	   *
+	   * @param id unique identifier of the user.
+	   * @return an optional with contract if a user with unique identifier exists,
+	   *     empty optional otherwise.
+	   * @throws DaoException if any error occurs.
+	   */
+	  int findContractIdByUserId(int id) throws DaoException;
+
 
 	  /**
 	   * Add a user contract.

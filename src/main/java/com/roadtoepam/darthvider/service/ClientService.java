@@ -7,10 +7,15 @@ import java.util.Optional;
 import static com.roadtoepam.darthvider.command.RequestContent.*;
 
 import com.roadtoepam.darthvider.dao.DaoTransaction;
+import com.roadtoepam.darthvider.dao.impl.ConnectedTariffDaoImpl;
 import com.roadtoepam.darthvider.dao.impl.TicketDaoImpl;
+import com.roadtoepam.darthvider.dao.impl.UserContractDaoImpl;
 import com.roadtoepam.darthvider.dao.impl.UserDaoImpl;
 import com.roadtoepam.darthvider.dao.impl.UserInfoDaoImpl;
+import com.roadtoepam.darthvider.entity.ConnectedTariff;
 import com.roadtoepam.darthvider.entity.User;
+import com.roadtoepam.darthvider.entity.UserContract;
+import com.roadtoepam.darthvider.entity.UserInfo;
 import com.roadtoepam.darthvider.exception.DaoException;
 import com.roadtoepam.darthvider.exception.ServiceException;
 import com.roadtoepam.darthvider.service.validator.UserValidator;
@@ -23,6 +28,85 @@ public class ClientService {
 		
 		MailSender sender = new MailSender();
 		sender.sendMessage(id, email);
+		
+	}
+	
+	public Optional<User> getUserByEmail(String email) throws ServiceException{
+		
+		final UserDaoImpl userDao = new UserDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		Optional<User> user = Optional.empty();
+		try {
+			transaction.start(userDao);
+			int userId = getUserIdByEmail(email);
+			user = userDao.findById(userId);
+			transaction.end();
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while getting user info by id",e);
+			
+		}
+		return user;
+		
+	}
+	public Optional<UserInfo> getUserInfoByEmail(String email) throws ServiceException{
+		
+		final UserInfoDaoImpl userInfoDao = new UserInfoDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		Optional<UserInfo> userInfo = Optional.empty();
+		try {
+			transaction.start(userInfoDao);
+			int userId = getUserIdByEmail(email);
+			userInfo = userInfoDao.findById(userId);
+			transaction.end();
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while getting user info by id",e);
+			
+		}
+		return userInfo;
+		
+	}
+	
+	public Optional<UserContract> getUserContractByEmail(String email) throws ServiceException{
+		
+		final UserContractDaoImpl userContractDao = new UserContractDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		Optional<UserContract> userContract = Optional.empty();
+		try {
+			transaction.start(userContractDao);
+			int userId = getUserIdByEmail(email);
+			userContract = userContractDao.findContractByUserId(userId);
+			transaction.end();
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while getting user info by id",e);
+			
+		}
+		return userContract;
+		
+	}
+	
+	public Optional<ConnectedTariff> getUserTariffByEmail(String email) throws ServiceException{
+		
+		final UserContractDaoImpl userContractDao = new UserContractDaoImpl();
+		final ConnectedTariffDaoImpl connectedTariffDao = new ConnectedTariffDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		int userContractId;
+		Optional<ConnectedTariff> userTariff = Optional.empty();
+
+		try {
+			transaction.start(userContractDao,connectedTariffDao);
+			int userId = getUserIdByEmail(email);
+			userContractId = userContractDao.findContractIdByUserId(userId);
+			userTariff = connectedTariffDao.findById(userContractId);
+			transaction.end();
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while getting user info by id",e);
+			
+		}
+		return userTariff;
 		
 	}
 	
@@ -167,6 +251,31 @@ public class ClientService {
 		return result;
 	}
 	
+	public boolean addCabinet(Map<String, String> validData, long id) throws ServiceException {
+		
+		final UserInfoDaoImpl userInfoDao = new UserInfoDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		
+		boolean result = false;
+		
+		try {
+			transaction.start(userInfoDao);
+			UserInfo userInfo = UserInfo.newBuilder()
+										.setName(validData.get(FIRSTNAME))
+										.setCity(validData.get(CITY))
+										.setSurname(validData.get(LASTNAME))
+										.setPhone(validData.get(PHONE))
+										.build();
+			result = userInfoDao.add(userInfo,id);
+			transaction.end();
+		}  catch (DaoException e) {
+			e.printStackTrace();
+			throw new ServiceException("Error occured while adding user info",e);
+		}
+		
+		return result;
+	}
+	
 	
 	public boolean isPasswordRepeatedCorrect(Map<String,String> userData){
 		
@@ -193,23 +302,6 @@ public class ClientService {
 		}
 	}
 	
-	public boolean validateEmail(Map<String,String> userData) {
-		
-		return UserValidator.validateEmail(userData.get(EMAIL));
-		
-	}
-	
-	public boolean validatePassword(Map<String,String> userData) {
-		
-		return UserValidator.validatePassword(userData.get(PASSWORD));
-		
-	}
-	
-	public boolean validateLogin(Map<String,String> userData) {
-		
-		return UserValidator.validateLogin(userData.get(LOGIN));
-		
-	}
 	
 	
 	/**
@@ -278,10 +370,45 @@ public class ClientService {
 		
 		var userValidator = new UserValidator();
 		
-		if (userValidator.validatePhone(userData.get(PHONE))) {
+		validUserData.put(PHONE, userData.get(PHONE));
+		validUserData.put(CITY, userData.get(CITY));
+		validUserData.put(FIRSTNAME, userData.get(FIRSTNAME));
+		validUserData.put(LASTNAME, userData.get(LASTNAME));
+		
+		
+		if (!userValidator.validatePhone(userData.get(PHONE))) {
 			
+			validUserData.put(PHONE, "");
+			validUserData.put(CABINET_EXIST, "WRONG_PHONE");
 			
 		}
+		
+		if (!userValidator.validateCity(userData.get(CITY))) {
+					
+					validUserData.put(CITY, "");
+					validUserData.put(CABINET_EXIST, "WRONG_CITY");
+					
+				}
+		
+		if (!userValidator.validateName(userData.get(FIRSTNAME))) {
+			
+			validUserData.put(FIRSTNAME, "");
+			validUserData.put(CABINET_EXIST, "WRONG_NAME");
+			
+		}
+		
+		if (!userValidator.validateSurname(userData.get(LASTNAME))) {
+			
+			validUserData.put(LASTNAME, "");
+			validUserData.put(CABINET_EXIST, "WRONG_SURNAME");
+			
+		}
+		
+		if (!validUserData.containsKey(CABINET_EXIST)) {
+			
+			validUserData.put(CABINET_EXIST, "GOOD_DATA");
+			
+		} 
 		
 		return validUserData;
 	}

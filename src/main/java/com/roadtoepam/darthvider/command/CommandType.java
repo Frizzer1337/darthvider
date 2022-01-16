@@ -5,6 +5,7 @@ import com.roadtoepam.darthvider.command.impl.ChangeLocaleCommand;
 import com.roadtoepam.darthvider.command.impl.CreateCabinetCommand;
 import com.roadtoepam.darthvider.command.impl.LoginCommand;
 import com.roadtoepam.darthvider.command.impl.LogoutCommand;
+import com.roadtoepam.darthvider.command.impl.PreloadCabinetCommand;
 import com.roadtoepam.darthvider.command.impl.PreloadCommand;
 import com.roadtoepam.darthvider.command.impl.SendHelpMailCommand;
 import com.roadtoepam.darthvider.command.impl.SignUpCommand;
@@ -23,7 +24,8 @@ public enum CommandType {
 			SENDHELPMAIL(new SendHelpMailCommand(new TicketService())),
 			LOGOUT(new LogoutCommand(new ClientService())),
 			CHANGEDATA(new ChangeDataCommand(new ClientService())),
-			CREATECABINET(new CreateCabinetCommand(new ClientService()));
+			CREATECABINET(new CreateCabinetCommand(new ClientService())),
+			PRELOADCABINET(new PreloadCabinetCommand(new ClientService()));
 	
 	    	private Command command;
 

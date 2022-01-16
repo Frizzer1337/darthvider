@@ -18,9 +18,9 @@ import com.roadtoepam.darthvider.util.security.PasswordEncrypter;
 
 public class UserDaoImpl extends AbstractDao implements UserDao{
 
-	private static final String SELECT_ALL_USER = "SELECT id_user,role,balance,login,email,login,status FROM users";
-	private static final String SELECT_USER_BY_ID= "SELECT id_user,role,balance,login,email,login,status FROM users WHERE id_user=?";
-	private static final String SELECT_USER_BY_EMAIL= "SELECT id_user,role,balance,login,email,login,status FROM users WHERE email=?";
+	private static final String SELECT_ALL_USER = "SELECT id_user,role,balance,login,email,status FROM users";
+	private static final String SELECT_USER_BY_ID= "SELECT id_user,role,balance,login,email,status FROM users WHERE id_user=?";
+	private static final String SELECT_USER_BY_EMAIL= "SELECT id_user,role,balance,login,email,status FROM users WHERE email=?";
 	private static final String ADD_USER="INSERT INTO users (role,balance,login,email,status,password) VALUES  (?, ?, ?, ?, ?,?)";
 	private static final String UPDATE_USER="UPDATE users SET role = ?,balance = ?,login = ?,email = ?,status = ?,password = ? WHERE id_user=?";
 	private static final String UPDATE_USER_WITHOUT_PASSWORD="UPDATE users SET role = ?,balance = ?,login = ?,email = ?,status = ? WHERE id_user=?";
@@ -72,7 +72,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 	public Optional<User> findById(int id) throws DaoException {
 		
 		try(Connection connection = connectionPool.getConnection();
-			var statement = connection.prepareStatement(SELECT_USER_BY_EMAIL);) { 
+			var statement = connection.prepareStatement(SELECT_USER_BY_ID);) { 
 		      
 		      statement.setInt(1,id);     
 		      

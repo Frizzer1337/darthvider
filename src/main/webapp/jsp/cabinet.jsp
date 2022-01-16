@@ -23,8 +23,24 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap" rel="stylesheet">
+	<script type="text/javascript">
+
+	function formAutoSubmit () {
+	
+			document.getElementById("preload").submit();
+		
+		}
+
+    </script>
 </head>
-<body>
+<c:choose>
+	<c:when test="${cabinet_exist=='CABINET_EXISTS'}">
+	<body onload="formAutoSubmit()">
+	</c:when>
+	<c:otherwise>
+	<body>
+	</c:otherwise>
+</c:choose>
 <header class="header">
 	<div class="container">
 		<div class="logo">
@@ -78,17 +94,18 @@
 			<c:when test="${status!='SUCCESS_LOGIN'}">	
 				<c:redirect url="/jsp/error/401.jsp"/>
 			</c:when>
-			<c:when test="${cabinet_exist!='CABINET_EXISTS'}">
+			<c:when test="${cabinet_exist == 'CABINET_NOT_EXISTS'}">
+			${cabinet_exist}
 			<div class="cabinet_welcome"><fmt:message key="cabinet.welcome"/></div>
             <section class="cabinet-reg">
                 <div class="autharization_form">
 
                 <form class="authorization_login" id="reg"  action="<c:url value="/controller"/>">
                		<input type="hidden" name="command" value="createCabinet" >
-                    <input type="text" placeholder="Name" name="firstname" required  >
-                    <input type="text" placeholder="Surname" name="lastname" required >
-                    <input type="tel" placeholder="Telephone(+375XXXXXXXXX)" name="phone" required >
-                    <input type="text" placeholder="City" name="city" required >
+                    <input type="text" placeholder="Name" name="firstname" value="${firstname}"required  >
+                    <input type="text" placeholder="Surname" name="lastname" value="${lastname}" required >
+                    <input type="tel" placeholder="Telephone(+375XXXXXXXXX)" value="${phone}" name="phone" required >
+                    <input type="text" placeholder="City" name="city" value="${city}" required >
                     <button class="authorization_submit primary_button">
                        <fmt:message key="help.button"/>
                     </button>
@@ -96,8 +113,13 @@
                 </div>
             </section>
             </c:when>
-            <c:otherwise>
+            <c:when test="${cabinet_exist=='CABINET_EXISTS'}">
             <section class="cabinet_profile">
+            	 <form id="preload" action="<c:url value="/controller"/>">
+			        <input name="command" type="hidden" value="preloadCabinet"/>
+			    </form> 
+			</c:when>
+			<c:otherwise>
                 <div class="cabinet_features">
                     <div class="cabinet_personal">
                         <h2 class="cabinet_title">
@@ -106,29 +128,29 @@
                         <div class="personal_data">
                             <div class="data_elem">
                                 <h3>Login <a href="#login_change"><img src="img/gear.svg" alt="#"></a></h3>
-                                <span id="data_login">justioann</span>
+                                <span id="data_login">${login}</span>
                             </div>
                             <div class="data_elem">
                                 <h3>Name <a href="#"><img src="img/gear.svg" alt="#"></a></h3>
-                                <span id="data_name">Ioann</span>
+                                <span id="data_name">${name}</span>
                             </div>
 
                             <div class="data_elem">
                                 <h3>Surname <a href="#"><img src="img/gear.svg" alt="#"></a></h3>
-                                <span id="data_surname">Just</span>
+                                <span id="data_surname">${surname}</span>
                             </div>
                             <div class="data_elem">
                                 <h3>Phone <a href="#"><img src="img/gear.svg" alt="#"></a></h3>
-                                <span id="data_phone">+375297668300</span>
+                                <span id="data_phone">${phone}</span>
                             </div>
                             <div class="data_elem">
                                 <h3>City <a href="#"><img src="img/gear.svg" alt="#"></a>
                                 </h3>
-                                <span id="data_city">Minsk</span>
+                                <span id="data_city">${city}</span>
                             </div>
                             <div class="data_elem">
                                 <h3>Password <a href="#"><img src="img/gear.svg" alt="#"></a> </h3>
-                                <span id="data_pass">x*y</span>
+                                <span id="data_pass">${password}</span>
                             </div>
                         </div>
                     </div>
@@ -139,21 +161,29 @@
                         </h2>
                         <div class="personal_data">
                             <div class="data_elem">
-                                <h3>Contract</h3>
-                                <span id="data_contract">12344</span>
+                                <h3>Contract Id</h3>
+                                <span id="data_contract">${contractId}</span>
                             </div>
                             <div class="data_elem">
                                 <h3>Start Date</h3>
-                                <span id="data_start_date">01.10.2021</span>
+                                <span id="data_start_date">${contractStart}</span>
                             </div>
 
                             <div class="data_elem">
                                 <h3>End Date</h3>
-                                <span id="data_end_date">02.10.2021</span>
+                                <span id="data_end_date">${contractEnd}</span>
                             </div>
                             <div class="data_elem">
-                                <h3>Discount</h3>
-                                <span id="data_discount">12%</span>
+                                <h3>Personal discount</h3>
+                                <span id="data_discount">${contractDiscount}%</span>
+                            </div>
+                            <div class="data_elem">
+                                <h3>Your tariffs</h3>
+                                <span id="data_discount">
+                                <c:forEach var="tariff" items="${tariffs}">
+                                <a href="http://localhost:8080/darthvider/jsp/tariff.jsp?tariff_id=${tariff}">${tariff}</a>
+                                </c:forEach>
+                                </span>
                             </div>
                         </div>
                     </div>

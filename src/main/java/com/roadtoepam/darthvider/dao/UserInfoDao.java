@@ -39,27 +39,18 @@ public interface UserInfoDao {
 	  /**
 	   * Add a user info.
 	   *
-	   * @param user info to be added.
-	   * @return true if user info is successfully added, false if user already exists.
+	   * @param user info to be added and user id.
+	   * @return true if user info is successfully added, false otherwise.
 	   * @throws DaoException if any error occurs.
 	   */
 	  
-	  boolean add(UserInfo userInfo,String city, String phone) throws DaoException;
+	  boolean add(UserInfo userInfo,long id) throws DaoException;
 	  
 	  /**
-	   * Update a full user info.
+	   * Update a user info.
 	   *
 	   * @param user to be updated.
 	   * @return true if user info exists and is successfully updated, false otherwise.
-	   * @throws DaoException if any error occurs.
-	   */
-	  boolean addMainInfo(UserInfo userInfo,String city, String phone) throws DaoException;
-	  
-	  /**
-	   * Update a full user info.
-	   *
-	   * @param user info to be updated.
-	   * @return true if user exists and is successfully updated, false otherwise.
 	   * @throws DaoException if any error occurs.
 	   */
 	  

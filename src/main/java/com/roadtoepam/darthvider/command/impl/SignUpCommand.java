@@ -56,15 +56,24 @@ public class SignUpCommand implements Command {
 		}
 		
 		
-		if (validData.get(REQUEST_STATUS).equals("SUCCESS_CHANGE")) {
-				
-			session.removeAttribute(DATATOCHANGE);
-			session.setAttribute(CABINET_REQUEST, "SUCCESS_CHANGE");
+		if (validData.get(REQUEST_STATUS).equals("SUCCESS_REGISTRATION")) {
+			
+			session.removeAttribute(LOGIN);
+			session.removeAttribute(EMAIL);
+			try {
+				clientService.addUser(validData);
+				int userId = clientService.getUserIdByEmail(validData.get(EMAIL));
+				clientService.sendConfirmationEmail(userId,validData.get(EMAIL));
+			} catch (ServiceException e) {
+				throw new CommandException("Error occured while adding user or sending confirmation email",e);
+			}
+			session.setAttribute(REQUEST_STATUS, "SUCCESS_REGISTRATION");
 
 		} else {		
 			
-			session.setAttribute(DATATOCHANGE,validData.get(DATATOCHANGE));
-			session.setAttribute(CABINET_REQUEST,validData.get(CABINET_REQUEST));
+			session.setAttribute(LOGIN,validData.get(LOGIN));
+			session.setAttribute(EMAIL,validData.get(EMAIL));
+			session.setAttribute(REQUEST_STATUS,validData.get(REQUEST_STATUS));
 			
 			
 		}
