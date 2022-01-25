@@ -154,13 +154,26 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="cabinet_personal">
+                    	<h2 class="cabinet_title">
+                           Your balance
+                           <div class="data_elem">
+                                <span class="cabinet_title" style="font-size:40px">${balance}$</span>
+                            </div>
+                    	</h2>
                         <h2 class="cabinet_title">
                             Contract Data
                         </h2>
                         <div class="personal_data">
                             <div class="data_elem">
+                            <div class="data_elem">
+                                <h3>Your tariffs</h3>
+                                <span id="data_discount">
+                                <c:forEach var="tariff" items="${tariffs}">
+                                <a href="http://localhost:8080/darthvider/jsp/tariff.jsp?tariff_id=${tariff}">${tariff}</a>
+                                </c:forEach>
+                                </span>
+                            </div>
                                 <h3>Contract Id</h3>
                                 <span id="data_contract">${contractId}</span>
                             </div>
@@ -176,14 +189,6 @@
                             <div class="data_elem">
                                 <h3>Personal discount</h3>
                                 <span id="data_discount">${contractDiscount}%</span>
-                            </div>
-                            <div class="data_elem">
-                                <h3>Your tariffs</h3>
-                                <span id="data_discount">
-                                <c:forEach var="tariff" items="${tariffs}">
-                                <a href="http://localhost:8080/darthvider/jsp/tariff.jsp?tariff_id=${tariff}">${tariff}</a>
-                                </c:forEach>
-                                </span>
                             </div>
                         </div>
                     </div>

@@ -54,6 +54,7 @@ public class PreloadCabinetCommand implements Command{
 														  .getContractInfo()
 														  .get((int)userContractData.getIdContract());
 			session.setAttribute(LOGIN,userData.getLogin());
+			session.setAttribute(BALANCE, userData.getBalance());
 			session.setAttribute(NAME, userInfoData.getName());
 			session.setAttribute(SURNAME, userInfoData.getSurname());
 			session.setAttribute(PHONE, userInfoData.getPhone());
