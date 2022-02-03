@@ -8,7 +8,7 @@ public class Tariff {
 	private String shortInfo;
 	private float price;
 	private int discount;
-	private boolean isActive;
+	private int status;
 	private int dueType;
 	
 	
@@ -40,11 +40,11 @@ public class Tariff {
 	public void setDiscount(int discount) {
 		this.discount = discount;
 	}
-	public boolean isActive() {
-		return isActive;
+	public int getStatus() {
+		return status;
 	}
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+	public void setActive(int isActive) {
+		this.status = isActive;
 	}
 	public int getDueType() {
 		return dueType;
@@ -128,9 +128,9 @@ public class Tariff {
 			return this;	
 		}	
 		
-		public Tariff.Builder setIsActive(boolean isActive) {
+		public Tariff.Builder setStatus(int status) {
 			
-			Tariff.this.isActive = isActive;
+			Tariff.this.status = status;
 			
 			return this;	
 		}	
@@ -151,7 +151,7 @@ public class Tariff {
 		result = prime * result + dueType;
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((info == null) ? 0 : info.hashCode());
-		result = prime * result + (isActive ? 1231 : 1237);
+		result = prime * result + (int) (status ^ (status >>> 32));
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + Float.floatToIntBits(price);
 		result = prime * result + ((shortInfo == null) ? 0 : shortInfo.hashCode());
@@ -177,7 +177,7 @@ public class Tariff {
 				return false;
 		} else if (!info.equals(other.info))
 			return false;
-		if (isActive != other.isActive)
+		if (status != other.status)
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -209,7 +209,7 @@ public class Tariff {
 		builder.append(", discount=");
 		builder.append(discount);
 		builder.append(", isActive=");
-		builder.append(isActive);
+		builder.append(status);
 		builder.append(", dueType=");
 		builder.append(dueType);
 		builder.append("]");

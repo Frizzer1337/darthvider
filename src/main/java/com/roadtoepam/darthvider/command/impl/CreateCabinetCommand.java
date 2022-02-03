@@ -45,6 +45,8 @@ public class CreateCabinetCommand implements Command {
 		
 		Map<String,String> validData  = clientService.validateCabinet(regData);
 		
+		System.out.print(validData.get(CABINET_EXIST));
+		
 		if (validData.get(CABINET_EXIST).equals("GOOD_DATA")) {
 			
 			session.removeAttribute(PHONE);

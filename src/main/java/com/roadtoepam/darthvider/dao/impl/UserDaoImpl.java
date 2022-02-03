@@ -20,12 +20,16 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 
 	private static final String SELECT_ALL_USER = "SELECT id_user,role,balance,login,email,status FROM users";
 	private static final String SELECT_USER_BY_ID= "SELECT id_user,role,balance,login,email,status FROM users WHERE id_user=?";
+	private static final String SELECT_USER_ROLE_BY_ID= "SELECT role FROM users WHERE id_user=?";
 	private static final String SELECT_USER_BY_EMAIL= "SELECT id_user,role,balance,login,email,status FROM users WHERE email=?";
 	private static final String ADD_USER="INSERT INTO users (role,balance,login,email,status,password) VALUES  (?, ?, ?, ?, ?,?)";
 	private static final String UPDATE_USER="UPDATE users SET role = ?,balance = ?,login = ?,email = ?,status = ?,password = ? WHERE id_user=?";
 	private static final String UPDATE_USER_WITHOUT_PASSWORD="UPDATE users SET role = ?,balance = ?,login = ?,email = ?,status = ? WHERE id_user=?";
 	private static final String CHANGE_LOGIN="UPDATE users SET login = ? WHERE id_user=?";
+	private static final String CHANGE_BALANCE="UPDATE users SET balance = ? WHERE id_user=?";
+	private static final String CHANGE_PASSWORD="UPDATE users SET password = ? WHERE id_user=?";
 	private static final String DELETE_USER="UPDATE users SET status = 1 WHERE id_user=?";
+	private static final String UNLOCK_USER="UPDATE users SET status = 0 WHERE id_user=?";
 	private static final String CHECK_LOGIN_OR_EMAIL = "SELECT id_user FROM users WHERE login=? OR email=?";
 	private static final String CHECK_LOGIN = "SELECT id_user FROM users WHERE login=?";
 	private static final String CHECK_EMAIL = "SELECT id_user FROM users WHERE email=?";
@@ -52,7 +56,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 		    	  	  .setBalance(resultSet.getFloat(BALANCE))
 		    	  	  .setEmail(resultSet.getString(EMAIL))
 		    	  	  .setLogin(resultSet.getString(LOGIN))
-		    	  	  .setBlockStatus(resultSet.getBoolean(STATUS))
+		    	  	  .setStatus(resultSet.getInt(STATUS))
 		    	  	  .build();
 		    	  	  		
 		    	  
@@ -73,10 +77,10 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 		
 		try(Connection connection = connectionPool.getConnection();
 			var statement = connection.prepareStatement(SELECT_USER_BY_ID);) { 
-		      
+
 		      statement.setInt(1,id);     
-		      
 		      var resultSet = statement.executeQuery();
+		     
 		     	      
 		      if(resultSet.next()) {
 		    	  
@@ -86,18 +90,20 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 		    	  	  .setBalance(resultSet.getFloat(BALANCE))
 		    	  	  .setEmail(resultSet.getString(EMAIL))
 		    	  	  .setLogin(resultSet.getString(LOGIN))
-		    	  	  .setBlockStatus(resultSet.getBoolean(STATUS))
+		    	  	  .setStatus(resultSet.getInt(STATUS))
 		    	  	  .build();
+		      
 		    	  
 		      var userOptional = Optional.of(user);
+		     
 	    	  
 		      return userOptional; } else {
-		    	 
 		    	  return Optional.empty();
 		    	 
 		      }
 		      
 		} catch (SQLException e) {
+			
 			throw new DaoException(e);
 		} 
 			
@@ -109,15 +115,37 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 		try(Connection connection = connectionPool.getConnection();
 			var statement = connection.prepareStatement(SELECT_USER_BY_EMAIL);) { 
 		      
-		      statement.setString(1,email);     
+		    statement.setString(1, email);
 		      
 		      var resultSet = statement.executeQuery();
 		     	      
 		      if(resultSet.next()) {
-		    	  
-		      
+		    	 
 		    	 int id = resultSet.getInt(ID_USER);
 		    	 return id;
+		    	  
+		      } else { return -1;}
+		      
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		} 
+			
+	}
+	
+	@Override
+	public int findRole(long id) throws DaoException {
+		
+		try(Connection connection = connectionPool.getConnection();
+			var statement = connection.prepareStatement(SELECT_USER_ROLE_BY_ID);) { 
+		      
+		    statement.setLong(1, id);
+		      
+		      var resultSet = statement.executeQuery();
+		     	      
+		      if(resultSet.next()) {
+		    	 
+		    	 int role = resultSet.getInt(ROLE);
+		    	 return role;
 		    	  
 		      } else { return -1;}
 		      
@@ -184,6 +212,25 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 	}
 	
 	@Override
+	public boolean changePassword(String password, long id) throws DaoException {
+		try(Connection connection = connectionPool.getConnection();
+				var statement = connection.prepareStatement(CHANGE_PASSWORD);){
+
+			statement.setString(1, PasswordEncrypter.encrypt(password));
+			statement.setLong(2, id);
+
+			int status = statement.executeUpdate();
+			
+		    return status>0;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		throw new DaoException(e);
+		
+		}
+	}
+	
+	@Override
 	public boolean changeRole(long unhashedId, int roleId) throws DaoException {
 		try(Connection connection = connectionPool.getConnection();
 				var statement = connection.prepareStatement(UPDATE_ROLE);){
@@ -201,6 +248,24 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 			
 		}
 		
+	}
+	@Override
+	public boolean changeBalance(long id,float balance) throws DaoException {
+		try(Connection connection = connectionPool.getConnection();
+			    var statement = connection.prepareStatement(CHANGE_BALANCE);){
+			
+			  statement.setFloat(1,balance); 
+			  statement.setLong(2,id); 
+	    
+		      int status = statement.executeUpdate();
+	    	  
+		      return status > 0;
+			
+		} catch (SQLException e) {
+			
+			throw new DaoException(e);
+			
+		}
 	}
 	
 	@Override
@@ -231,7 +296,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 		      statement.setFloat(2,user.getBalance()); 
 		      statement.setString(3,user.getLogin()); 
 		      statement.setString(4,user.getEmail()); 
-		      statement.setBoolean(5,user.isBlocked());
+		      statement.setInt(5,user.getStatus());
 		      statement.setString(6, PasswordEncrypter.encrypt(password));
 		      
 		      
@@ -255,7 +320,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 		      statement.setFloat(2,user.getBalance()); 
 		      statement.setString(3,user.getLogin()); 
 		      statement.setString(4,user.getEmail()); 
-		      statement.setBoolean(5,user.isBlocked());
+		      statement.setInt(5,user.getStatus());
 		      statement.setLong(6,id);
 		      
 		      int status = statement.executeUpdate();
@@ -278,7 +343,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 		      statement.setFloat(2,user.getBalance()); 
 		      statement.setString(3,user.getLogin()); 
 		      statement.setString(4,user.getEmail()); 
-		      statement.setBoolean(5,user.isBlocked());
+		      statement.setInt(5,user.getStatus());
 		      statement.setString(6, PasswordEncrypter.encrypt(password));
 		      statement.setLong(7,id);
 		      
@@ -293,6 +358,24 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 		}
 	}
 
+	@Override
+	public boolean unlock(int id) throws DaoException {
+		try(Connection connection = connectionPool.getConnection();
+				var statement = connection.prepareStatement(UNLOCK_USER);){
+			
+			statement.setInt(1,id);
+			
+			int status = statement.executeUpdate();
+			
+		    return status>0;
+			
+		} catch (SQLException e) {
+		
+		throw new DaoException(e);
+		
+		}
+	}
+	
 	@Override
 	public boolean delete(int id) throws DaoException {
 		try(Connection connection = connectionPool.getConnection();
@@ -310,5 +393,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao{
 		
 		}
 	}
+
+
 
 }

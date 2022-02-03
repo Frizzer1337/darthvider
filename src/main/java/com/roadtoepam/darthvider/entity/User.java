@@ -7,7 +7,7 @@ public class User {
 	private String email;
 	private float balance;
 	private int role;
-	private boolean status;
+	private int status;
 	
 	public User() {
 		
@@ -37,10 +37,10 @@ public class User {
 	public void setBalance(float balance) {
 		this.balance = balance;
 	}
-	public boolean isBlocked() {
+	public int getStatus() {
 		return status;
 	}
-	public void setBlockStatus(boolean status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 	public int getRole() {
@@ -87,7 +87,7 @@ public class User {
 			return this;	
 		}
 
-		public User.Builder setBlockStatus(boolean status) {
+		public User.Builder setStatus(int status) {
 			User.this.status = status;
 			
 			return this;	
@@ -117,7 +117,7 @@ public class User {
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + role;
-		result = prime * result + (status ? 1231 : 1237);
+		result = prime * result + (int) (status ^ (status >>> 32));
 		return result;
 	}
 	

@@ -32,7 +32,7 @@ public class SignUpCommand implements Command {
 	@Override
 	public Router execute(HttpServletRequest request) throws CommandException {
 		
-		String data = request.getParameter(DATATOCHANGE);
+		String data = request.getParameter(LOGIN);
 		String email = request.getParameter(EMAIL);
 		String pass = request.getParameter(PASSWORD);
 		String passAgain = request.getParameter(PASSWORD_REPEAT);
@@ -41,7 +41,7 @@ public class SignUpCommand implements Command {
 		
 		HttpSession session = request.getSession();
 		
-		regData.put(DATATOCHANGE, data);
+		regData.put(LOGIN, data);
 		regData.put(EMAIL, email);
 		regData.put(PASSWORD, pass);
 		regData.put(PASSWORD_REPEAT, passAgain);

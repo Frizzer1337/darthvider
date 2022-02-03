@@ -9,6 +9,7 @@ public class PageRouting {
 	  public static final String CABINET_PAGE = "./jsp/cabinet.jsp";
 	  public static final String PRELOAD_PAGE =".";
 	  public static final String MAIN_PAGE_LOGIN = "./jsp/main.jsp#login_section";
+	  public static final String ADMIN_PAGE = "./jsp/admin.jsp";
 	   
 	    
 	    private PageRouting() {};

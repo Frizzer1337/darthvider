@@ -84,11 +84,44 @@
 		<c:if test="${preload_map[intValue-1].discount>0}">
 		<div class="tariff_discount">Today's discount - ${preload_map[intValue-1].discount}%</div>
 		<div class="tariff_price_discount">Price with discount:<fmt:formatNumber value="${preload_map[intValue-1].price - preload_map[intValue-1].price*preload_map[intValue-1].discount/100}" maxFractionDigits="2"></fmt:formatNumber>USD </div>
+		</c:if >
+		<c:set var="contains" value="false" />
+		<c:forEach var="item" items="${tariffs}">
+		  <c:if test="${param.tariff_id eq item}">
+		    <c:set var="contains" value="true" />
+		  </c:if>
+		</c:forEach>
+		<c:if test="${contains}">
+			<div class="btn-wrapper">
+			<form name="tariff_form" action="<c:url value="/controller"/>">
+					<input type="hidden" name="command" value="deleteTariff">	
+					<c:set var="tariff_id" value="${param.tariff_id}" scope="session"/>
+					<a href="javascript:$('form').submit()" class="primary_button"><fmt:message key="tariff.unbutton"/></a>
+			</form>
+			</div>
 		</c:if>
-		<div class="btn-wrapper">
-				<a href="#" class="primary_button"><fmt:message key="tariff.button"/></a>
-		</div>
-	
+		<c:if test="${contains ne true}">
+			<c:if test="${status!='SUCCESS_LOGIN'}">
+			<div class="btn-wrapper">
+					<a href="#" class="primary_button"><fmt:message key="tariff.button"/></a>
+			</div>
+			<p class="tariff_help"><fmt:message key="tariff.notLogged"/></p>
+			</c:if>
+			<c:if test="${status == 'SUCCESS_LOGIN'}">
+			<div class="btn-wrapper">
+			<form name="tariff_form" action="<c:url value="/controller"/>">
+					<input type="hidden" name="command" value="addTariff">	
+					<c:set var="tariff_id" value="${param.tariff_id}" scope="session"/>
+					<c:if test="${user_status=='0' && role!='0'}">
+					<a href="javascript:$('form').submit()" class="primary_button"><fmt:message key="tariff.button"/></a>
+					</c:if>
+					<c:if test="${user_status=='1' || role=='0'}">
+					<a href="#" class="primary_button"><fmt:message key="tariff.button"/></a>
+					</c:if>
+			</form>
+			</div>
+			</c:if>
+		</c:if>
 	</div>
 
 </main>

@@ -130,8 +130,8 @@ public class UserContractDaoImpl extends AbstractDao implements UserContractDao{
 			      
 			      statement.setLong(1,contract.getId()); 
 			      statement.setLong(2,contract.getIdContract()); 
-			      statement.setDate(3,contract.getEndDate()); 
-			      statement.setDate(4,contract.getStartDate()); 
+			      statement.setDate(3,contract.getStartDate()); 
+			      statement.setDate(4,contract.getEndDate()); 
 			      statement.setBoolean(5,contract.isActive());
 			      statement.setInt(6, contract.getDiscount());
 			      

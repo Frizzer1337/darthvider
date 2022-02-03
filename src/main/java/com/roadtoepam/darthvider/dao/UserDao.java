@@ -35,7 +35,14 @@ public interface UserDao {
 	   */
 	  
 	  int findIdByEmail(String email) throws DaoException;
-
+	  /**
+	   * Get user role by email.
+	   *
+	   * @param email of the user.
+	   * @return user id if exists, -1 otherwise.
+	   * @throws DaoException if any error occurs.
+	   */
+	  int findRole(long id) throws DaoException;
 	  /**
 	   * Add a user.
 	   *
@@ -72,7 +79,16 @@ public interface UserDao {
 	   * @throws DaoException if any error occurs.
 	   */
 	  boolean delete(int id) throws DaoException;
-	 
+	  
+	  /**
+	   * Unlock a user.
+	   *
+	   * @param user to be deleted.
+	   * @return true if user exists and is successfully unlocked, false otherwise.
+	   * @throws DaoException if any error occurs.
+	   */
+	  boolean unlock(int id) throws DaoException;
+	  
 	  /**
 	   * Check if user with same login or email exists.
 	   *
@@ -119,5 +135,23 @@ public interface UserDao {
 	   * @throws DaoException if any error occurs.
 	   */
 	  boolean changeLogin(String login, long id) throws DaoException;
+	  /**
+	   * Change password of user by id.
+	   *
+	   * @param id and login to change.
+	   * @return true if change successfully and false otherwise.
+	   * @throws DaoException if any error occurs.
+	   */
+	  boolean changePassword(String password, long id) throws DaoException;
+	  /**
+	   * Change balance of user by id.
+	   *
+	   * @param id and balance to change.
+	   * @return true if change successfully and false otherwise.
+	   * @throws DaoException if any error occurs.
+	   */
+	  boolean changeBalance(long id, float balance) throws DaoException;
+
+
 
 }

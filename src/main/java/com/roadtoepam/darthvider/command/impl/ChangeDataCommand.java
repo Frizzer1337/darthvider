@@ -74,6 +74,77 @@ public class ChangeDataCommand implements Command {
 					throw new CommandException("Error while changing login",e);
 					
 				}
+				break;
+			}
+			
+			case NAME:{
+				
+				validData.put(NAME, data);
+				
+				try {
+					clientService.changeName(validData);
+				} catch (ServiceException e) {
+					e.printStackTrace();
+					throw new CommandException("Error while changing login",e);
+					
+				}
+				break;
+			}
+			
+			case SURNAME:{
+				
+				validData.put(SURNAME, data);
+				
+				try {
+					clientService.changeSurname(validData);
+				} catch (ServiceException e) {
+					e.printStackTrace();
+					throw new CommandException("Error while changing login",e);
+					
+				}
+				break;
+			}
+			
+			case PHONE:{
+				
+				validData.put(PHONE, data);
+				
+				try {
+					clientService.changePhone(validData);
+				} catch (ServiceException e) {
+					e.printStackTrace();
+					throw new CommandException("Error while changing login",e);
+					
+				}
+				break;
+			}
+			
+			case CITY:{
+				
+				validData.put(CITY, data);
+				
+				try {
+					clientService.changeCity(validData);
+				} catch (ServiceException e) {
+					e.printStackTrace();
+					throw new CommandException("Error while changing login",e);
+					
+				}
+				break;
+			}
+			
+			case NEWPASSWORD:{
+				
+				validData.put(NEWPASSWORD, data);
+				
+				try {
+					clientService.changePassword(validData);
+				} catch (ServiceException e) {
+					e.printStackTrace();
+					throw new CommandException("Error while changing login",e);
+					
+				}
+				break;
 			}
 			
 			}
@@ -95,13 +166,29 @@ public class ChangeDataCommand implements Command {
 		
 		switch(type) {
 		
-		case LOGIN: { optionalPath = "#login_change"; }
-		
+		case LOGIN: { 
+			optionalPath = "#login_change"; 
+			break; }
+		case NAME: { 
+			optionalPath = "#name_change"; 
+			break; }
+		case PASSWORD: { 
+			optionalPath = "#login_change"; 
+			break; }
+		case CITY: { 
+			optionalPath = "#city_change"; 
+			break; }
+		case PHONE: { 
+			optionalPath = "#phone_change"; 
+			break; }
+		case SURNAME: { 
+			optionalPath = "#surname_change"; 
+			break; }	
 		}
 		
 		String currentPath = request.getHeader("referer")+optionalPath;
 		
-		
+		session.setAttribute(CABINET_EXIST, "CABINET_EXISTS");
 		
 		return new Router(currentPath, Router.RouterType.REDIRECT);
 		

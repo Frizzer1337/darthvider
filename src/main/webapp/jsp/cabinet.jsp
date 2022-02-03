@@ -94,10 +94,29 @@
 			<c:when test="${status!='SUCCESS_LOGIN'}">	
 				<c:redirect url="/jsp/error/401.jsp"/>
 			</c:when>
-			<c:when test="${cabinet_exist == 'CABINET_NOT_EXISTS'}">
-			${cabinet_exist}
+			<c:when test="${user_status!=0}">
+			<div class = "block_message error_message"> Sorry,you're blocked on our site. If you don't agree or don't know reason you can contact us via helpform. </div>
+			</c:when>
+			<c:when test="${role==0}">
+			<div class = "block_message error_message">You can't create cabinet on our site, if you don't verify your email. </div>
+			</c:when>
+			<c:when test="${cabinet_exist != 'CABINET_EXISTS' && cabinet_exist != 'CABINET_LOADED'}">
 			<div class="cabinet_welcome"><fmt:message key="cabinet.welcome"/></div>
-            <section class="cabinet-reg">
+			<div class="error_cabinet">
+			<c:if test="${cabinet_exist == 'WRONG_NAME'}">
+					<span class="error_message"><fmt:message key="cabinet.error.name"/></span>
+					</c:if>
+					<c:if test="${cabinet_exist == 'WRONG_SURNAME'}">
+					<span class="error_message"><fmt:message key="cabinet.error.surname"/></span>
+					</c:if>
+					<c:if test="${cabinet_exist == 'WRONG_PHONE'}">
+					<span class="error_message"><fmt:message key="cabinet.error.phone"/></span>
+					</c:if>
+					<c:if test="${cabinet_exist == 'WRONG_CITY'}">
+					<span class="error_message"><fmt:message key="cabinet.error.city"/></span>
+			</c:if>
+			</div>
+            <section class="cabinet-reg">          	
                 <div class="autharization_form">
 
                 <form class="authorization_login" id="reg"  action="<c:url value="/controller"/>">
@@ -109,7 +128,7 @@
                     <button class="authorization_submit primary_button">
                        <fmt:message key="help.button"/>
                     </button>
-                </form>
+                </form>	
                 </div>
             </section>
             </c:when>
@@ -119,7 +138,7 @@
 			        <input name="command" type="hidden" value="preloadCabinet"/>
 			    </form> 
 			</c:when>
-			<c:otherwise>
+			<c:when test="${cabinet_exist=='CABINET_LOADED'}">
                 <div class="cabinet_features">
                     <div class="cabinet_personal">
                         <h2 class="cabinet_title">
@@ -131,30 +150,33 @@
                                 <span id="data_login">${login}</span>
                             </div>
                             <div class="data_elem">
-                                <h3>Name <a href="#"><img src="img/gear.svg" alt="#"></a></h3>
+                                <h3>Name <a href="#name_change"><img src="img/gear.svg" alt="#"></a></h3>
                                 <span id="data_name">${name}</span>
                             </div>
 
                             <div class="data_elem">
-                                <h3>Surname <a href="#"><img src="img/gear.svg" alt="#"></a></h3>
+                                <h3>Surname <a href="#surname_change"><img src="img/gear.svg" alt="#"></a></h3>
                                 <span id="data_surname">${surname}</span>
                             </div>
                             <div class="data_elem">
-                                <h3>Phone <a href="#"><img src="img/gear.svg" alt="#"></a></h3>
+                                <h3>Phone <a href="#phone_change"><img src="img/gear.svg" alt="#"></a></h3>
                                 <span id="data_phone">${phone}</span>
                             </div>
                             <div class="data_elem">
-                                <h3>City <a href="#"><img src="img/gear.svg" alt="#"></a>
+                                <h3>City <a href="#city_change"><img src="img/gear.svg" alt="#"></a>
                                 </h3>
                                 <span id="data_city">${city}</span>
                             </div>
                             <div class="data_elem">
-                                <h3>Password <a href="#"><img src="img/gear.svg" alt="#"></a> </h3>
+                                <h3>Password <a href="#password_change"><img src="img/gear.svg" alt="#"></a> </h3>
                                 <span id="data_pass">${password}</span>
                             </div>
                         </div>
                     </div>
                     <div class="cabinet_personal">
+                    	<c:if test="${role=='2'}">
+                    	<a href="/darthvider/jsp/admin.jsp" style="font-size:40px">Admin panel</a>
+                    	</c:if>
                     	<h2 class="cabinet_title">
                            Your balance
                            <div class="data_elem">
@@ -232,7 +254,180 @@
 
       </div>
 </div>	
-		</c:otherwise>
+ <div id="name_change" class="zatemnenie">
+      <div class="okno">
+      <div>Fill this form to change name<a href="#"><img src="/darthvider/jsp/img/cross.svg" style="margin-left:10px;" height="16px" alt="Press to change"></a></div>
+       <form class="cabinet_form"  action="<c:url value="/controller"/>">
+		
+		<input type="hidden" name="command" value="changeData">
+		
+		<input type="hidden" name="typeofchange" value="name">
+		
+    	<input  class="cabinet_form_elem" type="text"  name="datatochange" placeholder="Data to change.." required>
+
+    	<input class="cabinet_form_elem" type="password" name="password" placeholder="Your password.." required>
+    	
+    	<input class="cabinet_form_elem" type="password" name="password_repeat" placeholder="Repeat your password.." required>
+    	
+    	<c:if test="${cabinet_status == 'PASSWORD_NOT_REPEATED'}">
+		<span class="error_message"><fmt:message key="main.login.passnotrepeated"/></span>
+		</c:if>
+		<c:if test="${cabinet_status == 'BAD_NAME'}">
+		<span class="error_message"><fmt:message key="main.login.badlogin"/></span>
+		</c:if>
+		<c:if test="${cabinet_status == 'WRONG_PASSWORD'}">
+		<span class="error_message">You entered wrong password</span>
+		</c:if>
+    
+    	
+    	<button type="submit" class="authorization_submit primary_button">
+						<fmt:message key="help.button"/>
+		</button>
+
+    </form>
+
+      </div>
+</div>	
+<div id="surname_change" class="zatemnenie">
+      <div class="okno">
+      <div>Fill this form to change surname<a href="#"><img src="/darthvider/jsp/img/cross.svg" style="margin-left:10px;" height="16px" alt="Press to change"></a></div>
+       <form class="cabinet_form"  action="<c:url value="/controller"/>">
+		
+		<input type="hidden" name="command" value="changeData">
+		
+		<input type="hidden" name="typeofchange" value="surname">
+		
+    	<input  class="cabinet_form_elem" type="text"  name="datatochange" placeholder="Data to change.." required>
+
+    	<input class="cabinet_form_elem" type="password" name="password" placeholder="Your password.." required>
+    	
+    	<input class="cabinet_form_elem" type="password" name="password_repeat" placeholder="Repeat your password.." required>
+    	
+    	<c:if test="${cabinet_status == 'PASSWORD_NOT_REPEATED'}">
+		<span class="error_message"><fmt:message key="main.login.passnotrepeated"/></span>
+		</c:if>
+		<c:if test="${cabinet_status == 'BAD_SURNAME'}">
+		<span class="error_message"><fmt:message key="main.login.badlogin"/></span>
+		</c:if>
+		<c:if test="${cabinet_status == 'WRONG_PASSWORD'}">
+		<span class="error_message">You entered wrong password</span>
+		</c:if>
+    
+    	
+    	<button type="submit" class="authorization_submit primary_button">
+						<fmt:message key="help.button"/>
+		</button>
+
+    </form>
+
+      </div>
+</div>	
+<div id="phone_change" class="zatemnenie">
+      <div class="okno">
+      <div>Fill this form to change phone<a href="#"><img src="/darthvider/jsp/img/cross.svg" style="margin-left:10px;" height="16px" alt="Press to change"></a></div>
+       <form class="cabinet_form"  action="<c:url value="/controller"/>">
+		
+		<input type="hidden" name="command" value="changeData">
+		
+		<input type="hidden" name="typeofchange" value="phone">
+		
+    	<input  class="cabinet_form_elem" type="text"  name="datatochange" placeholder="Data to change.." required>
+
+    	<input class="cabinet_form_elem" type="password" name="password" placeholder="Your password.." required>
+    	
+    	<input class="cabinet_form_elem" type="password" name="password_repeat" placeholder="Repeat your password.." required>
+    	
+    	<c:if test="${cabinet_status == 'PASSWORD_NOT_REPEATED'}">
+		<span class="error_message"><fmt:message key="main.login.passnotrepeated"/></span>
+		</c:if>
+		<c:if test="${cabinet_status == 'DATA_ALREADY_EXISTS'}">
+		<span class="error_message"><fmt:message key="main.login.userexist"/></span>
+		</c:if>
+		<c:if test="${cabinet_status == 'BAD_PHONE'}">
+		<span class="error_message"><fmt:message key="main.login.badlogin"/></span>
+		</c:if>
+		<c:if test="${cabinet_status == 'WRONG_PASSWORD'}">
+		<span class="error_message">You entered wrong password</span>
+		</c:if>
+    
+    	
+    	<button type="submit" class="authorization_submit primary_button">
+						<fmt:message key="help.button"/>
+		</button>
+
+    </form>
+
+      </div>
+</div>	
+<div id="city_change" class="zatemnenie">
+      <div class="okno">
+      <div>Fill this form to change city<a href="#"><img src="/darthvider/jsp/img/cross.svg" style="margin-left:10px;" height="16px" alt="Press to change"></a></div>
+       <form class="cabinet_form"  action="<c:url value="/controller"/>">
+		
+		<input type="hidden" name="command" value="changeData">
+		
+		<input type="hidden" name="typeofchange" value="city">
+		
+    	<input  class="cabinet_form_elem" type="text"  name="datatochange" placeholder="Data to change.." required>
+
+    	<input class="cabinet_form_elem" type="password" name="password" placeholder="Your password.." required>
+    	
+    	<input class="cabinet_form_elem" type="password" name="password_repeat" placeholder="Repeat your password.." required>
+    	
+    	<c:if test="${cabinet_status == 'PASSWORD_NOT_REPEATED'}">
+		<span class="error_message"><fmt:message key="main.login.passnotrepeated"/></span>
+		</c:if>
+		<c:if test="${cabinet_status == 'BAD_CITY'}">
+		<span class="error_message"><fmt:message key="main.login.badlogin"/></span>
+		</c:if>
+		<c:if test="${cabinet_status == 'WRONG_PASSWORD'}">
+		<span class="error_message">You entered wrong password</span>
+		</c:if>
+    
+    	
+    	<button type="submit" class="authorization_submit primary_button">
+						<fmt:message key="help.button"/>
+		</button>
+
+    </form>
+
+      </div>
+</div>	
+<div id="password_change" class="zatemnenie">
+      <div class="okno">
+      <div>Fill this form to change city<a href="#"><img src="/darthvider/jsp/img/cross.svg" style="margin-left:10px;" height="16px" alt="Press to change"></a></div>
+       <form class="cabinet_form"  action="<c:url value="/controller"/>">
+		
+		<input type="hidden" name="command" value="changeData">
+		
+		<input type="hidden" name="typeofchange" value="newpassword">
+		
+    	<input  class="cabinet_form_elem" type="text"  name="datatochange" placeholder="Data to change.." required>
+
+    	<input class="cabinet_form_elem" type="password" name="password" placeholder="Your password.." required>
+    	
+    	<input class="cabinet_form_elem" type="password" name="password_repeat" placeholder="Repeat your password.." required>
+    	
+    	<c:if test="${cabinet_status == 'PASSWORD_NOT_REPEATED'}">
+		<span class="error_message"><fmt:message key="main.login.passnotrepeated"/></span>
+		</c:if>
+		<c:if test="${cabinet_status == 'BAD_NEW_PASSWORD'}">
+		<span class="error_message"><fmt:message key="main.login.badlogin"/></span>
+		</c:if>
+		<c:if test="${cabinet_status == 'WRONG_PASSWORD'}">
+		<span class="error_message">You entered wrong password</span>
+		</c:if>
+    
+    	
+    	<button type="submit" class="authorization_submit primary_button">
+						<fmt:message key="help.button"/>
+		</button>
+
+    </form>
+
+      </div>
+</div>	
+		</c:when>
 		</c:choose>
 </main>
 <footer>

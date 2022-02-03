@@ -4,6 +4,7 @@ import static com.roadtoepam.darthvider.command.PageRouting.*;
 import static com.roadtoepam.darthvider.command.RequestContent.*;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -40,19 +41,23 @@ public class PreloadCabinetCommand implements Command{
 		Optional<ConnectedTariff> userTariff = Optional.empty();
 		try {
 			user = clientService.getUserByEmail(email);
+		
 			userInfo = clientService.getUserInfoByEmail(email);
+			
 			userContract = clientService.getUserContractByEmail(email);
+			
 			userTariff = clientService.getUserTariffByEmail(email);
+
 		} catch (ServiceException e) { 
 			throw new CommandException("Error occured while getting user info",e);
 		}
-		if(user.isPresent() && userInfo.isPresent() && userContract.isPresent() && userTariff.isPresent()) {
+		if(user.isPresent() && userInfo.isPresent() && userContract.isPresent()) {
 			User userData = user.get();
 			UserInfo userInfoData = userInfo.get();
 			UserContract userContractData = userContract.get();
-			ArrayList<Integer> userTariffData = userTariff.get()
+			ArrayList<Integer> userTariffData = userTariff.isPresent() ?userTariff.get()
 														  .getContractInfo()
-														  .get((int)userContractData.getIdContract());
+														  .get((int)userContractData.getIdContract()):new ArrayList<>();
 			session.setAttribute(LOGIN,userData.getLogin());
 			session.setAttribute(BALANCE, userData.getBalance());
 			session.setAttribute(NAME, userInfoData.getName());
@@ -65,10 +70,9 @@ public class PreloadCabinetCommand implements Command{
 			session.setAttribute(CONTRACTEND, userContractData.getEndDate());
 			session.setAttribute(CONTRACTDISCOUNT, userContractData.getDiscount());
 			session.setAttribute(TARIFFS, userTariffData);
-		}
-		
+		}	
+
 		session.setAttribute(CABINET_EXIST, "CABINET_LOADED");
-		
 		return new Router(CABINET_PAGE, Router.RouterType.REDIRECT);
 	}
 

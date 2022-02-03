@@ -27,7 +27,7 @@ public class ConnectionPool {
 
     private static AtomicBoolean doesExist = new AtomicBoolean(false);
     
-    private static final int DEFAULT_AMOUNT = 4; 
+    private static final int DEFAULT_AMOUNT = 20; 
     
     private static ConnectionPool pool;
 

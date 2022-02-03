@@ -35,7 +35,11 @@
 	  (function(name) {
 	    var container = $('#pagination');
 	    container.pagination({
-	      dataSource:[<c:forEach var="tariff" items="${preload_map}">["${tariff.shortInfo}","${tariff.price}","${tariff.name}","${tariff.id}"],</c:forEach>],
+	      dataSource:[<c:forEach var="tariff" items="${preload_map}">
+	      <c:if test="${tariff.status!='0'}">
+	      ["${tariff.shortInfo}","${tariff.price}","${tariff.name}","${tariff.id}"],
+	      </c:if>
+	      </c:forEach>],
 	      locator: 'items',
 	      totalNumber: 50,
 	      pageSize: 3,

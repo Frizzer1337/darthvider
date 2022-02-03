@@ -72,8 +72,7 @@ public class ConnectedTariffDaoImpl extends AbstractDao implements ConnectedTari
 				    		 if (!resultSet.next()) {break;}
 				    		 
 			      	}
-			     }
-			      
+			     }		 
 			      return connectedList;
 			      
 				} catch (SQLException e) {
@@ -120,7 +119,7 @@ public class ConnectedTariffDaoImpl extends AbstractDao implements ConnectedTari
 			    	  connectMap.put(contractId, list);
 			    	  	    	  
 			    	  connect.setContractInfo(connectMap); 		
-			    
+			    	  
 			    	  return Optional.of(connect); } else {
 			    		  
 			    		  return Optional.empty();
@@ -140,6 +139,8 @@ public class ConnectedTariffDaoImpl extends AbstractDao implements ConnectedTari
 			statement.setInt(1, idContract);
 			statement.setInt(2, idTariff);
 			
+			
+			
 			int status = statement.executeUpdate();
 			
 			return status>0;
@@ -147,6 +148,7 @@ public class ConnectedTariffDaoImpl extends AbstractDao implements ConnectedTari
 			
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DaoException(e);
 		}
 
@@ -159,6 +161,8 @@ public class ConnectedTariffDaoImpl extends AbstractDao implements ConnectedTari
 			
 			statement.setInt(1, idContract);
 			statement.setInt(2, idTariff);
+			 
+			
 			
 			int status = statement.executeUpdate();
 			

@@ -33,7 +33,7 @@ public interface TariffDao {
 		   * @return true if tariff is successfully connected, false if not.
 		   * @throws DaoException if any error occurs.
 		   */
-		  boolean add(int idContract, int idTariff) throws DaoException;
+		  boolean add(Tariff tariff) throws DaoException;
 		  
 		  /**
 		   * Delete a tariff.
@@ -42,7 +42,34 @@ public interface TariffDao {
 		   * @return true if tariff exists and successfully deleted, false otherwise.
 		   * @throws DaoException if any error occurs.
 		   */
-		  boolean delete(int idContract,int idTariff) throws DaoException;
+		  boolean delete(int idTariff) throws DaoException;
+		  
+		  /**
+		   * Unlocks a tariff.
+		   *
+		   * @param tariff id to be unlocked.
+		   * @return true if tariff exists and successfully deleted, false otherwise.
+		   * @throws DaoException if any error occurs.
+		   */
+		 boolean unlock(int idTariff) throws DaoException;
+		 
+		 /**
+		   * Change a tariff price.
+		   *
+		   * @param tariff id to be changed and new price.
+		   * @return true if tariff exists and price successfully changed, false otherwise.
+		   * @throws DaoException if any error occurs.
+		   */
+		 boolean changePrice(int idTariff,float price) throws DaoException;
+		
+		 /**
+		   * Check a due type.
+		   *
+		   * @param tariff id which due type you want to check.
+		   * @return due type of a tariff.
+		   * @throws DaoException if any error occurs.
+		   */
+		int checkDueType(int IdTariff) throws DaoException;
 		
 
 }

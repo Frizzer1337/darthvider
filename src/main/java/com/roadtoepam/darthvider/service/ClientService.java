@@ -1,6 +1,10 @@
 package com.roadtoepam.darthvider.service;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -8,11 +12,13 @@ import static com.roadtoepam.darthvider.command.RequestContent.*;
 
 import com.roadtoepam.darthvider.dao.DaoTransaction;
 import com.roadtoepam.darthvider.dao.impl.ConnectedTariffDaoImpl;
+import com.roadtoepam.darthvider.dao.impl.TariffDaoImpl;
 import com.roadtoepam.darthvider.dao.impl.TicketDaoImpl;
 import com.roadtoepam.darthvider.dao.impl.UserContractDaoImpl;
 import com.roadtoepam.darthvider.dao.impl.UserDaoImpl;
 import com.roadtoepam.darthvider.dao.impl.UserInfoDaoImpl;
 import com.roadtoepam.darthvider.entity.ConnectedTariff;
+import com.roadtoepam.darthvider.entity.Tariff;
 import com.roadtoepam.darthvider.entity.User;
 import com.roadtoepam.darthvider.entity.UserContract;
 import com.roadtoepam.darthvider.entity.UserInfo;
@@ -38,17 +44,19 @@ public class ClientService {
 		Optional<User> user = Optional.empty();
 		try {
 			transaction.start(userDao);
+
 			int userId = getUserIdByEmail(email);
+			
 			user = userDao.findById(userId);
 			transaction.end();
 		} catch (DaoException e) {
-			
 			throw new ServiceException("Error while getting user info by id",e);
 			
 		}
 		return user;
 		
 	}
+	
 	public Optional<UserInfo> getUserInfoByEmail(String email) throws ServiceException{
 		
 		final UserInfoDaoImpl userInfoDao = new UserInfoDaoImpl();
@@ -84,6 +92,27 @@ public class ClientService {
 			
 		}
 		return userContract;
+		
+	}
+
+	public List<User> getAllUsers() throws ServiceException{
+		
+		ArrayList<User> userList = new ArrayList<>();
+		
+		final UserDaoImpl userDao = new UserDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		
+		try {
+			transaction.start(userDao);
+			userList = (ArrayList<User>) userDao.findAll();
+			transaction.end();
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while adding user",e);
+			
+		}
+		
+		return userList;
 		
 	}
 	
@@ -130,6 +159,67 @@ public class ClientService {
 		
 		
 	}
+	
+	public int getUserRole(long id) throws ServiceException {
+		
+		final UserDaoImpl userDao = new UserDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		
+		int userRole=-1;
+		try {
+			transaction.start(userDao);
+			userRole = userDao.findRole(id);
+			transaction.end();
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while checking for login and email",e);
+			
+		}
+		return userRole;
+		
+		
+		
+	}
+	
+	public boolean promoteUser(long id) throws ServiceException {
+		
+		final UserDaoImpl userDao = new UserDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		boolean result;
+		try {
+			transaction.start(userDao);
+			result = userDao.changeRole(id, 2);
+			transaction.end();
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while checking for login and email",e);
+			
+		}
+		return result;
+		
+		
+		
+	}
+	
+	public boolean demoteUser(long id) throws ServiceException {
+		
+		final UserDaoImpl userDao = new UserDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		boolean result;
+		try {
+			transaction.start(userDao);
+			result = userDao.changeRole(id, 1);
+			transaction.end();
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while checking for login and email",e);
+			
+		}
+		return result;
+		
+		
+		
+	}
 
 	public boolean isLoginOrEmailBusy(Map<String,String> userData) throws ServiceException {
 		
@@ -163,6 +253,25 @@ public class ClientService {
 		} catch (DaoException e) {
 			
 			throw new ServiceException("Error while checking for login and email",e);
+			
+		}
+	
+		return result;
+	}
+	
+	public boolean isPhoneBusy(Map<String,String> userData) throws ServiceException {
+		
+		final UserInfoDaoImpl userInfoDao = new UserInfoDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		
+		boolean result = false;
+		try {
+			transaction.start(userInfoDao);
+			result = userInfoDao.isPhoneFree(userData.get(PHONE));
+			transaction.end();
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while checking is phone number free",e);
 			
 		}
 	
@@ -205,6 +314,115 @@ public class ClientService {
 	
 		return result;
 	}
+	
+	public boolean changeName(Map<String, String> validData) throws ServiceException {
+		final UserInfoDaoImpl userDao = new UserInfoDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		
+		boolean result = false;
+		try {
+			transaction.start(userDao);
+			result = userDao.changeName(validData.get(NAME),Long.parseLong(validData.get(USERID)));
+			transaction.end();
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while checking for password correctness",e);
+			
+		}
+	
+		return result;
+	}
+	
+	public boolean changeSurname(Map<String, String> validData) throws ServiceException {
+		final UserInfoDaoImpl userDao = new UserInfoDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		
+		boolean result = false;
+		try {
+			transaction.start(userDao);
+			result = userDao.changeSurname(validData.get(SURNAME),Long.parseLong(validData.get(USERID)));
+			transaction.end();
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while checking for password correctness",e);
+			
+		}
+	
+		return result;
+	}
+	
+	public boolean changePhone(Map<String, String> validData) throws ServiceException {
+		final UserInfoDaoImpl userDao = new UserInfoDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		
+		boolean result = false;
+		try {
+			transaction.start(userDao);
+			result = userDao.changePhone(validData.get(PHONE),Long.parseLong(validData.get(USERID)));
+			transaction.end();
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while checking for password correctness",e);
+			
+		}
+	
+		return result;
+	}
+	
+	public boolean changePassword(Map<String, String> validData) throws ServiceException {
+		final UserDaoImpl userDao = new UserDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		
+		boolean result = false;
+		try {
+			transaction.start(userDao);
+			result = userDao.changePassword(validData.get(NEWPASSWORD),Long.parseLong(validData.get(USERID)));
+			transaction.end();
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while checking for password correctness",e);
+			
+		}
+	
+		return result;
+	}
+	
+	public boolean changeCity(Map<String, String> validData) throws ServiceException {
+		final UserInfoDaoImpl userDao = new UserInfoDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		
+		boolean result = false;
+		try {
+			transaction.start(userDao);
+			result = userDao.changeCity(validData.get(CITY),Long.parseLong(validData.get(USERID)));
+			transaction.end();
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while checking for password correctness",e);
+			
+		}
+	
+		return result;
+	}
+	
+	public boolean changeBalance(long id, float balance) throws ServiceException {
+	
+			final UserDaoImpl userDao = new UserDaoImpl();
+			final DaoTransaction transaction = new DaoTransaction();
+			
+			boolean result = false;
+			try {
+				transaction.start(userDao);
+				result = userDao.changeBalance(id,balance);
+				transaction.end(); 
+			} catch (DaoException e) {
+				
+				throw new ServiceException("Error while checking for password correctness",e);
+				
+			}
+			
+			return result;
+	}
 		
 	
 	public boolean addUser(Map<String,String> userData) throws ServiceException {
@@ -220,7 +438,7 @@ public class ClientService {
 							.setLogin(userData.get(LOGIN))
 							.setRole(0)
 							.setBalance(0)
-							.setBlockStatus(false)
+							.setStatus(0)
 							.build();
 			result = userDao.add(user, userData.get(PASSWORD));
 			transaction.end();
@@ -231,6 +449,109 @@ public class ClientService {
 		}
 	
 		return result;
+	}
+	
+	public boolean blockUser(int id) throws ServiceException {
+		final UserDaoImpl userDao = new UserDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		boolean result = false;
+		try {
+			transaction.start(userDao);
+			result = userDao.delete(id);
+			transaction.end();
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while blocking user",e);
+			
+		}
+	
+		return result;
+	}
+	
+	public boolean unlockUser(int id) throws ServiceException {
+		final UserDaoImpl userDao = new UserDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		boolean result = false;
+		try {
+			transaction.start(userDao);
+			result = userDao.unlock(id);
+			transaction.end();
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while blocking user",e);
+			
+		}
+	
+		return result;
+	}
+	
+	public boolean addTariff(int contractId,int tariffId) throws ServiceException {
+		
+		final ConnectedTariffDaoImpl connectedTariffDao = new ConnectedTariffDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		
+		boolean result = false;
+		
+		try {
+			transaction.start(connectedTariffDao);
+
+			result=connectedTariffDao.add(contractId, tariffId);
+			transaction.end();
+
+			
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while adding tariff to user",e);
+			
+		}
+		
+		
+		return result;
+		
+	}
+	
+	public boolean deleteTariff(int contractId,int tariffId) throws ServiceException {
+		
+		final ConnectedTariffDaoImpl connectedTariffDao = new ConnectedTariffDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		boolean result = false;
+		
+		try {
+			transaction.start(connectedTariffDao);
+			result=connectedTariffDao.delete(contractId, tariffId);
+			transaction.end();
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while deleting tariff from user",e);
+			
+		}
+		
+		
+		return result;
+		
+	}
+	
+	public boolean deleteUserTariffs(int id) throws ServiceException {
+		
+		final ConnectedTariffDaoImpl connectedTariffDao = new ConnectedTariffDaoImpl();
+		final UserContractDaoImpl userContractDao = new UserContractDaoImpl();
+		final DaoTransaction transaction = new DaoTransaction();
+		boolean result = false;
+		
+		try {
+			transaction.start(connectedTariffDao);
+			int contractId = userContractDao.findContractIdByUserId(id);
+			result=connectedTariffDao.deleteByContract(contractId);
+			transaction.end();
+		} catch (DaoException e) {
+			
+			throw new ServiceException("Error while deleting tariff from user",e);
+			
+		}
+		
+		
+		return result;
+		
 	}
 	
 	public boolean checkCabinet(long id) throws ServiceException {
@@ -254,12 +575,14 @@ public class ClientService {
 	public boolean addCabinet(Map<String, String> validData, long id) throws ServiceException {
 		
 		final UserInfoDaoImpl userInfoDao = new UserInfoDaoImpl();
+		final UserContractDaoImpl userContractDao = new UserContractDaoImpl();
 		final DaoTransaction transaction = new DaoTransaction();
 		
 		boolean result = false;
+		boolean resultContract = false;
 		
 		try {
-			transaction.start(userInfoDao);
+			transaction.start(userInfoDao,userContractDao);
 			UserInfo userInfo = UserInfo.newBuilder()
 										.setName(validData.get(FIRSTNAME))
 										.setCity(validData.get(CITY))
@@ -267,13 +590,23 @@ public class ClientService {
 										.setPhone(validData.get(PHONE))
 										.build();
 			result = userInfoDao.add(userInfo,id);
+			LocalDate today = LocalDate.now();
+			UserContract userContract = UserContract.newBuilder()
+					                                .setId(id)
+												    .setIdContract((int) (id+10032))
+												    .setStartDate(Date.valueOf(today))
+												    .setEndDate(Date.valueOf(today.plusYears(1)))
+												    .setDiscount(5)
+												    .setIsActive(true)
+												    .build();
+			resultContract = userContractDao.add(userContract);
 			transaction.end();
 		}  catch (DaoException e) {
 			e.printStackTrace();
 			throw new ServiceException("Error occured while adding user info",e);
 		}
 		
-		return result;
+		return result && resultContract;
 	}
 	
 	
@@ -441,6 +774,85 @@ public class ClientService {
 				if(isLoginBusy(userData)) {
 					validUserData.put(CABINET_REQUEST, "DATA_ALREADY_EXISTS");
 				}
+				break;
+			}
+			
+			case NAME:{
+				
+				userData.put(NAME,userData.get(DATATOCHANGE));
+			
+				if(userValidator.validateName(userData.get(DATATOCHANGE))) {
+				
+					validUserData.put(DATATOCHANGE, userData.get(DATATOCHANGE));
+					
+				} else { 
+					validUserData.put(DATATOCHANGE,"");
+					validUserData.put(CABINET_REQUEST,"BAD_NAME");
+					}
+				break;
+			}
+			
+			case SURNAME:{
+				
+				userData.put(SURNAME,userData.get(DATATOCHANGE));
+			
+				if(userValidator.validateSurname(userData.get(DATATOCHANGE))) {
+				
+					validUserData.put(DATATOCHANGE, userData.get(DATATOCHANGE));
+					
+				} else { 
+					validUserData.put(DATATOCHANGE,"");
+					validUserData.put(CABINET_REQUEST,"BAD_SURNAME");
+					}
+				break;
+			}
+			
+			case PHONE:{
+				
+				userData.put(PHONE,userData.get(DATATOCHANGE));
+			
+				if(userValidator.validatePhone(userData.get(DATATOCHANGE))) {
+				
+					validUserData.put(DATATOCHANGE, userData.get(DATATOCHANGE));
+					
+				} else { 
+					validUserData.put(DATATOCHANGE,"");
+					validUserData.put(CABINET_REQUEST,"BAD_PHONE");
+					}
+				
+				if(isPhoneBusy(userData)) {
+					validUserData.put(CABINET_REQUEST, "DATA_ALREADY_EXISTS");
+				}
+				break;	
+			}
+			
+			case CITY:{
+				
+				userData.put(CITY,userData.get(DATATOCHANGE));
+			
+				if(userValidator.validateCity(userData.get(DATATOCHANGE))) {
+				
+					validUserData.put(DATATOCHANGE, userData.get(DATATOCHANGE));
+					
+				} else { 
+					validUserData.put(DATATOCHANGE,"");
+					validUserData.put(CABINET_REQUEST,"BAD_CITY");
+					}
+				break;
+			}
+			case NEWPASSWORD:{
+
+				userData.put(NEWPASSWORD,userData.get(DATATOCHANGE));
+			
+				if(userValidator.validatePassword(userData.get(DATATOCHANGE))) {
+				
+					validUserData.put(DATATOCHANGE, userData.get(DATATOCHANGE));
+					
+				} else { 
+					validUserData.put(DATATOCHANGE,"");
+					validUserData.put(CABINET_REQUEST,"BAD_NEW_PASSWORD");
+					}
+				break;
 			}
 		
 		}
@@ -465,6 +877,8 @@ public class ClientService {
 		
 		
 	}
+
+
 		
 	
 }
