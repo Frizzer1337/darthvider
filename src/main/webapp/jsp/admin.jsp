@@ -91,6 +91,11 @@
 			    document.getElementById("changePriceForm").style.display = "block";
 			    }
 </script>
+<script type = "text/javascript" >  
+    function disableBack() { window.history.forward(); }  
+    setTimeout("disableBack()", 0);  
+    window.onunload = function () { null };  
+	</script> 
 </head>
 <header class="header">
 	<div class="container">
@@ -101,7 +106,7 @@
 			<li><a href="/darthvider/jsp/main.jsp" class="menu_link"><fmt:message key="header.menu.main"/></a></li>
 			<li><a href="/darthvider/jsp/tariffs.jsp" class="menu_link"><fmt:message key="header.menu.tariff"/></a></li>
 			<li><a href="/darthvider/jsp/help.jsp" class="menu_link"><fmt:message key="header.menu.help"/></a></li>
-			<li><a href="#" class="menu_link"><fmt:message key="header.menu.about"/></a></li>
+			<li><a href="/darthvider/jsp/about.jsp" class="menu_link"><fmt:message key="header.menu.about"/></a></li>
 		</ul>
 		<form class="wrapper"  action="<c:url value="/controller"/>">
 			<input type="hidden" name="command" value="changeLocale">
@@ -134,7 +139,7 @@
 		<c:otherwise>
 			<ul class="main_menu">
 				<li><a href="/darthvider/jsp/cabinet.jsp" class="menu_link">${email}</a></li>
-				<li><a href="/darthvider/controller?command=logout"><img src="/darthvider/jsp/img/logout.svg" alt="Exit"></a></li>
+				<li><a id="logout" onclick="disableBack();" href="/darthvider/controller?command=logout"><img src="/darthvider/jsp/img/logout.svg" alt="Exit"></a></li>
 			</ul>
 		</c:otherwise>
 	</c:choose>
@@ -215,8 +220,7 @@
                                 <td  class="user_data"> ${tariff.name}</td>
                                 <td  class="user_data">${tariff.price}</td>
                                 <td  class="user_data">${tariff.discount}</td>
-                                <td  class="user_data">${tariff.dueType}</td>     
-                                <td  class="user_data">${tariff.status}</td>   
+                                <td  class="user_data">${tariff.dueType}</td>    
                                 <td  class="user_data">   
                                 <c:if test="${tariff.status =='1'}">                       
                                 <form  id="block-tariff${tariff.id}" name="${tariff.id}" action="<c:url value="/controller"/>">
@@ -245,7 +249,7 @@
 			<form  class="authorization_login" style="display:none" id="newTariffForm" action="<c:url value="/controller"/>">
 					<input type="hidden"   name="command"   value="newTariff"  required>
 					<input type="text"   name="tariffName"   placeholder="Tariff name(1-30)"  required>
-					<input type="number"  name="tariffPrice"  placeholder="Tariff price"  required>
+					<input type="number" step="0.1"  name="tariffPrice"  placeholder="Tariff price"  required>
 					<input type="number" step="1" min="0" max="100" name="tariffDiscount" placeholder="Tariff discount"  required>
 					<input type="number" step="1" min="0" max="2" name="tariffDue"  placeholder="Due type(0,1,2)"  required>
 					<textarea type="textarea"  rows="3" cols="52"  placeholder="Tariff short info" name="tariffShortInfo" required></textarea>

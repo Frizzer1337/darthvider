@@ -23,6 +23,11 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap" rel="stylesheet">
+	<script type = "text/javascript" >  
+    function disableBack() { window.history.forward(); }  
+    setTimeout("disableBack()", 0);  
+    window.onunload = function () { null };  
+	</script> 
 </head>
 <body>
 <header class="header">
@@ -34,7 +39,7 @@
 			<li><a href="#" class="menu_link"><fmt:message key="header.menu.main"/></a></li>
 			<li><a href="/darthvider/jsp/tariffs.jsp" class="menu_link"><fmt:message key="header.menu.tariff"/></a></li>
 			<li><a href="/darthvider/jsp/help.jsp" class="menu_link"><fmt:message key="header.menu.help"/></a></li>
-			<li><a href="#" class="menu_link"><fmt:message key="header.menu.about"/></a></li>
+			<li><a href="/darthvider/jsp/about.jsp" class="menu_link"><fmt:message key="header.menu.about"/></a></li>
 		</ul>
 		<form class="wrapper"  action="<c:url value="/controller"/>">
 			<input type="hidden" name="command" value="changeLocale">
@@ -67,7 +72,7 @@
 		<c:otherwise>
 			<ul class="main_menu">
 				<li><a href="/darthvider/jsp/cabinet.jsp" class="menu_link">${email}</a></li>
-				<li><a href="/darthvider/controller?command=logout"><img src="/darthvider/jsp/img/logout.svg" alt="Exit"></a></li>
+				<li><a onclick="disableBack();" href="/darthvider/controller?command=logout"><img src="/darthvider/jsp/img/logout.svg" alt="Exit"></a></li>
 			</ul>
 		</c:otherwise>
 	</c:choose>

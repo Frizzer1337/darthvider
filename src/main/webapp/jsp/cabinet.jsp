@@ -32,6 +32,11 @@
 		}
 
     </script>
+    <script type = "text/javascript" >  
+    function disableBack() { window.history.forward(); }  
+    setTimeout("disableBack()", 0);  
+    window.onunload = function () { null };  
+	</script> 
 </head>
 <c:choose>
 	<c:when test="${cabinet_exist=='CABINET_EXISTS'}">
@@ -50,7 +55,7 @@
 			<li><a href="/darthvider/jsp/main.jsp" class="menu_link"><fmt:message key="header.menu.main"/></a></li>
 			<li><a href="/darthvider/jsp/tariffs.jsp" class="menu_link"><fmt:message key="header.menu.tariff"/></a></li>
 			<li><a href="/darthvider/jsp/help.jsp" class="menu_link"><fmt:message key="header.menu.help"/></a></li>
-			<li><a href="#" class="menu_link"><fmt:message key="header.menu.about"/></a></li>
+			<li><a href="/darthvider/jsp/about.jsp" class="menu_link"><fmt:message key="header.menu.about"/></a></li>
 		</ul>
 		<form class="wrapper"  action="<c:url value="/controller"/>">
 			<input type="hidden" name="command" value="changeLocale">
@@ -83,7 +88,7 @@
 		<c:otherwise>
 			<ul class="main_menu">
 				<li><a href="#" class="menu_link">${email}</a></li>
-				<li><a href="/darthvider/controller?command=logout"><img src="/darthvider/jsp/img/logout.svg" alt="Exit"></a></li>
+				<li><a onclick="disableBack();" href="/darthvider/controller?command=logout"><img src="/darthvider/jsp/img/logout.svg" alt="Exit"></a></li>
 			</ul>
 		</c:otherwise>
 	</c:choose>
@@ -142,74 +147,74 @@
                 <div class="cabinet_features">
                     <div class="cabinet_personal">
                         <h2 class="cabinet_title">
-                            Personal Data
+                            <fmt:message key="cabinet.personal.main"/>
                         </h2>
                         <div class="personal_data">
                             <div class="data_elem">
-                                <h3>Login <a href="#login_change"><img src="img/gear.svg" alt="#"></a></h3>
+                                <h3><fmt:message key="cabinet.personal.login"/> <a href="#login_change"><img src="img/gear.svg" alt="#"></a></h3>
                                 <span id="data_login">${login}</span>
                             </div>
                             <div class="data_elem">
-                                <h3>Name <a href="#name_change"><img src="img/gear.svg" alt="#"></a></h3>
+                                <h3><fmt:message key="cabinet.personal.name"/> <a href="#name_change"><img src="img/gear.svg" alt="#"></a></h3>
                                 <span id="data_name">${name}</span>
                             </div>
 
                             <div class="data_elem">
-                                <h3>Surname <a href="#surname_change"><img src="img/gear.svg" alt="#"></a></h3>
+                                <h3><fmt:message key="cabinet.personal.surname"/><a href="#surname_change"><img src="img/gear.svg" alt="#"></a></h3>
                                 <span id="data_surname">${surname}</span>
                             </div>
                             <div class="data_elem">
-                                <h3>Phone <a href="#phone_change"><img src="img/gear.svg" alt="#"></a></h3>
+                                <h3><fmt:message key="cabinet.personal.phone"/><a href="#phone_change"><img src="img/gear.svg" alt="#"></a></h3>
                                 <span id="data_phone">${phone}</span>
                             </div>
                             <div class="data_elem">
-                                <h3>City <a href="#city_change"><img src="img/gear.svg" alt="#"></a>
+                                <h3><fmt:message key="cabinet.personal.city"/><a href="#city_change"><img src="img/gear.svg" alt="#"></a>
                                 </h3>
                                 <span id="data_city">${city}</span>
                             </div>
                             <div class="data_elem">
-                                <h3>Password <a href="#password_change"><img src="img/gear.svg" alt="#"></a> </h3>
+                                <h3><fmt:message key="cabinet.personal.password"/><a href="#password_change"><img src="img/gear.svg" alt="#"></a> </h3>
                                 <span id="data_pass">${password}</span>
                             </div>
                         </div>
                     </div>
                     <div class="cabinet_personal">
                     	<c:if test="${role=='2'}">
-                    	<a href="/darthvider/jsp/admin.jsp" style="font-size:40px">Admin panel</a>
+                    	<a href="/darthvider/jsp/admin.jsp" style="font-size:40px"><fmt:message key="cabinet.admin"/></a>
                     	</c:if>
                     	<h2 class="cabinet_title">
-                           Your balance
+                          <fmt:message key="cabinet.balance"/>
                            <div class="data_elem">
                                 <span class="cabinet_title" style="font-size:40px">${balance}$</span>
                             </div>
                     	</h2>
                         <h2 class="cabinet_title">
-                            Contract Data
+                            <fmt:message key="cabinet.contract.main"/>
                         </h2>
                         <div class="personal_data">
                             <div class="data_elem">
                             <div class="data_elem">
-                                <h3>Your tariffs</h3>
+                                <h3><fmt:message key="cabinet.contract.tariffs"/></h3>
                                 <span id="data_discount">
                                 <c:forEach var="tariff" items="${tariffs}">
                                 <a href="http://localhost:8080/darthvider/jsp/tariff.jsp?tariff_id=${tariff}">${tariff}</a>
                                 </c:forEach>
                                 </span>
                             </div>
-                                <h3>Contract Id</h3>
+                                <h3><fmt:message key="cabinet.contract.id"/></h3>
                                 <span id="data_contract">${contractId}</span>
                             </div>
                             <div class="data_elem">
-                                <h3>Start Date</h3>
+                                <h3><fmt:message key="cabinet.contract.start"/></h3>
                                 <span id="data_start_date">${contractStart}</span>
                             </div>
 
                             <div class="data_elem">
-                                <h3>End Date</h3>
+                                <h3><fmt:message key="cabinet.contract.end"/></h3>
                                 <span id="data_end_date">${contractEnd}</span>
                             </div>
                             <div class="data_elem">
-                                <h3>Personal discount</h3>
+                                <h3><fmt:message key="cabinet.contract.discount"/></h3>
                                 <span id="data_discount">${contractDiscount}%</span>
                             </div>
                         </div>
@@ -219,7 +224,7 @@
             </section>
  <div id="login_change" class="zatemnenie">
       <div class="okno">
-      <div>Fill this form to change login<a href="#"><img src="/darthvider/jsp/img/cross.svg" style="margin-left:10px;" height="16px" alt="Press to change"></a></div>
+      <div><fmt:message key="cabinet.form.login"/><a href="#"><img src="/darthvider/jsp/img/cross.svg" style="margin-left:10px;" height="16px" alt="Press to change"></a></div>
        <form class="cabinet_form"  action="<c:url value="/controller"/>">
 		
 		<input type="hidden" name="command" value="changeData">
@@ -242,7 +247,7 @@
 		<span class="error_message"><fmt:message key="main.login.badlogin"/></span>
 		</c:if>
 		<c:if test="${cabinet_status == 'WRONG_PASSWORD'}">
-		<span class="error_message">You entered wrong password</span>
+		<span class="error_message"><fmt:message key="cabinet.error.wrongpass"/></span>
 		</c:if>
     
     	
@@ -256,7 +261,7 @@
 </div>	
  <div id="name_change" class="zatemnenie">
       <div class="okno">
-      <div>Fill this form to change name<a href="#"><img src="/darthvider/jsp/img/cross.svg" style="margin-left:10px;" height="16px" alt="Press to change"></a></div>
+      <div><fmt:message key="cabinet.form.name"/><a href="#"><img src="/darthvider/jsp/img/cross.svg" style="margin-left:10px;" height="16px" alt="Press to change"></a></div>
        <form class="cabinet_form"  action="<c:url value="/controller"/>">
 		
 		<input type="hidden" name="command" value="changeData">
@@ -273,10 +278,10 @@
 		<span class="error_message"><fmt:message key="main.login.passnotrepeated"/></span>
 		</c:if>
 		<c:if test="${cabinet_status == 'BAD_NAME'}">
-		<span class="error_message"><fmt:message key="main.login.badlogin"/></span>
+		<span class="error_message"><fmt:message key="cabinet.error.name"/></span>
 		</c:if>
 		<c:if test="${cabinet_status == 'WRONG_PASSWORD'}">
-		<span class="error_message">You entered wrong password</span>
+		<span class="error_message"><fmt:message key="cabinet.error.wrongpass"/></span>
 		</c:if>
     
     	
@@ -290,7 +295,7 @@
 </div>	
 <div id="surname_change" class="zatemnenie">
       <div class="okno">
-      <div>Fill this form to change surname<a href="#"><img src="/darthvider/jsp/img/cross.svg" style="margin-left:10px;" height="16px" alt="Press to change"></a></div>
+      <div><fmt:message key="cabinet.form.surname"/><a href="#"><img src="/darthvider/jsp/img/cross.svg" style="margin-left:10px;" height="16px" alt="Press to change"></a></div>
        <form class="cabinet_form"  action="<c:url value="/controller"/>">
 		
 		<input type="hidden" name="command" value="changeData">
@@ -307,10 +312,10 @@
 		<span class="error_message"><fmt:message key="main.login.passnotrepeated"/></span>
 		</c:if>
 		<c:if test="${cabinet_status == 'BAD_SURNAME'}">
-		<span class="error_message"><fmt:message key="main.login.badlogin"/></span>
+		<span class="error_message"><fmt:message key="cabinet.error.surname"/></span>
 		</c:if>
 		<c:if test="${cabinet_status == 'WRONG_PASSWORD'}">
-		<span class="error_message">You entered wrong password</span>
+		<span class="error_message"><fmt:message key="cabinet.error.wrongpass"/></span>
 		</c:if>
     
     	
@@ -324,7 +329,7 @@
 </div>	
 <div id="phone_change" class="zatemnenie">
       <div class="okno">
-      <div>Fill this form to change phone<a href="#"><img src="/darthvider/jsp/img/cross.svg" style="margin-left:10px;" height="16px" alt="Press to change"></a></div>
+      <div><fmt:message key="cabinet.form.phone"/><a href="#"><img src="/darthvider/jsp/img/cross.svg" style="margin-left:10px;" height="16px" alt="Press to change"></a></div>
        <form class="cabinet_form"  action="<c:url value="/controller"/>">
 		
 		<input type="hidden" name="command" value="changeData">
@@ -344,10 +349,10 @@
 		<span class="error_message"><fmt:message key="main.login.userexist"/></span>
 		</c:if>
 		<c:if test="${cabinet_status == 'BAD_PHONE'}">
-		<span class="error_message"><fmt:message key="main.login.badlogin"/></span>
+		<span class="error_message"><fmt:message key="cabinet.error.phone"/></span>
 		</c:if>
 		<c:if test="${cabinet_status == 'WRONG_PASSWORD'}">
-		<span class="error_message">You entered wrong password</span>
+		<span class="error_message"><fmt:message key="cabinet.error.wrongpass"/></span>
 		</c:if>
     
     	
@@ -361,7 +366,7 @@
 </div>	
 <div id="city_change" class="zatemnenie">
       <div class="okno">
-      <div>Fill this form to change city<a href="#"><img src="/darthvider/jsp/img/cross.svg" style="margin-left:10px;" height="16px" alt="Press to change"></a></div>
+      <div><fmt:message key="cabinet.form.city"/><a href="#"><img src="/darthvider/jsp/img/cross.svg" style="margin-left:10px;" height="16px" alt="Press to change"></a></div>
        <form class="cabinet_form"  action="<c:url value="/controller"/>">
 		
 		<input type="hidden" name="command" value="changeData">
@@ -378,10 +383,10 @@
 		<span class="error_message"><fmt:message key="main.login.passnotrepeated"/></span>
 		</c:if>
 		<c:if test="${cabinet_status == 'BAD_CITY'}">
-		<span class="error_message"><fmt:message key="main.login.badlogin"/></span>
+		<span class="error_message"><fmt:message key="cabinet.error.city"/></span>
 		</c:if>
 		<c:if test="${cabinet_status == 'WRONG_PASSWORD'}">
-		<span class="error_message">You entered wrong password</span>
+		<span class="error_message"><fmt:message key="cabinet.error.wrongpass"/></span>
 		</c:if>
     
     	
@@ -395,7 +400,7 @@
 </div>	
 <div id="password_change" class="zatemnenie">
       <div class="okno">
-      <div>Fill this form to change city<a href="#"><img src="/darthvider/jsp/img/cross.svg" style="margin-left:10px;" height="16px" alt="Press to change"></a></div>
+      <div><fmt:message key="cabinet.form.password"/><a href="#"><img src="/darthvider/jsp/img/cross.svg" style="margin-left:10px;" height="16px" alt="Press to change"></a></div>
        <form class="cabinet_form"  action="<c:url value="/controller"/>">
 		
 		<input type="hidden" name="command" value="changeData">
@@ -412,10 +417,10 @@
 		<span class="error_message"><fmt:message key="main.login.passnotrepeated"/></span>
 		</c:if>
 		<c:if test="${cabinet_status == 'BAD_NEW_PASSWORD'}">
-		<span class="error_message"><fmt:message key="main.login.badlogin"/></span>
+		<span class="error_message"><fmt:message key="main.login.badpass"/></span>
 		</c:if>
 		<c:if test="${cabinet_status == 'WRONG_PASSWORD'}">
-		<span class="error_message">You entered wrong password</span>
+		<span class="error_message"><fmt:message key="cabinet.error.wrongpass"/></span>
 		</c:if>
     
     	

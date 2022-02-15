@@ -77,7 +77,7 @@
 			<li><a href="/darthvider/jsp/main.jsp" class="menu_link"><fmt:message key="header.menu.main"/></a></li>
 			<li><a href="/darthvider/jsp/tariffs.jsp" class="menu_link"><fmt:message key="header.menu.tariff"/></a></li>
 			<li><a href="#" class="menu_link"><fmt:message key="header.menu.help"/></a></li>
-			<li><a href="#" class="menu_link"><fmt:message key="header.menu.about"/></a></li>
+			<li><a href="/darthvider/jsp/about.jsp" class="menu_link"><fmt:message key="header.menu.about"/></a></li>
 		</ul>
 		<form class="wrapper"  action="<c:url value="/controller"/>">
 			<input type="hidden" name="command" value="changeLocale">
